@@ -4,11 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Where;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.File;
 
 @Data
@@ -28,5 +26,11 @@ public class Company {
     private String number;
     private String email;
     private String additionalInformation;
-    private File logo;
+    @OneToOne(mappedBy = "company")
+    @Where(clause = "type = 'image/png'")
+    private Logo logo;
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
+    @Enumerated(value = EnumType.STRING)
+    private State state;
 }

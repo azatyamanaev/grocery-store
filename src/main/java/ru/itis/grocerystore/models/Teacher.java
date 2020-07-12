@@ -4,11 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Where;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.File;
 
 @Data
@@ -28,5 +26,11 @@ public class Teacher {
     private String patronymic;
     private String position;
     private String about;
-    private File image;
+    @OneToOne(mappedBy = "teacher")
+    @Where(clause = "type = 'image/png'")
+    private TeacherImage image;
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
+    @Enumerated(value = EnumType.STRING)
+    private State state;
 }

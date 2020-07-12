@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -39,7 +39,9 @@ public class Student {
     @OneToMany(mappedBy = "student")
     private List<Language> languages;
     private String about;
-    private File image;
+    @OneToOne(mappedBy = "student")
+    @Where(clause = "type = 'image/png'")
+    private StudentImage image;
     @OneToMany(mappedBy = "student")
     private List<WorkExperience> workExperiences;
     @OneToMany(mappedBy = "student")
