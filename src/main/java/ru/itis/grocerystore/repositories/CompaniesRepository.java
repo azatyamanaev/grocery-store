@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface CompaniesRepository extends CrudRepository<Company, Long> {
     Optional<Logo> getLogo(Long id);
+    Optional<Company> findByLogin(String login);
 }

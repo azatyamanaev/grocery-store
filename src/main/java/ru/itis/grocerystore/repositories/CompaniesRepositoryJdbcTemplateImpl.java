@@ -29,6 +29,8 @@ public class CompaniesRepositoryJdbcTemplateImpl implements CompaniesRepository 
     //language=SQL
     private final String SQL_SELECT_BY_ID = "select * from companies where id = ?";
     //language=SQL
+    private final String SQL_SELECT_BY_LOGIN = "select * from companies where login = ?";
+    //language=SQL
     private final String SQL_DELETE_BY_ID = "delete from companies where id = ?";
     //language=SQL
     private final String SQL_GET_LOGO = "select logo.id, path, size, type from logo join companies c on logo.company_id = c.id where c.id = ?";
@@ -124,6 +126,16 @@ public class CompaniesRepositoryJdbcTemplateImpl implements CompaniesRepository 
             Company company = jdbcTemplate.queryForObject(SQL_SELECT_BY_ID, new Object[]{id}, companyRowMapper);
             Optional<Logo> optionalLogo = getLogo(id);
             optionalLogo.ifPresent(company::setLogo);
+            return Optional.ofNullable(company);
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<Company> findByLogin(String login) {
+        try {
+            Company company = jdbcTemplate.queryForObject(SQL_SELECT_BY_LOGIN, new Object[]{login}, companyRowMapper);
             return Optional.ofNullable(company);
         } catch (EmptyResultDataAccessException e) {
             return Optional.empty();
