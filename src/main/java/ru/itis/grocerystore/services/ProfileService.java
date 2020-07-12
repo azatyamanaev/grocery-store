@@ -6,7 +6,6 @@ import ru.itis.grocerystore.models.User;
 
 public interface ProfileService {
     Role getUserById(Long id, ModelAndView modelAndView);
-    Role getUser(User user, ModelAndView modelAndView);
 
     void setTeacherModel(User user, ModelAndView modelAndView);
     void setStudentModel(User user, ModelAndView modelAndView);
