@@ -19,15 +19,15 @@ public class StudentsRepositoryJdbcTemplateImpl implements StudentsRepository {
 
     //language=SQL
     private final String SQL_INSERT = "insert into students" +
-            "(login, password, email, name, last_name, patronymic, birth_date, educational_level, university, faculty, " +
-            "specialization, education_end_year, city, citizenship, gender, about, link_to_git, work_schedule, move, work_searching, role, state) " +
+            "(login, password, email, name, lastname, patronymic, birthdate, educationallevel, university, faculty, " +
+            "specialization, educationendyear, city, citizenship, gender, about, linktogit, workschedule, move, worksearching, role, state) " +
             "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     //language=SQL
     private final String SQL_UPDATE = "update students \n" +
-            "set login = ?, password = ?, email = ?, name = ?, last_name = ?, \n" +
-            "patronymic = ?, birth_date = ?, educational_level = ?, university = ?, faculty = ?, \n" +
-            "specialization = ?, education_end_year = ?, city = ?, citizenship = ?, gender = ?, \n" +
-            "about = ?, link_to_git = ?, work_schedule = ?, move = ?, work_searching = ?, \n" +
+            "set login = ?, password = ?, email = ?, name = ?, lastname = ?, \n" +
+            "patronymic = ?, birthdate = ?, educationallevel = ?, university = ?, faculty = ?, \n" +
+            "specialization = ?, educationendyear = ?, city = ?, citizenship = ?, gender = ?, \n" +
+            "about = ?, linktogit = ?, workschedule = ?, move = ?, worksearching = ?, \n" +
             "role = ?, state = ? \n" +
             "where id = ?";
     //language=SQL
