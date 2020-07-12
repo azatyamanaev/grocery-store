@@ -52,4 +52,8 @@ public class Student {
     private Boolean workSearching = true;
     @OneToMany(mappedBy = "student")
     private List<RecommendationLetter> recommendationLetters;
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
+    @Enumerated(value = EnumType.STRING)
+    private State state;
 }
