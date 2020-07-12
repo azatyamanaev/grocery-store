@@ -14,23 +14,113 @@ import java.io.File;
 @AllArgsConstructor
 @Builder
 @Entity(name = "companies")
-public class Company {
+public class Company extends User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String login;
-    private String password;
-    private String name;
     private String linkToSite;
     private String about;
     private String number;
-    private String email;
     private String additionalInformation;
     @OneToOne(mappedBy = "company")
     @Where(clause = "type = 'image/png'")
     private Logo logo;
-    @Enumerated(value = EnumType.STRING)
-    private Role role;
-    @Enumerated(value = EnumType.STRING)
-    private State state;
+
+    private Company(Builder builder) {
+        this.id = builder.id;
+        this.login = builder.login;
+        this.password = builder.password;
+        this.email = builder.email;
+        this.name = builder.name;
+        this.role = builder.role;
+        this.state = builder.state;
+        this.linkToSite = builder.linkToSite;
+        this.about = builder.about;
+        this.number = builder.number;
+        this.additionalInformation = builder.additionalInformation;
+        this.logo = builder.logo;
+    }
+
+    public static class Builder {
+        private Long id;
+        private String login;
+        private String password;
+        private String email;
+        private String name;
+        private Role role;
+        private State state;
+        private String linkToSite;
+        private String about;
+        private String number;
+        private String additionalInformation;
+        private Logo logo;
+
+        public Builder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder login(String login) {
+            this.login = login;
+            return this;
+        }
+
+        public Builder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public Builder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder role(Role role) {
+            this.role = role;
+            return this;
+        }
+
+        public Builder state(State state) {
+            this.state = state;
+            return this;
+        }
+
+        public Builder linkToSite(String linkToSite) {
+            this.linkToSite = linkToSite;
+            return this;
+        }
+
+        public Builder about(String about) {
+            this.about = about;
+            return this;
+        }
+
+        public Builder number(String number) {
+            this.number = number;
+            return this;
+        }
+
+        public Builder additionalInformation(String additionalInformation) {
+            this.additionalInformation = additionalInformation;
+            return this;
+        }
+
+        public Builder logo(Logo logo) {
+            this.logo = logo;
+            return this;
+        }
+
+        public Company build() {
+            return new Company(this);
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 }
