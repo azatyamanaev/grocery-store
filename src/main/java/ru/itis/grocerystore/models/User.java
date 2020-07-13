@@ -1,6 +1,7 @@
 package ru.itis.grocerystore.models;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class User {
     protected String login;
     protected String password;
@@ -18,4 +20,5 @@ public class User {
     protected Role role;
     @Enumerated(value = EnumType.STRING)
     protected State state;
+    protected String confirmCode;
 }
