@@ -19,6 +19,8 @@ public class ProfileController {
     @Autowired
     private ProfileService profileService;
 
+
+    //TODO: сделать так, чтобы студент не мог смотреть страницу другого студента
     @GetMapping("/profile/{id}")
     @PreAuthorize("isAuthenticated()")
     public ModelAndView getProfilePage(@PathVariable("id") Long id) {
@@ -33,6 +35,7 @@ public class ProfileController {
             return new ModelAndView("redirect:/profile");
         }
         try {
+            //TODO: передать третьим параметром User и создавать view относительно того, кто запросил
             switch (profileService.getUserById(id, modelAndView)) {
                 case ADMIN:
                     return new ModelAndView("redirect:/admin");
