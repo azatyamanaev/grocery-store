@@ -40,46 +40,18 @@ public class ProfileController {
                 case ADMIN:
                     return new ModelAndView("redirect:/admin");
                 case COMPANY:
-                    modelAndView.setViewName("companyPage");
+                    modelAndView.setViewName("companyProfile");
                 case STUDENT:
-                    modelAndView.setViewName("studentPage");
+                    modelAndView.setViewName("studentProfile");
                 case TEACHER:
-                    modelAndView.setViewName("teacherPage");
+                    modelAndView.setViewName("teacherProfile");
                 default:
                     break;
             }
         } catch (Exception e) {
             throw new IllegalArgumentException("Unknown role for ID: " + id);
         }
-        return modelAndView;
-    }
-
-    @GetMapping("/profile")
-    @PreAuthorize("isAuthenticated()")
-    public ModelAndView getOwnProfilePage() {
-        ModelAndView modelAndView = new ModelAndView();
-        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getPrincipal();
-
-        User user = userDetails.getUser();
-        try {
-            switch (profileService.getUserById(user.getId(), modelAndView)) {
-                case ADMIN:
-                    return new ModelAndView("redirect:/admin");
-                case COMPANY:
-                    modelAndView.setViewName("ownCompanyPage");
-                case STUDENT:
-                    modelAndView.setViewName("ownStudentPage");
-                case TEACHER:
-                    modelAndView.setViewName("ownTeacherPage");
-                default:
-                    break;
-            }
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Unknown role " + user.getRole());
-        }
+        modelAndView.addObject("user", userDetails.getUser());
         return modelAndView;
     }
 }

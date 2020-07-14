@@ -1,6 +1,7 @@
 package ru.itis.grocerystore;
 
 
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -22,6 +23,7 @@ import java.util.concurrent.Executors;
 
 @SpringBootApplication
 @Import(AppConfig.class)
+@PropertySource("classpath:application.properties")
 public class GroceryStoreApplication {
 
     public static void main(String[] args) {
