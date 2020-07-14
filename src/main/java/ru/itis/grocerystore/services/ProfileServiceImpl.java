@@ -7,6 +7,7 @@ import ru.itis.grocerystore.models.*;
 import ru.itis.grocerystore.repositories.CompaniesRepository;
 import ru.itis.grocerystore.repositories.StudentsRepository;
 import ru.itis.grocerystore.repositories.TeachersRepository;
+import ru.itis.grocerystore.repositories.UsersRepository;
 
 import java.util.Optional;
 
@@ -27,7 +28,7 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public Role getUserById(Long id, ModelAndView modelAndView) {
-        Optional<User> optionalUser = usersRepository.findById(id);
+        Optional<User> optionalUser = usersRepository.find(id);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             switch (user.getRole()) {
