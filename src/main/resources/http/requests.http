@@ -1,0 +1,23 @@
+POST http://localhost:8080/signIn
+Content-Type: application/json
+
+{
+  "login": "user",
+  "password": "aze"
+}
+
+###
+
+GET http://localhost:8080/files/init
+
+###
+
+GET http://localhost:8080/files/convert
+
+###
+
+GET http://localhost:8080/users/1/files/png/convert
+
+###
+
+GET http://localhost:8080/users/1/files/information
