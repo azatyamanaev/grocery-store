@@ -6,6 +6,7 @@ import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
+import ru.itis.grocerystore.models.FtlEnum;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -18,9 +19,13 @@ public class MessageConvertorServiceImpl implements MessageConvertorService {
     private Configuration freemarkerConfig;
 
     @Override
-    public String fromEmailToFtl(String confirmCode) {
+    public String fromEmailToFtl(String confirmCode, FtlEnum ftlEnum) {
         Map<String, String> map = new HashMap<>();
-        String link = "http://localhost:8080/confirm/" + confirmCode;
+        String link = "";
+        if (ftlEnum.equals(FtlEnum.CONFIRM))
+            link = "http://localhost:8080/confirm/" + confirmCode;
+        else if (ftlEnum.equals(FtlEnum.RESET))
+            link = "http://localhost:8080/user/changePassword?id=" + confirmCode;
         map.put("code", link);
         Template t;
         String html;
