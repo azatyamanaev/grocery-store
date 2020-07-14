@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import ru.itis.grocerystore.dto.SignInDto;
 import ru.itis.grocerystore.dto.UserDto;
 import ru.itis.grocerystore.models.User;
+import ru.itis.grocerystore.repositories.UsersRepository;
 
 import java.util.Optional;
 
@@ -33,6 +34,5 @@ public class SignInServiceImpl implements SignInService {
                         .build());
             } else throw new AccessDeniedException("Wrong email/password");
         } else throw new AccessDeniedException("User not found");
-        return Optional.empty();
     }
 }
