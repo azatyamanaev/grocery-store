@@ -33,6 +33,7 @@ public class Company extends User {
         this.number = builder.number;
         this.additionalInformation = builder.additionalInformation;
         this.image = builder.image;
+        this.confirmCode = builder.confirmCode;
     }
 
     public static class Builder {
@@ -48,6 +49,7 @@ public class Company extends User {
         private String number;
         private String additionalInformation;
         private Image image;
+        private String confirmCode;
 
         public Builder id(Long id) {
             this.id = id;
@@ -106,6 +108,11 @@ public class Company extends User {
 
         public Builder image(Image image) {
             this.image = image;
+            return this;
+        }
+
+        public Builder confirmCode(String confirmCode) {
+            this.confirmCode = confirmCode;
             return this;
         }
 

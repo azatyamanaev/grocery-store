@@ -72,6 +72,7 @@ public class Student extends User {
         this.move = builder.move;
         this.workSearching = builder.workSearching;
         this.recommendationLetters = builder.recommendationLetters;
+        this.confirmCode = builder.confirmCode;
     }
 
     public static class Builder {
@@ -104,6 +105,7 @@ public class Student extends User {
         private String move = "нет";
         private Boolean workSearching = true;
         private List<RecommendationLetter> recommendationLetters;
+        private String confirmCode;
 
         public Builder id(Long id) {
             this.id = id;
@@ -248,6 +250,11 @@ public class Student extends User {
         public Builder recommendationLetters(List<RecommendationLetter> recommendationLetters) {
             this.recommendationLetters = recommendationLetters;
             return this;
+        }
+
+        public Builder confirmCode(String confirmCode) {
+            this.confirmCode = confirmCode;
+            return  this;
         }
 
         public Student build() {

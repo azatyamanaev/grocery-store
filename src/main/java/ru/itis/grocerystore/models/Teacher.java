@@ -32,6 +32,7 @@ public class Teacher extends User {
         this.position = builder.position;
         this.about = builder.about;
         this.image = builder.image;
+        this.confirmCode = builder.confirmCode;
     }
 
     public static class Builder {
@@ -47,6 +48,7 @@ public class Teacher extends User {
         private String position;
         private String about;
         private Image image;
+        private String confirmCode;
 
         public Builder id(Long id) {
             this.id = id;
@@ -105,6 +107,11 @@ public class Teacher extends User {
 
         public Builder image(Image image) {
             this.image = image;
+            return this;
+        }
+
+        public Builder confirmCode(String confirmCode) {
+            this.confirmCode = confirmCode;
             return this;
         }
 
