@@ -36,7 +36,7 @@ public class Company extends User {
         this.confirmCode = builder.confirmCode;
     }
 
-    public static class Builder {
+    public static class Builder extends UserBuilder{
         private Long id;
         private String login;
         private String password;

@@ -23,7 +23,7 @@ public class GroceryStoreApplication {
                 .password("008")
                 .position("assistant")
                 .build();
-        System.out.println(teachersRepository.findAll().get(0).getImage().getSourceFile());
+        //System.out.println(teachersRepository.findAll().get(0).getImage().getSourceFile());
     }
 
 }

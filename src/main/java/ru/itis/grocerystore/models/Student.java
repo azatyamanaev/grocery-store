@@ -75,7 +75,7 @@ public class Student extends User {
         this.confirmCode = builder.confirmCode;
     }
 
-    public static class Builder {
+    public static class Builder extends UserBuilder {
         private Long id;
         private String login;
         private String password;
@@ -254,7 +254,7 @@ public class Student extends User {
 
         public Builder confirmCode(String confirmCode) {
             this.confirmCode = confirmCode;
-            return  this;
+            return this;
         }
 
         public Student build() {
