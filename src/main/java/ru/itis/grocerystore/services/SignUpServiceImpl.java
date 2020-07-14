@@ -53,7 +53,7 @@ public class SignUpServiceImpl implements SignUpService {
         else if (form.getRole().equals(Role.TEACHER))
             teachersRepository.save((Teacher)user);
 
-        String text = messageConvertorService.fromEmailToFtl(user.getConfirmCode());
+        String text = messageConvertorService.fromEmailToFtl(user.getConfirmCode(), FtlEnum.CONFIRM);
         emailService.sendNotification("Регистрация", text, user.getEmail());
 
 //        usersRepository.save(user);

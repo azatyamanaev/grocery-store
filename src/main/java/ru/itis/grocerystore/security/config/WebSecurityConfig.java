@@ -32,6 +32,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.antMatcher("*").anonymous();
 
+        http.authorizeRequests()
+                .antMatchers("/user/updatePassword** ",
+                        "/user/savePassword** ",
+                        "/updatePassword** ")
+                .hasAuthority("CHANGE__PASSWORD__PRIVILEGE");
+
         http.formLogin()
                 .loginPage("/signIn")
                 .usernameParameter("login")
