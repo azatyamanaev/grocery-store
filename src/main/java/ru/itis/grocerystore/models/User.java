@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
@@ -26,5 +27,5 @@ public class User {
     protected State state;
     @OneToOne(mappedBy = "user")
     protected Image image;
-
+    protected String confirmCode;
 }

@@ -5,10 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Import;
 import ru.itis.grocerystore.config.AppConfig;
-import ru.itis.grocerystore.models.Role;
-import ru.itis.grocerystore.models.State;
-import ru.itis.grocerystore.models.Teacher;
-import ru.itis.grocerystore.models.User;
+import ru.itis.grocerystore.models.*;
 import ru.itis.grocerystore.repositories.TeachersRepository;
 
 @SpringBootApplication
