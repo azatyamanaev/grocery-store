@@ -15,7 +15,7 @@ import java.io.File;
 @Builder
 @Entity
 @Slf4j
-public class Logo {
+public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,8 +30,8 @@ public class Logo {
     private File sourceFile;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "company_id", referencedColumnName = "id")
-    private Company company;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
     @PostLoad
     public void loadFile() {

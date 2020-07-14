@@ -10,8 +10,12 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Entity(name = "users")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
     protected String login;
     protected String password;
     protected String email;
@@ -20,5 +24,7 @@ public class User {
     protected Role role;
     @Enumerated(value = EnumType.STRING)
     protected State state;
-    protected String confirmCode;
+    @OneToOne(mappedBy = "user")
+    protected Image image;
+
 }

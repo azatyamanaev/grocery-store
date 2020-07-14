@@ -14,16 +14,10 @@ import java.io.File;
 @AllArgsConstructor
 @Entity(name = "teachers")
 public class Teacher extends User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String lastName;
     private String patronymic;
     private String position;
     private String about;
-    @OneToOne(mappedBy = "teacher")
-    @Where(clause = "type = 'image/png'")
-    private TeacherImage image;
 
     private Teacher(Builder builder) {
         this.id = builder.id;
@@ -52,7 +46,7 @@ public class Teacher extends User {
         private String patronymic;
         private String position;
         private String about;
-        private TeacherImage image;
+        private Image image;
 
         public Builder id(Long id) {
             this.id = id;
@@ -109,7 +103,7 @@ public class Teacher extends User {
             return this;
         }
 
-        public Builder image(TeacherImage image) {
+        public Builder image(Image image) {
             this.image = image;
             return this;
         }

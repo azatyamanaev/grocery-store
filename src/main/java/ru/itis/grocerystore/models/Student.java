@@ -13,12 +13,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity(name = "students")
 public class Student extends User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String lastName;
     private String patronymic;
     private Date birthDate;
@@ -35,9 +31,6 @@ public class Student extends User {
     @OneToMany(mappedBy = "student")
     private List<Language> languages;
     private String about;
-    @OneToOne(mappedBy = "student")
-    @Where(clause = "type = 'image/png'")
-    private StudentImage image;
     @OneToMany(mappedBy = "student")
     private List<WorkExperience> workExperiences;
     @OneToMany(mappedBy = "student")
@@ -103,7 +96,7 @@ public class Student extends User {
         private List<Skill> skills;
         private List<Language> languages;
         private String about;
-        private StudentImage image;
+        private Image image;
         private List<WorkExperience> workExperiences;
         private List<Achievement> achievements;
         private String linkToGit;
@@ -217,7 +210,7 @@ public class Student extends User {
             return this;
         }
 
-        public Builder image(StudentImage image) {
+        public Builder image(Image image) {
             this.image = image;
             return this;
         }

@@ -12,19 +12,13 @@ import java.io.File;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity(name = "companies")
 public class Company extends User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String linkToSite;
     private String about;
     private String number;
     private String additionalInformation;
-    @OneToOne(mappedBy = "company")
-    @Where(clause = "type = 'image/png'")
-    private Logo logo;
+
 
     private Company(Builder builder) {
         this.id = builder.id;
@@ -38,7 +32,7 @@ public class Company extends User {
         this.about = builder.about;
         this.number = builder.number;
         this.additionalInformation = builder.additionalInformation;
-        this.logo = builder.logo;
+        this.image = builder.image;
     }
 
     public static class Builder {
@@ -53,7 +47,7 @@ public class Company extends User {
         private String about;
         private String number;
         private String additionalInformation;
-        private Logo logo;
+        private Image image;
 
         public Builder id(Long id) {
             this.id = id;
@@ -110,8 +104,8 @@ public class Company extends User {
             return this;
         }
 
-        public Builder logo(Logo logo) {
-            this.logo = logo;
+        public Builder image(Image image) {
+            this.image = image;
             return this;
         }
 
