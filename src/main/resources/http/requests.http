@@ -21,3 +21,17 @@ GET http://localhost:8080/users/1/files/png/convert
 ###
 
 GET http://localhost:8080/users/1/files/information
+
+###
+
+POST http://localhost:8080/rest/signUp
+Content-Type: application/json
+
+{
+  "login": "user1",
+  "email": "ruselkomp1@gmail.com",
+  "password": "qwerty123",
+  "role": "STUDENT"
+}
+
+###

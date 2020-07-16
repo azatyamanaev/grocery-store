@@ -2,13 +2,13 @@ package ru.itis.grocerystore.controllers;
 
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.itis.grocerystore.dto.SignUpDto;
 import ru.itis.grocerystore.dto.UserDto;
 import ru.itis.grocerystore.services.SignUpService;
@@ -45,5 +45,15 @@ public class SignUpController {
         } else {
             return "signUp";
         }
+    }
+
+    @PostMapping("/rest/signUp")
+    @ResponseBody
+    public ResponseEntity<String> signUp(@RequestBody SignUpDto signUpDto) {
+        if (signUpService.signUp(signUpDto) != null) {
+            return ResponseEntity.status(HttpStatus.OK).body("You have successfully registered." +
+                    "A confirmation email has arrived");
+        }
+        return ResponseEntity.badRequest().body("A user with this email exists");
     }
 }
