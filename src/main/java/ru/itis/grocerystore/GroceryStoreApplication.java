@@ -1,6 +1,8 @@
 package ru.itis.grocerystore;
 
 
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 import ru.itis.grocerystore.config.AppConfig;
 import ru.itis.grocerystore.dto.CompanyDto;
 import ru.itis.grocerystore.services.AdminService;
@@ -24,7 +27,7 @@ import java.util.concurrent.Executors;
 @SpringBootApplication
 @Import(AppConfig.class)
 @PropertySource("classpath:application.properties")
-public class GroceryStoreApplication {
+public class GroceryStoreApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
 
@@ -60,5 +63,10 @@ public class GroceryStoreApplication {
     @Bean
     public ExecutorService executorService() {
         return Executors.newFixedThreadPool(20);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+
     }
 }
