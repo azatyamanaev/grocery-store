@@ -53,6 +53,7 @@ public class AppProfileController {
     }
 
     @PostMapping("/delete/{id}")
+    @PreAuthorize("isAuthenticated()")
     public String deleteProfile(@PathVariable("id") Long id) {
         Role role;
         User user = (User) SecurityContextHolder
