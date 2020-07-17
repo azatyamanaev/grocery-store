@@ -1,28 +1,28 @@
 package ru.itis.grocerystore.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
-
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.PostMapping;
 import ru.itis.grocerystore.models.Role;
 import ru.itis.grocerystore.models.User;
 import ru.itis.grocerystore.services.ProfileService;
+import ru.itis.grocerystore.services.UsersService;
 
-@Controller("myProfileController")
-public class ProfileController {
+
+@Controller
+public class AppProfileController {
 
     @Autowired
     private ProfileService profileService;
+    @Autowired
+    private UsersService usersService;
 
 
-    //TODO: сделать так, чтобы студент не мог смотреть страницу другого студента
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/profile/{id}")
     public String getProfilePage(@PathVariable("id") Long id, Model model) {
@@ -31,7 +31,7 @@ public class ProfileController {
                 .getContext()
                 .getAuthentication()
                 .getPrincipal();
-    model.addAttribute("user", user);
+        model.addAttribute("user", user);
         try {
             //TODO: передать третьим параметром User и создавать view относительно того, кто запросил
             switch (profileService.getUserById(id, model)) {
@@ -50,5 +50,28 @@ public class ProfileController {
             throw new IllegalArgumentException("Unknown role for ID: " + id);
         }
         return "";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteProfile(@PathVariable("id") Long id) {
+        Role role;
+        User user = (User) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+        try {
+            //TODO: передать третьим параметром User и создавать view относительно того, кто запросил
+            switch (user.getRole()) {
+                case TEACHER:
+                    usersService.deleteTeacher(id);
+                case STUDENT:
+                    usersService.deleteStudent(id);
+                case COMPANY:
+                    usersService.deleteCompany(id);
+            }
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Unknown role for ID: " + id);
+        }
+        return "redirect:/";
     }
 }

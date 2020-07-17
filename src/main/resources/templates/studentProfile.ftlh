@@ -1,5 +1,5 @@
 <#import "header.ftlh" as c/>
-<@c.page title="s page">
+<@c.page title="${student.name}'s page">
     <div class="container">
         <div>
             <button type="button" class="btn btn-light">
@@ -9,17 +9,18 @@
                 <button type="button" class="btn btn-light">
                     Скачать печатный вариант
                 </button>
-                <button type="button" class="btn btn-light">
+                <button type="button" onclick="location.href='/editStudent/${student.id}'" class="btn btn-light">
                     Изменить профиль
                 </button>
-                <button type="button" class="btn btn-light">
+                <button type="button" onclick="location.href='/changePassword/${student.id}'"class="btn btn-light">
                     Изменить пароль
                 </button>
-                <button type="button" class="btn btn-light">
+                <button type="button" onclick="location.href='/delete/${student.id}'" class="btn btn-light">
                     Удалить профиль
                 </button>
             </#if>
         </div>
+
 
         <!-- <div class="row">
           <div class="col-3">
@@ -38,7 +39,7 @@
 
         <div class="row" style="margin-top:60px;">
             <div class="col-3">
-                <img src="<#if student.image?has_content>${student.image}<#else>src/img/icons8-test-account-96.png</#if>" width="150"
+                <img src="<#if user.image?has_content>${user.image}<#else>src/img/icons8-test-account-96.png</#if>" width="150"
                      height="150"><!-- фото или базовое фото  -->
 
 
@@ -48,7 +49,8 @@
                     <#if student.name?has_content>${student.name}<#else>Имя</#if>
                     <#if student.patronymic?has_content>${student.patronymic}</#if>
                 </p>
-                <p>Пол, возраст</p>
+                <p> <#if student.gender?has_content>${student.gender}<#else>Пол</#if>
+                    <#if student.birthDate?has_content>${student.birthDate}<#else>Дата рождения</#if></p>
                 <p>Город, не готов к переезду, не готов к командировкам</p>
             </div>
 
@@ -200,6 +202,7 @@
                 </#if>
             </div>
         </div>
+
         <div class="row" style="padding-left:400px; padding-top:50px;">
 
 
