@@ -1,0 +1,60 @@
+li {
+  list-style-type: none; /* Убираем маркеры */
+}
+ul {
+  margin-left: 0; /* Отступ слева в браузере IE и Opera */
+  padding-left: 0; /* Отступ слева в браузере Firefox, Safari, Chrome */
+}
+.container-fluid {
+  background-color: #E5E5E5;
+
+  padding-top: 30px;
+}
+.header {
+  background-color: #D3D3D3;
+  height: 80px;
+  width: 100%;
+  margin-bottom: 100px;
+  padding: 20px;
+  position: fixed;
+  z-index: 1000;
+
+}
+
+.container {
+  background-color: #D3D3D3;
+  width: 1500px;
+  padding: 40px;
+
+  margin-top: 100px;
+  text-align: center;
+
+}
+
+.img {
+
+
+}
+.btn-light {
+  width: 200px;
+  margin-left: 50px;
+  background-color: #D3D3D3;
+  border-color: #D3D3D3;
+
+}
+.col-9 {
+  padding: 20px;
+  background-color: #C0C0C0;
+}
+.row {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  text-align: left;
+
+}
+.col-3 {
+
+  text-align: center;
+
+
+}
