@@ -9,17 +9,18 @@
                 <button type="button" class="btn btn-light">
                     Скачать печатный вариант
                 </button>
-                <button type="button" class="btn btn-light">
+                <button type="button" onclick="location.href='/editStudent'" class="btn btn-light">
                     Изменить профиль
                 </button>
-                <button type="button" class="btn btn-light">
+                <button type="button" onclick="location.href='/changePassword/${company.id}'"class="btn btn-light">
                     Изменить пароль
                 </button>
-                <button type="button" class="btn btn-light">
+                <button type="button" onclick="location.href='/delete/${student.id}'" class="btn btn-light">
                     Удалить профиль
                 </button>
             </#if>
         </div>
+
 
         <!-- <div class="row">
           <div class="col-3">
@@ -48,7 +49,8 @@
                     <#if student.name?has_content>${student.name}<#else>Имя</#if>
                     <#if student.patronymic?has_content>${student.patronymic}</#if>
                 </p>
-                <p>Пол, возраст</p>
+                <p> <#if student.gender?has_content>${student.gender}<#else>Пол</#if>
+                    <#if student.birthDate?has_content>${student.birthDate}<#else>Дата рождения</#if></p>
                 <p>Город, не готов к переезду, не готов к командировкам</p>
             </div>
 

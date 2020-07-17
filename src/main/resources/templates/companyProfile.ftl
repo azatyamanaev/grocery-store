@@ -12,13 +12,13 @@
                 </button>
             </#if>
             <#if user.id == company.id>
-                <button type="button" class="btn btn-light">
+                <button type="button" onclick="location.href='/editCompany'" class="btn btn-light">
                     Изменить профиль
                 </button>
-                <button type="button" class="btn btn-light">
+                <button type="button" onclick="location.href='/changePassword/${company.id}'"class="btn btn-light">
                     Изменить пароль
                 </button>
-                <button type="button" class="btn btn-light">
+                <button type="button" onclick="location.href='/delete/${company.id}'" class="btn btn-light">
                     Удалить профиль
                 </button>
             </#if>

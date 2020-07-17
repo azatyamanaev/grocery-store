@@ -4,6 +4,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import ru.itis.grocerystore.models.FtlEnum;
@@ -16,6 +17,7 @@ import java.util.Map;
 public class MessageConvertorServiceImpl implements MessageConvertorService {
 
     @Autowired
+    @Qualifier(value = "getFreeMarkerConfiguration")
     private Configuration freemarkerConfig;
 
     @Override

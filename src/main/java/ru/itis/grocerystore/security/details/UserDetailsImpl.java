@@ -52,6 +52,6 @@ public class UserDetailsImpl<T extends User> implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.getState() == State.CONFIRMED;
+        return user.getState().equals(State.CONFIRMED);
     }
 }

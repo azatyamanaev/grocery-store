@@ -22,7 +22,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @SpringBootApplication
-@Import(AppConfig.class)
 @PropertySource("classpath:application.properties")
 public class GroceryStoreApplication {
 
