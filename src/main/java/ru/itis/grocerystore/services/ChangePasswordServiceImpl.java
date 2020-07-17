@@ -1,14 +1,12 @@
 package ru.itis.grocerystore.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.itis.grocerystore.dto.SignInDto;
 import ru.itis.grocerystore.dto.UserDto;
 import ru.itis.grocerystore.models.FtlEnum;
 import ru.itis.grocerystore.models.PasswordResetToken;
@@ -22,7 +20,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class SignInServiceImpl implements SignInService {
+public class ChangePasswordServiceImpl implements ChangePasswordService {
 
     @Autowired
     private UsersRepository usersRepository;
@@ -39,21 +37,8 @@ public class SignInServiceImpl implements SignInService {
     @Autowired
     private MessageConvertorService messageConvertorService;
 
-    @Override
-    public Optional<UserDto> signIn(SignInDto signInDto) {
-        Optional<User> optionalUser = usersRepository.findByLogin(signInDto.getLogin());
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            if (passwordEncoder.matches(signInDto.getPassword(), user.getPassword())) {
-                return Optional.of(UserDto.builder()
-                        .email(user.getEmail())
-                        .login(user.getLogin())
-                        .role(user.getRole())
-                        .id(user.getId())
-                        .build());
-            } else throw new AccessDeniedException("Wrong email/password");
-        } else throw new AccessDeniedException("User not found");
-    }
+
+
 
     @Override
     public Optional<UserDto> findByEmail(String email) {

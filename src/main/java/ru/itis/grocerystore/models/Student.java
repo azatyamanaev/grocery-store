@@ -106,6 +106,7 @@ public class Student extends User {
         private Boolean workSearching = true;
         private List<RecommendationLetter> recommendationLetters;
         private String confirmCode;
+        protected Token currentToken;
 
         public Builder id(Long id) {
             this.id = id;
@@ -256,7 +257,10 @@ public class Student extends User {
             this.confirmCode = confirmCode;
             return this;
         }
-
+        public Builder currentToken(Token currentToken) {
+            this.currentToken = currentToken;
+            return this;
+        }
         public Student build() {
             return new Student(this);
         }

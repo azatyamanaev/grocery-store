@@ -50,6 +50,7 @@ public class Company extends User {
         private String additionalInformation;
         private Image image;
         private String confirmCode;
+        protected Token currentToken;
 
         public Builder id(Long id) {
             this.id = id;
@@ -115,7 +116,10 @@ public class Company extends User {
             this.confirmCode = confirmCode;
             return this;
         }
-
+        public UserBuilder currentToken(Token currentToken) {
+            this.currentToken = currentToken;
+            return this;
+        }
         public Company build() {
             return new Company(this);
         }

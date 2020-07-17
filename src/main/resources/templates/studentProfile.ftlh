@@ -1,5 +1,5 @@
-<#import "header.ftl" as c/>
-<@c.page title="${student.name}'s page">
+<#import "header.ftlh" as c/>
+<@c.page title="s page">
     <div class="container">
         <div>
             <button type="button" class="btn btn-light">
@@ -38,7 +38,7 @@
 
         <div class="row" style="margin-top:60px;">
             <div class="col-3">
-                <img src="<#if user.image?has_content>${user.image}<#else>src/img/icons8-test-account-96.png</#if>" width="150"
+                <img src="<#if student.image?has_content>${student.image}<#else>src/img/icons8-test-account-96.png</#if>" width="150"
                      height="150"><!-- фото или базовое фото  -->
 
 
@@ -200,7 +200,6 @@
                 </#if>
             </div>
         </div>
-
         <div class="row" style="padding-left:400px; padding-top:50px;">
 
 

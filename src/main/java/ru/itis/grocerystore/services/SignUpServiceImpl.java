@@ -49,9 +49,29 @@ public class SignUpServiceImpl implements SignUpService {
                 .build();
 
         if (form.getRole().equals(Role.STUDENT))
-            studentsRepository.save((Student)user);
+        {
+            Student student = Student.builder()
+                    .email(form.getEmail())
+                    .login(form.getLogin())
+                    .password(passwordEncoder.encode(form.getPassword()))
+                    .state(State.NOT_CONFIRMED)
+                    .confirmCode(user.getConfirmCode())
+                    .role(form.getRole())
+                    .build();
+            studentsRepository.save(student);
+        }
         else if (form.getRole().equals(Role.TEACHER))
-            teachersRepository.save((Teacher)user);
+        {
+            Teacher teacher = Teacher.builder()
+                    .email(form.getEmail())
+                    .login(form.getLogin())
+                    .password(passwordEncoder.encode(form.getPassword()))
+                    .state(State.NOT_CONFIRMED)
+                    .confirmCode(user.getConfirmCode())
+                    .role(form.getRole())
+                    .build();
+            teachersRepository.save(teacher);
+        }
 
         String text = messageConvertorService.fromEmailToFtl(user.getConfirmCode(), FtlEnum.CONFIRM);
         emailService.sendNotification("Регистрация", text, user.getEmail());

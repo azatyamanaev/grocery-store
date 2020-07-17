@@ -10,17 +10,16 @@ import org.springframework.web.bind.annotation.*;
 import ru.itis.grocerystore.dto.PasswordDto;
 import ru.itis.grocerystore.dto.UserDto;
 import ru.itis.grocerystore.models.User;
-import ru.itis.grocerystore.services.SignInService;
+import ru.itis.grocerystore.services.ChangePasswordService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.UUID;
 
 @Controller
 public class ResetPasswordController {
     @Autowired
-    private SignInService signInService;
+    private ChangePasswordService changePasswordService;
 
     @Autowired
     private MessageSource messages;
@@ -29,19 +28,19 @@ public class ResetPasswordController {
     @ResponseBody
     public GenericResponse resetPassword(HttpServletRequest request,
                                          @RequestParam("email") String userEmail) {
-        Optional<UserDto> optionalUserDto = signInService.findByEmail(userEmail);
+        Optional<UserDto> optionalUserDto = changePasswordService.findByEmail(userEmail);
         if (!optionalUserDto.isPresent()) {
             throw new UsernameNotFoundException("");
         }
         UserDto user = optionalUserDto.get();
-        signInService.createPasswordResetTokenForUser(user);
+        changePasswordService.createPasswordResetTokenForUser(user);
         return new GenericResponse(messages.getMessage("message.resetPasswordEmail", null,
                         request.getLocale()));
     }
     @GetMapping("/user/changePassword")
     public String showChangePasswordPage(Locale locale, Model model,
                                          @RequestParam("id") long id, @RequestParam("token") String token) {
-        String result = signInService.validatePasswordResetToken(id, token);
+        String result = changePasswordService.validatePasswordResetToken(id, token);
         if (result != null) {
             model.addAttribute("message",
                     messages.getMessage("auth.message." + result, null, locale));
@@ -57,7 +56,7 @@ public class ResetPasswordController {
                 (User) SecurityContextHolder.getContext()
                         .getAuthentication().getPrincipal();
 
-        signInService.changeUserPassword(user, passwordDto.getNewPassword());
+        changePasswordService.changeUserPassword(user, passwordDto.getNewPassword());
         return new GenericResponse(
                 messages.getMessage("message.resetPasswordSuc", null, locale));
     }

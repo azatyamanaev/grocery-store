@@ -1,4 +1,4 @@
-<#import "header.ftl" as c/>
+<#import "header.ftlh" as c/>
 <@c.page title="${company.name}'s page">
 
     <div class="container">

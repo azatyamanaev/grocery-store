@@ -6,8 +6,7 @@ import ru.itis.grocerystore.models.User;
 
 import java.util.Optional;
 
-public interface SignInService {
-    Optional<UserDto> signIn(SignInDto signInDto);
+public interface ChangePasswordService {
     Optional<UserDto> findByEmail(String email);
     void createPasswordResetTokenForUser(UserDto userDto);
     String validatePasswordResetToken(long id, String token);

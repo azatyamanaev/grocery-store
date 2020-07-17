@@ -4,15 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.Collections;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
@@ -27,7 +32,8 @@ public class User {
     @OneToOne(mappedBy = "user")
     protected Image image;
     protected String confirmCode;
-
+    @Transient
+    protected Token currentToken;
     private User(UserBuilder builder) {
         this.id = builder.id;
         this.login = builder.login;
@@ -37,6 +43,40 @@ public class User {
         this.role = builder.role;
         this.state = builder.state;
         this.confirmCode = builder.confirmCode;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(getRole().toString());
+        return Collections.singleton(simpleGrantedAuthority);
+    }
+
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return getState() == State.CONFIRMED;
+    }
+    public Token getCurrentToken() {
+        return currentToken;
     }
 
     public static class UserBuilder {
@@ -49,6 +89,7 @@ public class User {
         protected State state;
         protected Image image;
         protected String confirmCode;
+        protected Token currentToken;
 
         public UserBuilder id(Long id) {
             this.id = id;
@@ -94,7 +135,10 @@ public class User {
             this.confirmCode = confirmCode;
             return this;
         }
-
+        public UserBuilder currentToken(Token currentToken) {
+            this.currentToken = currentToken;
+            return this;
+        }
         public User build() {
             return new User(this);
         }

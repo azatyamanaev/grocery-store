@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="src/css/auth.css">
+    <link rel="stylesheet" href="../css/auth.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Вход</title>
 </head>
@@ -16,20 +16,20 @@
         <h3>
             Вход
         </h3>
-        <form class="form" method="post" action="signIn">
+        <form class="form" method="POST" action="signIn">
             <div class="form-group">
-                <label for="inputLogin">Логин</label>
-                <input name="inputLogin" placeholder="Введите свой логин">
+                <label for="login">Логин</label>
+                <input name="login" placeholder="Введите свой логин">
             </div>
             <div class="form-group">
-                <label for="inputPassword">Пароль</label>
-                <input type="password" name="inputPassword" placeholder="Введите свой пароль">
+                <label for="password">Пароль</label>
+                <input type="password" name="password" placeholder="Введите свой пароль">
             </div>
             <div class="form-check">
                 <input type="checkbox"  id="exampleCheck1">
                 <label for="exampleCheck1">Запомнить меня</label>
             </div>
-            <button type="submit" class="btn btn-primary">Войти</button>
+            <button type="submit" name="signIn" id="signIn" class="btn btn-primary">Войти</button>
         </form>
     </div>
     <#if message??>

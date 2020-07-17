@@ -1,12 +1,14 @@
 package ru.itis.grocerystore.security.authentication;
 
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
-// объект, который работает с JWT-аутентификацией
+@Component
 public class JwtAuthentication implements Authentication {
     // флаг аутентификации
     private boolean isAuthenticated = false;
@@ -15,18 +17,17 @@ public class JwtAuthentication implements Authentication {
     // информация о пользователе
     private UserDetails userDetails;
 
-    public JwtAuthentication(String token) {
-        this.token = token;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return userDetails.getAuthorities();
+        if (userDetails != null) {
+            return userDetails.getAuthorities();
+        } else return null;
     }
 
     @Override
     public Object getCredentials() {
-        return null;
+        return userDetails.getPassword();
     }
 
     @Override
@@ -57,4 +58,9 @@ public class JwtAuthentication implements Authentication {
     public void setUserDetails(UserDetails userDetails) {
         this.userDetails = userDetails;
     }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
 }

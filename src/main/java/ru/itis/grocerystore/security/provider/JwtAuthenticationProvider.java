@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
+import ru.itis.grocerystore.models.User;
 import ru.itis.grocerystore.security.authentication.JwtAuthentication;
+import ru.itis.grocerystore.services.UserService;
 
 // проверить аутентификацию пользователя
 @Component
@@ -22,31 +25,22 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
     private String secret;
 
     @Autowired
-    @Qualifier("userDetailsServiceImpl")
-    private UserDetailsService userDetailsService;
+    private UserService userDetailsService;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        String token = authentication.getName();
+        JwtAuthentication jwtAuthentication = (JwtAuthentication) authentication;
+        User userDetails = (User) userDetailsService.loadUserByUsername(jwtAuthentication.getName());
+        if (userDetails != null && userDetails.getCurrentToken().isNotExpired()) {
+            jwtAuthentication.setUserDetails(userDetails);
+            jwtAuthentication.setAuthenticated(true);
 
-        Claims claims;
-        try {
-            // выполняю парсинг токена со своим секретным ключом
-             claims =  Jwts.parser().setSigningKey(secret).parseClaimsJws(token)
-                    .getBody();
-        } catch (Exception e) {
-            throw new AuthenticationCredentialsNotFoundException("Bad token");
+        } else {
+            throw new BadCredentialsException("Bad Token");
         }
-        // создаем UserDetails
-        UserDetails userDetails = userDetailsService.loadUserByUsername(claims.get("email", String.class));
-        // аутентификация прошла успешно
-        authentication.setAuthenticated(true);
-        // положили в эту аутентификацию пользователя
-        ((JwtAuthentication)authentication).setUserDetails(userDetails);
-        return authentication;
+        return jwtAuthentication;
     }
 
-    // проверяет, подходит ли текущий провайдер для этой аутентификации
     @Override
     public boolean supports(Class<?> authentication) {
         return JwtAuthentication.class.equals(authentication);

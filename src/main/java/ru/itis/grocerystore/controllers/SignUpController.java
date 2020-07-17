@@ -20,14 +20,12 @@ public class SignUpController {
     @Autowired
     private SignUpService signUpService;
 
-    @PreAuthorize("permitAll()")
-    @GetMapping(value = "/signUp")
-    public String getSignUp(Model model) {
+    @GetMapping("/signUp")
+    public String getPage(Model model) {
         model.addAttribute("signUpDto", new SignUpDto());
         return "signUp";
     }
 
-    @PreAuthorize("permitAll()")
     @PostMapping(value = "/signUp")
     public String signUp(SignUpDto signUpDto, BindingResult result, Model model) {
         if(!(result.hasErrors()))
@@ -56,4 +54,5 @@ public class SignUpController {
         }
         return ResponseEntity.badRequest().body("A user with this email exists");
     }
+
 }

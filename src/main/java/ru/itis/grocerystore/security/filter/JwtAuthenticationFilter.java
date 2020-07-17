@@ -1,10 +1,13 @@
 package ru.itis.grocerystore.security.filter;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 import ru.itis.grocerystore.security.authentication.JwtAuthentication;
+import ru.itis.grocerystore.services.UserService;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -15,18 +18,22 @@ import java.io.IOException;
 
 @Component( "jwtAuthenticationFilter")
 public class JwtAuthenticationFilter extends GenericFilterBean {
+
+    @Autowired
+    private UserService userDetailsService;
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
                          FilterChain filterChain) throws IOException, ServletException {
-        // преобразуем запрос в HTTP
         HttpServletRequest request = (HttpServletRequest)servletRequest;
-        // получаем токен
         String token = request.getHeader("Authorization");
-        // создаем объект аутентификации
-        Authentication authentication = new JwtAuthentication(token);
-        // кладем его в контекст для текущего потока
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        // отправили запрос дальше
+        if (token != null) {
+            JwtAuthentication authentication = new JwtAuthentication();
+            authentication.setToken(token);
+            authentication.setAuthenticated(true);
+            authentication.setUserDetails(userDetailsService.loadUserByUsername(token));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
         filterChain.doFilter(servletRequest, servletResponse);
     }
 }
