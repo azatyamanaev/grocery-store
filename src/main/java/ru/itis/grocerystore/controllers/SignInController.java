@@ -36,7 +36,7 @@ public class SignInController {
         ModelAndView modelAndView = new ModelAndView();
 
         if (userDto.isPresent()) {
-            modelAndView.setViewName("redirect:/profile/1");
+            modelAndView.setViewName("redirect:/search");
         } else {
             modelAndView.addObject("message", "Some troubles with Email/Pass.");
             modelAndView.setViewName("signIn");
