@@ -16,6 +16,14 @@
         <h3>
             Вход
         </h3>
+
+        <#if message??>
+            <div class="alert">
+                <div class="alert success" role="alert">
+                    ${message}
+                </div>
+            </div>
+        </#if>
         <form class="form" method="POST" action="signIn">
             <div class="form-group">
                 <label for="login">Логин</label>
@@ -32,10 +40,10 @@
             <button type="submit" name="signIn" id="signIn" class="btn btn-primary">Войти</button>
         </form>
     </div>
-    <#if message??>
+    <#if error??>
         <div class="alert">
             <div class="alert alert-danger" role="alert">
-                ${message}
+                ${error}
             </div>
         </div>
     </#if>

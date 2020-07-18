@@ -13,6 +13,7 @@ import ru.itis.grocerystore.dto.SignUpDto;
 import ru.itis.grocerystore.dto.UserDto;
 import ru.itis.grocerystore.services.SignUpService;
 
+import javax.jws.WebParam;
 import java.util.Optional;
 
 @Controller
@@ -36,10 +37,11 @@ public class SignUpController {
     }
 
     @GetMapping("/confirm/{code}")
-    public String confirm(@PathVariable String code) {
+    public String confirm(@PathVariable String code, Model model) {
         Optional<UserDto> userDto = signUpService.confirm(code);
         if (userDto.isPresent()) {
-            return "redirect:/signIn";
+            model.addAttribute("message", "Ваша почта подтверждена!");
+            return "signIn";
         } else {
             return "signUp";
         }

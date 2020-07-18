@@ -6,13 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.itis.grocerystore.models.Role;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class SignUpDto {
-    //TODO: add validation
     private String login;
     private String email;
     private String password;

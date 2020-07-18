@@ -20,6 +20,11 @@
             <div class="form-group">
                 <label for="email">Почта</label>
                 <input name="email" placeholder="Введите свою электронную почту">
+
+                <select name="role">
+                    <option value="STUDENT">@stud.kpfu.ru</option>
+                    <option value="TEACHER">@stud.ru</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="login">Логин</label>
@@ -32,10 +37,6 @@
             <div class="form-group">
                 <label for="password2">Подтвердите пароль</label>
                 <input type="password" name="password2" placeholder="Введите свой пароль ещё раз">
-            </div>
-            <div class="form-group">
-                <label for="role">Роль</label>
-                <input name="role" placeholder="Введите свою роль">
             </div>
             <button type="submit" name="signUp" id="signUp" class="btn btn-primary">Зарегистрироваться</button>
         </form>
