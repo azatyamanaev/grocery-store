@@ -10,14 +10,14 @@
                 Получать уведомления о событиях
             </button>
         </#if>
-        <#if user.id == company.id>
-            <button type="button" class="btn btn-light">
+        <#if user.id == teacher.id>
+            <button type="button" onclick="location.href='/editTeacher/${teacher.id}'" class="btn btn-light">
                 Изменить профиль
             </button>
-            <button type="button" class="btn btn-light">
+            <button type="button" onclick="location.href='/changePassword/${teacher.id}'"class="btn btn-light">
                 Изменить пароль
             </button>
-            <button type="button" class="btn btn-light">
+            <button type="button" onclick="location.href='/delete/${teacher.id}'" class="btn btn-light">
                 Удалить профиль
             </button>
         </#if>
@@ -48,9 +48,8 @@
         <div class="col-9">
             <p> <#if teacher.lastname?has_content>${teacher.lastname}<#else>Фамилия</#if>
                 <#if teacher.name?has_content>${teacher.name}<#else>Имя</#if>
-                <#if teacher.patronymic?has_content>${teacher.patronymic}</#if>
+                <#if teacher.patronymic?has_content>${teacher.patronymic}<#else>Отчество</#if>
             </p>
-            <p><#if teacher.position?has_content>${teacher.position}<#else>Должность</#if>></p>
         </div>
 
     </div>
@@ -75,7 +74,7 @@
 
         </div>
         <div class="col-9">
-            <p><#if teacher.position?has_content>${teacher.position}<#else>Должность</#if>></p>
+            <p><#if teacher.position?has_content>${teacher.position}<#else>Должность</#if></p>
         </div>
 
     </div>
