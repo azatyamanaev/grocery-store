@@ -32,17 +32,19 @@ public class AppProfileController {
                 .getAuthentication()
                 .getPrincipal();
         model.addAttribute("user", user);
+        if (user.getId().equals(id))
+            return "redirect:/profile";
         try {
             //TODO: передать третьим параметром User и создавать view относительно того, кто запросил
             switch (profileService.getUserById(id, model)) {
                 case ADMIN:
-                    return ("redirect:/admin");
+                    return "redirect:/admin";
                 case COMPANY:
-                    return ("companyProfile");
+                    return "companyProfile";
                 case STUDENT:
-                    return ("studentProfile");
+                    return "studentProfile";
                 case TEACHER:
-                    return ("teacherProfile");
+                    return "teacherProfile";
                 default:
                     break;
             }
@@ -52,6 +54,34 @@ public class AppProfileController {
         return "";
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/profile")
+    public String getProfile(Model model) {
+        Role role;
+        User user = (User) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+        model.addAttribute("user", user);
+        try {
+            //TODO: передать третьим параметром User и создавать view относительно того, кто запросил
+            switch (profileService.getUserById(user.getId(), model)) {
+                case ADMIN:
+                    return "redirect:/admin";
+                case COMPANY:
+                    return "companyProfile";
+                case STUDENT:
+                    return "studentProfile";
+                case TEACHER:
+                    return "teacherProfile";
+                default:
+                    break;
+            }
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Unknown role for ID: " + user.getId());
+        }
+        return "";
+    }
     @PostMapping("/delete/{id}")
     @PreAuthorize("isAuthenticated()")
     public String deleteProfile(@PathVariable("id") Long id) {

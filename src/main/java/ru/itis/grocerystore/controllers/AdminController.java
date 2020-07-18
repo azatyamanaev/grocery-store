@@ -17,13 +17,13 @@ public class AdminController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin")
     public String getAdminPage() {
-        return "adminPage";
+        return "adminPanel";
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/admin")
     public String createCompany(CompanyDto companyDto) {
         adminService.createCompany(companyDto);
-        return "adminPage";
+        return "adminPanel";
     }
 }

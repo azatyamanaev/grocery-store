@@ -1,3 +1,4 @@
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
         src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -19,7 +20,7 @@
                 students.innerHTML = "";
                 for (let i = 0; i < response.responseJSON.length; i++) {
                     students.innerHTML +="<div class=\"col-6\" style=\"text-align:left;\">\n" +
-                        response.responseJSON[i].name + response.responseJSON[i].lastName +
+                        response.responseJSON[i].name + " " +response.responseJSON[i].lastName +
                         "            <p> 2 курс\n";
                     for(let j = 0; j < response.responseJSON[i].skills.length; j++)
                         students.innerHTML += "<p> <button type=\"button\" class=\"btn btn-outline-dark\" style=\"margin-right:10px;\">"+ response.responseJSON[i].skills[j].skill   + "</button>\n";

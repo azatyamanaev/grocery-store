@@ -26,9 +26,9 @@
         <div class="header">
 
 
-            <button type="button" class="btn btn-light">Главная</button>
-            <button type="button" class="btn btn-light">Мой профиль</button>
-            <button type="button" class="btn btn-light">Найти студента</button>
+            <button type="button" class="btn btn-light" ><a href="/">Главная</a></button>
+            <button type="button" class="btn btn-light" ><a href="/profile">Мой профиль</a></button>
+            <button type="button" class="btn btn-light"><a href="/search">Найти студента</a></button>
             <button type="button" class="btn btn-light">События компании</button>
             <button type="button" class="btn btn-light">Лента событий</button>
 
