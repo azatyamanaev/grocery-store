@@ -12,7 +12,7 @@
                 <button type="button" onclick="location.href='/editStudent/${student.id}'" class="btn btn-light">
                     Изменить профиль
                 </button>
-                <button type="button" onclick="location.href='/changePassword/${student.id}'"class="btn btn-light">
+                <button type="button" onclick="location.href='/changePassword/${student.id}'" class="btn btn-light">
                     Изменить пароль
                 </button>
                 <button type="button" onclick="location.href='/delete/${student.id}'" class="btn btn-light">
@@ -39,7 +39,8 @@
 
         <div class="row" style="margin-top:60px;">
             <div class="col-3">
-                <img src="<#if user.image?has_content>${user.image}<#else>src/img/icons8-test-account-96.png</#if>" width="150"
+                <img src="<#if user.image?has_content>${user.image}<#else>src/img/icons8-test-account-96.png</#if>"
+                     width="150"
                      height="150"><!-- фото или базовое фото  -->
 
 
@@ -224,9 +225,32 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                Мы отправили студенту на почту ваше приглашение. В скором времени он свяжется с вами!
-                            </div>
+                            <form class="form" method="post" action="/api/inviteStudent">
+                                <div class="form-group">
+                                    <p><label for="message">Дополнительная информация</label></p>
+                                    <textarea cols="40" rows="5" name="message"
+                                              placeholder="Введите дополнительную информацию о работе"> </textarea>
+                                </div>
+                                <div class="form-group">
+                                <label for="type">Тип работы</label>
+                                <select name="type">
+                                    <option disabled>Выберите тип работы</option>
+                                    <option value="INTERNSHIP">Стажировка</option>
+                                    <option value="FULL">Полная занятость</option>
+                                    <option value="PART">Частичная занятость</option>
+                                </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="start">Start date:</label>
+                                    <input type="date"  name="start"
+                                           value="2020-07-19"
+                                           min="2020-01-19" max="2022-12-31">
+                                </div>
+                                <button type="submit" class="btn btn-light">Отправить</button>
+                            </form>
+                            <#--                            <div class="modal-body">-->
+                            <#--                                Мы отправили студенту на почту ваше приглашение. В скором времени он свяжется с вами!-->
+                            <#--                            </div>-->
                             <!-- <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                               <button type="button" class="btn btn-primary">Save changes</button>

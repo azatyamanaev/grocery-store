@@ -10,6 +10,7 @@ import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import ru.itis.grocerystore.models.FtlEnum;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 @Service
@@ -36,7 +37,21 @@ public class MessageConvertorServiceImpl implements MessageConvertorService {
         } catch (IOException | TemplateException e) {
             throw new IllegalArgumentException(e);
         }
-
         return html;
     }
+
+    @Override
+    public String inviteToFtl(Map<String, String> map) {
+        freemarkerConfig.setClassForTemplateLoading(this.getClass(), "/templates/");
+        Template t;
+        String html;
+        try {
+            t = freemarkerConfig.getTemplate("invite.ftl", "UTF-8");
+            html = FreeMarkerTemplateUtils.processTemplateIntoString(t, map);
+        } catch (IOException | TemplateException e) {
+            throw new IllegalArgumentException(e);
+        }
+        return html;
+    }
+
 }
