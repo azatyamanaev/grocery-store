@@ -1,0 +1,99 @@
+.navbar {
+    background: #0029f9;
+}
+
+.nav-link, .navbar-brand {
+    color: #f4f4f4;
+    cursor: pointer;
+}
+
+.nav-link {
+    margin-right: 1em !important;
+}
+
+.nav-link:hover {
+    background: #f4f4f4;
+    color: #0029f9;
+}
+
+.navbar-collapse {
+    justify-content: flex-end;
+}
+
+.navbar-toggler {
+    background: #fff !important;
+}
+
+.navbar-collapse {
+    justify-content: flex-end;
+}
+
+.bg-primary {
+    background-color: #007bff !important
+}
+
+.header {
+    //background-image: url("/images/office_buildings.jpg");
+    background-size: cover;
+    -moz-background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.header2 {
+    background-size: cover;
+    -moz-background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.overlay {
+    position: absolute;
+    min-height: 100%;
+    min-width: 100%;
+    left: 0;
+    top: 0;
+    background: rgba(244, 244, 244, 0.79);
+}
+
+.description {
+    position: relative;
+    top: 35%;
+    margin-left: 35%;
+    padding: 2em;
+}
+
+.description h1 {
+    color: #0029f9;
+}
+
+.description p {
+    color: #666;
+    font-size: 20px;
+    width: 50%;
+    line-height: 1.5;
+}
+
+.description button {
+    border: 1px solid #0029f9;
+    background: #0029f9;
+    color: #fff;
+}
+
+.user-info {
+    position: relative;
+    top: 30%;
+    margin: auto;
+    padding: 2em;
+}
+
+.events {
+    margin-top: 5%;
+    position: relative ;
+    top: 30%;
+    margin-left: auto;
+    margin-bottom: auto;
+    margin-right: auto;
+    padding: 2em;
+}
+

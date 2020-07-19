@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -32,6 +33,8 @@ public class User implements UserDetails {
     @OneToOne(mappedBy = "user")
     protected Image image;
     protected String confirmCode;
+    @OneToMany(mappedBy = "user")
+    private List<Event> eventList;
     @Transient
     protected Token currentToken;
     private User(UserBuilder builder) {
@@ -43,6 +46,8 @@ public class User implements UserDetails {
         this.role = builder.role;
         this.state = builder.state;
         this.confirmCode = builder.confirmCode;
+        this.currentToken = builder.currentToken;
+        this.eventList = builder.eventList;
     }
 
     @Override
@@ -90,6 +95,7 @@ public class User implements UserDetails {
         protected Image image;
         protected String confirmCode;
         protected Token currentToken;
+        protected List<Event> eventList;
 
         public UserBuilder id(Long id) {
             this.id = id;
@@ -139,6 +145,12 @@ public class User implements UserDetails {
             this.currentToken = currentToken;
             return this;
         }
+
+        public UserBuilder eventList(List<Event> eventList) {
+            this.eventList = eventList;
+            return this;
+        }
+
         public User build() {
             return new User(this);
         }

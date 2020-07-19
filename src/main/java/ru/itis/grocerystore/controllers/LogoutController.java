@@ -16,7 +16,8 @@ public class LogoutController {
     @GetMapping("/logout")
     @PreAuthorize("isAuthenticated()")
 
-    public void logout(@RequestHeader("Authorization") String auth) {
+    public String logout(@RequestHeader("Authorization") String auth) {
         authService.logout(auth);
+        return "/";
     }
 }

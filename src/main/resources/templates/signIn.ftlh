@@ -1,56 +1,42 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="../css/auth.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <title>Вход</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/auth.css">
+    <title>Document</title>
 </head>
 <body>
-<header>
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
 
-</header>
-<div class="main_info">
-    <div class="border border-primary">
-    <div>
-        <h3>
-            Вход
-        </h3>
-        <form class="form" method="POST" action="signIn">
-            <div class="form-group">
-                <label for="login">Логин</label>
-                <input name="login" placeholder="Введите свой логин">
-            </div>
-            <div class="form-group">
-                <label for="password">Пароль</label>
-                <input type="password" name="password" placeholder="Введите свой пароль">
-            </div>
-            <div class="form-check">
-                <input type="checkbox"  id="exampleCheck1">
-                <label for="exampleCheck1">Запомнить меня</label>
-            </div>
-            <button type="submit" name="signIn" id="signIn" class="btn btn-primary">Войти</button>
-        </form>
-    </div>
-    <#if message??>
-        <div class="alert">
-            <div class="alert alert-danger" role="alert">
-                ${message}
-            </div>
+        <div class="text-primary-fau fadeIn first">
+            Sign In
         </div>
-    </#if>
-    <nav>
-        <a href="/resetPassword">
-            Забыли пароль?
-        </a>
-        <a href="/signUp">
-            Ещё нет аккаунта?
-        </a>
-    </nav>
+
+        <!-- Login Form -->
+        <form method="post" action="/signIn">
+            <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
+            <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
+            <input type="submit" class="fadeIn fourth" value="Sign In">
+        </form>
+        <div class="form-check">
+            <input type="checkbox" id="exampleCheck1" class="fadeIn fifth">
+            <label for="exampleCheck1" class="fadeIn fifth">Запомнить меня</label>
+        </div>
+
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            <a class="underlineHover" href="/signUp">Don't have an account?</a>
+        </div>
+
+    </div>
 </div>
-</div>
-<footer>
-    MRPT team, Kazan, 2020
-</footer>
 </body>
 </html>

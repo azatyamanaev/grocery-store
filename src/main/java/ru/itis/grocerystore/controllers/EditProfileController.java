@@ -17,8 +17,8 @@ public class EditProfileController {
     @Autowired
     private ProfileService profileService;
 
-    @GetMapping("/edit/{id}")
-    public String getEditPage(@PathVariable("id") Long id, Model model) {
+    @GetMapping("/edit")
+    public String getEditPage(Model model) {
         Role role;
         User user = (User) SecurityContextHolder
                 .getContext()
@@ -27,7 +27,7 @@ public class EditProfileController {
         model.addAttribute("user", user);
         try {
             //TODO: передать третьим параметром User и создавать view относительно того, кто запросил
-            switch (profileService.getUserById(id, model)) {
+            switch (profileService.getUserById(user.getId(), model)) {
                 case COMPANY:
                     return ("editCompanyProfile");
                 case STUDENT:
@@ -38,7 +38,7 @@ public class EditProfileController {
                     break;
             }
         } catch (Exception e) {
-            throw new IllegalArgumentException("Unknown role for ID: " + id);
+            throw new IllegalArgumentException("Unknown role for ID: " + user.getId());
         }
         return "";
     }

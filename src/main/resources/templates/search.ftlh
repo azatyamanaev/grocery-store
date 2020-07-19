@@ -68,7 +68,7 @@
 <#--<#list students! as student>-->
 <#--    <div class="row" style="background-color:#C0C0C0">-->
 <#--        <div class="col-3" style="padding:25px;">-->
-<#--            <img src="/img/cop.jpg" width="100" height="100">-->
+<#--            <img src="/img/bg.jpg" width="100" height="100">-->
 <#--        </div>-->
 <#--        <div class="col-6" style="text-align:left;">-->
 <#--            <#if student.lastName?has_content>${student.lastName}<#else>Фамилия</#if>-->

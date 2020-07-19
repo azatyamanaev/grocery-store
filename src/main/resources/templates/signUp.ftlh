@@ -1,61 +1,41 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="../css/auth.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <title>Регистрация</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/auth.css">
+    <title>Document</title>
 </head>
 <body>
-<header>
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
 
-</header>
-<div class="main_info">
-    <div class="border border-primary">
-    <div>
-        <h3>
-            Регистрация
-        </h3>
-        <form class="form" method="POST" action="signUp">
-            <div class="form-group">
-                <label for="email">Почта</label>
-                <input name="email" placeholder="Введите свою электронную почту">
-            </div>
-            <div class="form-group">
-                <label for="login">Логин</label>
-                <input name="login" placeholder="Введите свой логин">
-            </div>
-            <div class="form-group">
-                <label for="password">Пароль</label>
-                <input type="password" name="password" placeholder="Введите свой пароль">
-            </div>
-            <div class="form-group">
-                <label for="password2">Подтвердите пароль</label>
-                <input type="password" name="password2" placeholder="Введите свой пароль ещё раз">
-            </div>
-            <div class="form-group">
-                <label for="role">Роль</label>
-                <input name="role" placeholder="Введите свою роль">
-            </div>
-            <button type="submit" name="signUp" id="signUp" class="btn btn-primary">Зарегистрироваться</button>
-        </form>
-    </div>
-    <#if message??>
-        <div class="alert">
-            <div class="alert alert-danger" role="alert">
-                ${message}
-            </div>
+        <div class="text-primary-fau">
+            Registration
         </div>
-    </#if>
-    <nav>
-        <a href="/signIn">
-            Уже есть аккаунт?
-        </a>
-    </nav>
+
+        <!-- Login Form -->
+        <form method="post" action="/signUp">
+            <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
+            <input type="email" id="email" name="email" class="fadeIn third" placeholder="email">
+            <input type="password" id="password" class="fadeIn fourth" name="password" placeholder="password">
+            <input type="password" id="repeatPassword" class="fadeIn fifth" name="repeatPassword" placeholder="repeat password">
+            <input type="text" id="role" class="fadeIn sixth" name="role" placeholder="role">
+            <input type="submit" class="fadeIn seventh" value="Sign Up">
+        </form>
+
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            <a class="underlineHover" href="/signIn">Already have an account?</a>
+        </div>
+
+    </div>
 </div>
-</div>
-<footer>
-    MRPT team, Kazan, 2020
-</footer>
 </body>
 </html>

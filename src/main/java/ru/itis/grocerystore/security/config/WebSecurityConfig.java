@@ -65,5 +65,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().disable();
         http.addFilterBefore(new JwtAuthenticationFilter(), BasicAuthenticationFilter.class);
         http.authorizeRequests().antMatchers("/").permitAll();
+
+        http.logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/signIn");
     }
 }
