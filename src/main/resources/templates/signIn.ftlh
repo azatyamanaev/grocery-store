@@ -2,7 +2,6 @@
 <html lang="ru">
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="../css/auth.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Вход</title>
 </head>
@@ -37,6 +36,7 @@
                 <input type="checkbox"  id="exampleCheck1">
                 <label for="exampleCheck1">Запомнить меня</label>
             </div>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             <button type="submit" name="signIn" id="signIn" class="btn btn-primary">Войти</button>
         </form>
     </div>

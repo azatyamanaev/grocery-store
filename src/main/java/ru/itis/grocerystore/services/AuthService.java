@@ -7,5 +7,4 @@ import java.util.Optional;
 
 public interface AuthService {
     Optional<UserDto> signIn(SignInDto signInDto);
-    void logout(String auth);
 }

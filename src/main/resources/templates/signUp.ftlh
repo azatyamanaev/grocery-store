@@ -39,6 +39,7 @@
                 <input type="password" name="password2" placeholder="Введите свой пароль ещё раз">
             </div>
             <button type="submit" name="signUp" id="signUp" class="btn btn-primary">Зарегистрироваться</button>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
         </form>
     </div>
     <#if message??>

@@ -12,6 +12,7 @@
                 </button>
             </#if>
             <#if user.id == company.id>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                 <button type="button" onclick="location.href='/editCompany/${company.id}'" class="btn btn-light">
                     Изменить профиль
                 </button>

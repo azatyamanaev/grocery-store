@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.grocerystore.models.*;
+import ru.itis.grocerystore.security.jwt.details.UserDetailsImpl;
 import ru.itis.grocerystore.services.ProfileService;
 import ru.itis.grocerystore.services.UsersService;
 
@@ -20,11 +21,11 @@ public class EditProfileController {
     @GetMapping("/edit/{id}")
     public String getEditPage(@PathVariable("id") Long id, Model model) {
         Role role;
-        User user = (User) SecurityContextHolder
+        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getPrincipal();
-        model.addAttribute("user", user);
+        model.addAttribute("user", userDetails.getUser());
         try {
             //TODO: передать третьим параметром User и создавать view относительно того, кто запросил
             switch (profileService.getUserById(id, model)) {
@@ -83,11 +84,11 @@ public class EditProfileController {
     @PostMapping("/createNewPassword/{id}")
     public String changePassword(@PathVariable("id") Long id, @RequestParam String password) {
         Role role;
-        User user = (User) SecurityContextHolder
+        UserDetailsImpl user = (UserDetailsImpl) SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getPrincipal();
-        usersService.updateUser(user);
+        usersService.updateUser(user.getUser());
         return "redirect:/profile";
     }
 

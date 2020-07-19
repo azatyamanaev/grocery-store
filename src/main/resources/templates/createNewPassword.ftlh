@@ -13,6 +13,7 @@
 <div class="main_info">
 <div class="border border-primary">
     <form class="form" method="post" action="createNewPassword">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
         <div class="form-group">
             <label for="inputPassword">Новый Пароль</label>
             <input type="password" name="inputPassword" placeholder="Введите новый пароль">

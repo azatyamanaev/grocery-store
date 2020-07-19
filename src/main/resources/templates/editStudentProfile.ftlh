@@ -66,6 +66,7 @@
         <!--
                 <p> Иван Иванов -->
         <form>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             <div class="row" style="margin-top:60px;">
                 <div class="col-3">
                     <label for="photo">Photo</label>
@@ -77,7 +78,7 @@
                     <label for="firstName">Имя</label>
                     <input type="text" class="form-control" id="firstName" placeholder="" value="${user.name}" required>
                     <label for="lastName">Фамилия</label>
-                    <input type="text" class="form-control" id="lastName" placeholder="" value="${user.lastname}"
+                    <input type="text" class="form-control" id="lastName" placeholder="" value="${user.lastName}"
                            required>
                     <label for="fatherName">Отчество</label>
                     <input type="text" class="form-control" id="fatherName" placeholder="" value="${user.patronymic}"

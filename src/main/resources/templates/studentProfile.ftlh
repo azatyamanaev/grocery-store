@@ -9,6 +9,7 @@
                 <button type="button" class="btn btn-light">
                     Скачать печатный вариант
                 </button>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                 <button type="button" onclick="location.href='/editStudent/${student.id}'" class="btn btn-light">
                     Изменить профиль
                 </button>
@@ -39,7 +40,7 @@
 
         <div class="row" style="margin-top:60px;">
             <div class="col-3">
-                <img src="<#if user.image?has_content>${user.image}<#else>src/img/icons8-test-account-96.png</#if>"
+                <img  src="<#if user.image?has_content>${user.image}<#else>/src/img/icons8-test-account-96.png</#if>"
                      width="150"
                      height="150"><!-- фото или базовое фото  -->
 
@@ -226,6 +227,7 @@
                                 </button>
                             </div>
                             <form class="form" method="post" action="/api/inviteStudent">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                                 <div class="form-group">
                                     <p><label for="message">Дополнительная информация</label></p>
                                     <textarea cols="40" rows="5" name="message"

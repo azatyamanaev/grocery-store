@@ -66,6 +66,7 @@
         <!--
                 <p> Иван Иванов -->
         <form>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             <div class="row" style="margin-top:60px;">
                 <div class="col-3">
                     <label for="photo">Photo</label>
