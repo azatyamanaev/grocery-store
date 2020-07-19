@@ -1,25 +1,28 @@
 package ru.itis.grocerystore.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 import ru.itis.grocerystore.dto.InviteDto;
-import ru.itis.grocerystore.models.User;
+import ru.itis.grocerystore.security.jwt.details.UserDetailsImpl;
 import ru.itis.grocerystore.services.InviteStudentService;
 
 import javax.servlet.http.HttpServletRequest;
 
-@RestController
+@Controller
 public class InviteStudentController {
     @Autowired
     private InviteStudentService inviteStudentService;
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/api/inviteStudent")
-    public ResponseEntity<?> inviteStudent(@AuthenticationPrincipal User user, InviteDto inviteDto, HttpServletRequest servletRequest) {
-        inviteStudentService.inviteStudent(inviteDto, user, servletRequest.getHeader("referer"));
-        return ResponseEntity.ok().body("Complete");
+    public String inviteStudent(@AuthenticationPrincipal UserDetailsImpl user, InviteDto inviteDto, HttpServletRequest servletRequest) {
+        String referer = servletRequest.getHeader("referer");
+        inviteStudentService.inviteStudent(inviteDto, user.getUser(), referer);
+        return "redirect:/profile/" + referer.substring(referer.lastIndexOf("/") + 1);
     }
+
+
 }
