@@ -6,7 +6,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import ru.itis.grocerystore.models.User;
 import ru.itis.grocerystore.services.EventsService;
 
 @Controller
@@ -18,7 +17,6 @@ public class EventsController {
 
     @GetMapping("/events")
     public String getEventsPage(Model model, Authentication authentication) {
-        User user = (User) authentication.getPrincipal();
         model.addAttribute("events", eventsService.getAllEvents());
         return "events";
     }

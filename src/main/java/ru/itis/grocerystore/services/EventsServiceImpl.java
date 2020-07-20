@@ -6,7 +6,6 @@ import ru.itis.grocerystore.models.Event;
 import ru.itis.grocerystore.repositories.EventsRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EventsServiceImpl implements EventsService {

@@ -1,7 +1,6 @@
 package ru.itis.grocerystore.services;
 
 import org.springframework.ui.Model;
-import org.springframework.web.servlet.ModelAndView;
 import ru.itis.grocerystore.models.Role;
 import ru.itis.grocerystore.models.User;
 

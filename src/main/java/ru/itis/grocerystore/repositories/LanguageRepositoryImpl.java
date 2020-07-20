@@ -2,7 +2,6 @@ package ru.itis.grocerystore.repositories;
 
 import org.springframework.stereotype.Repository;
 import ru.itis.grocerystore.models.Language;
-import ru.itis.grocerystore.models.Student;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

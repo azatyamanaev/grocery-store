@@ -1,7 +1,6 @@
 package ru.itis.grocerystore.repositories;
 
 import org.springframework.stereotype.Repository;
-import ru.itis.grocerystore.models.Image;
 import ru.itis.grocerystore.models.Teacher;
 
 import javax.persistence.EntityManager;

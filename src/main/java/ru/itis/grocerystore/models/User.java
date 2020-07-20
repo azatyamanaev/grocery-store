@@ -1,16 +1,10 @@
 package ru.itis.grocerystore.models;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 @Data
@@ -18,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class User implements UserDetails {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
@@ -35,8 +29,7 @@ public class User implements UserDetails {
     protected String confirmCode;
     @OneToMany(mappedBy = "user")
     private List<Event> eventList;
-    @Transient
-    protected Token currentToken;
+
     private User(UserBuilder builder) {
         this.id = builder.id;
         this.login = builder.login;
@@ -46,43 +39,9 @@ public class User implements UserDetails {
         this.role = builder.role;
         this.state = builder.state;
         this.confirmCode = builder.confirmCode;
-        this.currentToken = builder.currentToken;
         this.eventList = builder.eventList;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(getRole().toString());
-        return Collections.singleton(simpleGrantedAuthority);
-    }
-
-    @Override
-    public String getUsername() {
-        return login;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return getState() == State.CONFIRMED;
-    }
-    public Token getCurrentToken() {
-        return currentToken;
-    }
 
     public static class UserBuilder {
         protected Long id;
@@ -94,7 +53,6 @@ public class User implements UserDetails {
         protected State state;
         protected Image image;
         protected String confirmCode;
-        protected Token currentToken;
         protected List<Event> eventList;
 
         public UserBuilder id(Long id) {
@@ -139,10 +97,6 @@ public class User implements UserDetails {
 
         public UserBuilder confirmCode(String confirmCode) {
             this.confirmCode = confirmCode;
-            return this;
-        }
-        public UserBuilder currentToken(Token currentToken) {
-            this.currentToken = currentToken;
             return this;
         }
 

@@ -40,8 +40,9 @@
         });
             }
 </script>
-<link rel="stylesheet" href="/css/style.css">
+
 <form id="search" action="/search" method="POST">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     <table id="filters">
         <tr id="languages">
             <td>Languages</td>

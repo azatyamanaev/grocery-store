@@ -1,12 +1,10 @@
 package ru.itis.grocerystore.models;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Entity;
 
 @Data
 @NoArgsConstructor
@@ -49,7 +47,6 @@ public class Company extends User {
         private String additionalInformation;
         private Image image;
         private String confirmCode;
-        protected Token currentToken;
 
         public Builder id(Long id) {
             this.id = id;
@@ -113,10 +110,6 @@ public class Company extends User {
 
         public Builder confirmCode(String confirmCode) {
             this.confirmCode = confirmCode;
-            return this;
-        }
-        public UserBuilder currentToken(Token currentToken) {
-            this.currentToken = currentToken;
             return this;
         }
         public Company build() {

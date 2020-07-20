@@ -6,10 +6,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import ru.itis.grocerystore.dto.PasswordDto;
 import ru.itis.grocerystore.dto.UserDto;
-import ru.itis.grocerystore.models.User;
+import ru.itis.grocerystore.security.jwt.details.UserDetailsImpl;
 import ru.itis.grocerystore.services.ChangePasswordService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -52,11 +55,12 @@ public class ResetPasswordController {
     @PostMapping("/user/savePassword")
     @ResponseBody
     public GenericResponse savePassword(Locale locale, PasswordDto passwordDto) {
-        User user =
-                (User) SecurityContextHolder.getContext()
-                        .getAuthentication().getPrincipal();
+        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
 
-        changePasswordService.changeUserPassword(user, passwordDto.getNewPassword());
+        changePasswordService.changeUserPassword(userDetails.getUser(), passwordDto.getNewPassword());
         return new GenericResponse(
                 messages.getMessage("message.resetPasswordSuc", null, locale));
     }

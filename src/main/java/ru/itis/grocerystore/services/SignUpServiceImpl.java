@@ -1,7 +1,6 @@
 package ru.itis.grocerystore.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itis.grocerystore.dto.SignUpDto;
@@ -39,19 +38,25 @@ public class SignUpServiceImpl implements SignUpService {
     public UserDto signUp(SignUpDto form) {
         if (usersRepository.findByEmail(form.getEmail()).isPresent())
             return null;
+        String emailEnding;
+        if (form.getRole().equals(Role.STUDENT))
+            emailEnding = "@stud.kpfu.ru";
+        else
+            emailEnding = "@stud.ru";
+
         User user = User.builder()
-                .email(form.getEmail())
+                .email(form.getEmail() + emailEnding)
                 .login(form.getLogin())
                 .password(passwordEncoder.encode(form.getPassword()))
                 .state(State.NOT_CONFIRMED)
                 .confirmCode(UUID.randomUUID().toString())
                 .role(form.getRole())
                 .build();
-
+        System.out.println(form);
         if (form.getRole().equals(Role.STUDENT))
         {
             Student student = Student.builder()
-                    .email(form.getEmail())
+                    .email(user.getEmail())
                     .login(form.getLogin())
                     .password(passwordEncoder.encode(form.getPassword()))
                     .state(State.NOT_CONFIRMED)
@@ -63,7 +68,7 @@ public class SignUpServiceImpl implements SignUpService {
         else if (form.getRole().equals(Role.TEACHER))
         {
             Teacher teacher = Teacher.builder()
-                    .email(form.getEmail())
+                    .email(user.getEmail())
                     .login(form.getLogin())
                     .password(passwordEncoder.encode(form.getPassword()))
                     .state(State.NOT_CONFIRMED)

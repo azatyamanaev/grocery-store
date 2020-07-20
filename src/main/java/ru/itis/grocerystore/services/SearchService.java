@@ -3,7 +3,6 @@ package ru.itis.grocerystore.services;
 import org.springframework.ui.Model;
 import ru.itis.grocerystore.dto.FilterDto;
 import ru.itis.grocerystore.dto.StudentSearchDto;
-import ru.itis.grocerystore.models.Student;
 
 import java.util.List;
 

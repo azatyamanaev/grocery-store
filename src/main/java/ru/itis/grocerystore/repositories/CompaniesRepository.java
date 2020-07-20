@@ -1,8 +1,6 @@
 package ru.itis.grocerystore.repositories;
 
 import ru.itis.grocerystore.models.Company;
-import ru.itis.grocerystore.models.Image;
-import ru.itis.grocerystore.models.User;
 
 import java.util.Optional;
 

@@ -5,7 +5,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.itis.grocerystore.models.*;
+import ru.itis.grocerystore.models.Company;
+import ru.itis.grocerystore.models.Role;
+import ru.itis.grocerystore.models.Student;
+import ru.itis.grocerystore.models.Teacher;
+import ru.itis.grocerystore.security.jwt.details.UserDetailsImpl;
 import ru.itis.grocerystore.services.ProfileService;
 import ru.itis.grocerystore.services.UsersService;
 
@@ -20,14 +24,14 @@ public class EditProfileController {
     @GetMapping("/edit")
     public String getEditPage(Model model) {
         Role role;
-        User user = (User) SecurityContextHolder
+        UserDetailsImpl user = (UserDetailsImpl) SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getPrincipal();
         model.addAttribute("user", user);
         try {
             //TODO: передать третьим параметром User и создавать view относительно того, кто запросил
-            switch (profileService.getUserById(user.getId(), model)) {
+            switch (profileService.getUserById(user.getUser().getId(), model)) {
                 case COMPANY:
                     return ("editCompanyProfile");
                 case STUDENT:
@@ -38,7 +42,7 @@ public class EditProfileController {
                     break;
             }
         } catch (Exception e) {
-            throw new IllegalArgumentException("Unknown role for ID: " + user.getId());
+            throw new IllegalArgumentException("Unknown role for ID: " + user.getUser().getId());
         }
         return "";
     }
@@ -83,11 +87,11 @@ public class EditProfileController {
     @PostMapping("/createNewPassword/{id}")
     public String changePassword(@PathVariable("id") Long id, @RequestParam String password) {
         Role role;
-        User user = (User) SecurityContextHolder
+        UserDetailsImpl user = (UserDetailsImpl) SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getPrincipal();
-        usersService.updateUser(user);
+        usersService.updateUser(user.getUser());
         return "redirect:/profile";
     }
 

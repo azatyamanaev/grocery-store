@@ -73,6 +73,7 @@
 
 
                 </div>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                 <div class="col-9">
                     <label for="firstName">Имя</label>
                     <input type="text" class="form-control" id="firstName" placeholder="" value="${user.name}" required>

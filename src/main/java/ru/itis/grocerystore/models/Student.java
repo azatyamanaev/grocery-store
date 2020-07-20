@@ -1,12 +1,11 @@
 package ru.itis.grocerystore.models;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Where;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.Date;
 import java.util.List;
 
@@ -106,7 +105,6 @@ public class Student extends User {
         private Boolean workSearching = true;
         private List<RecommendationLetter> recommendationLetters;
         private String confirmCode;
-        protected Token currentToken;
 
         public Builder id(Long id) {
             this.id = id;
@@ -255,10 +253,6 @@ public class Student extends User {
 
         public Builder confirmCode(String confirmCode) {
             this.confirmCode = confirmCode;
-            return this;
-        }
-        public Builder currentToken(Token currentToken) {
-            this.currentToken = currentToken;
             return this;
         }
         public Student build() {

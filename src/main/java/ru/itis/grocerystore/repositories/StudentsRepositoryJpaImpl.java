@@ -1,14 +1,12 @@
 package ru.itis.grocerystore.repositories;
 
 import org.springframework.stereotype.Repository;
-import ru.itis.grocerystore.models.Achievement;
 import ru.itis.grocerystore.models.Language;
 import ru.itis.grocerystore.models.Skill;
 import ru.itis.grocerystore.models.Student;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;

@@ -1,42 +1,5 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <title>Profile</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/profile.css">
-</head>
-
-<body>
-<hr>
-<nav class="navbar navbar-expand-lg fixed-top ">
-    <div class="navbar-brand" ><img src="/images/logo.png" alt=""/></div>
-    <a class="navbar-brand" href="/">Grocery Store</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse " id="navbarSupportedContent">
-        <ul class="navbar-nav mr-4">
-            <li class="nav-item">
-                <a class="nav-link" href="/profile">Profile</a></li>
-            <li class="nav-item">
-                <a class="nav-link " href="/events">Events</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " href="/edit"></a></li>
-        </ul>
-    </div>
-</nav>
+<#import "header.ftlh" as c/>
+<@c.page title="Компании">
 <div class="container emp-profile">
     <form method="post">
         <div class="row">
@@ -84,6 +47,13 @@
                     </ul>
                 </div>
             </div>
+            <#if user.role == "COMPANY" || user.role == "TEACHER">
+            <div class="col-md-2">
+                <button type="button" class="profile-edit-btn" name="btnAddMore" data-toggle="modal"
+                        data-target="#myModal">Invite to work
+                </button>
+            </div>
+            </#if>
         </div>
         <div class="row">
             <div class="col-md-2">
@@ -305,6 +275,61 @@
             </div>
         </div>
     </form>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p>Invite to work</p>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <!-- h4 class="modal-title">Modal Header</h4 -->
+                </div>
+                <div class="modal-body">
+
+                    <!-- card -->
+                    <article class="card">
+                        <div class="card-body p-5">
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="nav-tab-card">
+                                    <form class="form" method="post" action="/api/inviteStudent">
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                                        <div class="form-group">
+                                            <label for="message">Info</label>
+                                            <textarea class="form-control" name="message" placeholder="Enter additional information about the job" required=""> </textarea>
+                                        </div> <!-- form-group.// -->
+                                        <div class="form-group">
+                                            <label for="type">Type of job</label>
+                                            <select name="type" class="form-control">
+                                                <option disabled>Выберите тип работы</option>
+                                                <option value="INTERNSHIP">Internship</option>
+                                                <option value="FULL">Full time</option>
+                                                <option value="PART">Part time</option>
+                                            </select>
+                                        </div> <!-- form-group.// -->
+
+                                        <div class="form-group">
+                                            <label for="start">Start date:</label>
+                                            <input type="date"  name="start" class="form-control"
+                                                   value="2020-07-19"
+                                                   min="2020-01-19" max="2022-12-31">
+                                        </div> <!-- form-group.// -->
+
+                                        <button class="subscribe btn btn-primary btn-block" type="submit"> Confirm </button>
+                                    </form>
+                                </div> <!-- tab-pane.// -->
+                            </div> <!-- tab-content .// -->
+
+                        </div> <!-- card-body.// -->
+                    </article> <!-- card.// -->
+
+
+                </div>
+
+            </div>
+
+        </div>
+    </div><!-- Modal -->
 </div>
-</body>
-</html>
+</@c.page>

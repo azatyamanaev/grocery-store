@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.itis.grocerystore.dto.FilterDto;
 import ru.itis.grocerystore.dto.StudentSearchDto;
-import ru.itis.grocerystore.models.Language;
-import ru.itis.grocerystore.models.Student;
 import ru.itis.grocerystore.services.SearchService;
 
 import java.util.List;

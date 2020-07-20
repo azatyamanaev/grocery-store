@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.itis.grocerystore.models.User;
+import ru.itis.grocerystore.security.jwt.details.UserDetailsImpl;
 import ru.itis.grocerystore.services.EventsService;
 
 @Controller
@@ -19,8 +19,8 @@ public class EventPageController {
 
     @GetMapping("/event")
     public String getEventPage(@RequestParam("event_name") String name, Model model, Authentication authentication) {
-        User user = (User) authentication.getPrincipal();
-        model.addAttribute("login", user.getLogin());
+        UserDetailsImpl user = (UserDetailsImpl) authentication.getPrincipal();
+        model.addAttribute("login", user.getUser().getLogin());
         model.addAttribute(eventsService.getEventByName(name));
         return "event";
     }

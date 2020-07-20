@@ -8,7 +8,9 @@ import ru.itis.grocerystore.dto.StudentSearchDto;
 import ru.itis.grocerystore.models.Language;
 import ru.itis.grocerystore.models.Skill;
 import ru.itis.grocerystore.models.Student;
-import ru.itis.grocerystore.repositories.*;
+import ru.itis.grocerystore.repositories.LanguagesRepository;
+import ru.itis.grocerystore.repositories.SkillsRepository;
+import ru.itis.grocerystore.repositories.StudentsRepository;
 
 import java.util.ArrayList;
 import java.util.List;

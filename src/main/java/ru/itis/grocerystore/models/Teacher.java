@@ -1,13 +1,10 @@
 package ru.itis.grocerystore.models;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Where;
 
-import javax.persistence.*;
-import java.io.File;
+import javax.persistence.Entity;
 
 @Data
 @NoArgsConstructor
@@ -49,7 +46,7 @@ public class Teacher extends User {
         private String about;
         private Image image;
         private String confirmCode;
-        protected Token currentToken;
+
 
         public Builder id(Long id) {
             this.id = id;
@@ -115,10 +112,7 @@ public class Teacher extends User {
             this.confirmCode = confirmCode;
             return this;
         }
-        public Builder currentToken(Token currentToken) {
-            this.currentToken = currentToken;
-            return this;
-        }
+
         public Teacher build() {
             return new Teacher(this);
         }
