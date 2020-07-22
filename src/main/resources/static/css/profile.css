@@ -48,8 +48,22 @@ body{
     cursor: pointer;
 }
 
+.profile-edit-btn2{
+    border: none;
+    border-radius: 1.5rem;
+    width: 30%;
+    padding: 2%;
+    font-weight: 600;
+    color: #6c757d;
+    cursor: pointer;
+}
+
 .with-margin {
     margin-top: 5%;
+}
+
+.with-small-margin {
+    margin-top: 3%;
 }
 
 .delete-profile-btn{

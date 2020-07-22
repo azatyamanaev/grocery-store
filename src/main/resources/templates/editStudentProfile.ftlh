@@ -1,36 +1,9 @@
-<html lang="ru">
-
-<head>
-
-
-    <meta charset="utf-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-
-    <!-- Bootstrap CSS -->
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-
-
-</head>
-
-<body>
+<#import "header.ftlh" as c/>
+<@c.page title="Edit company profile">
 
 
 <div class="container-fluid">
-    <div class="header">
 
-
-        <button type="button" class="btn btn-light">Главная</button>
-        <button type="button" class="btn btn-light">Мой профиль</button>
-        <button type="button" class="btn btn-light">Найти студента</button>
-        <button type="button" class="btn btn-light">События компании</button>
-        <button type="button" class="btn btn-light">Лента событий</button>
-
-    </div>
 
     <div class="container">
         <div>
@@ -65,7 +38,7 @@
 
         <!--
                 <p> Иван Иванов -->
-        <form>
+        <form action="/editStudent" method="post">
             <div class="row" style="margin-top:60px;">
                 <div class="col-3">
                     <label for="photo">Photo</label>
@@ -73,16 +46,13 @@
 
 
                 </div>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                 <div class="col-9">
                     <label for="firstName">Имя</label>
-                    <input type="text" class="form-control" id="firstName" placeholder="" value="${user.name}" required>
+                    <input type="text" name="firstName" class="form-control" id="firstName" placeholder="" value="<#if student.name?has_content>${student.name}<#else>name</#if>" required>
                     <label for="lastName">Фамилия</label>
-                    <input type="text" class="form-control" id="lastName" placeholder="" value="${user.lastname}"
-                           required>
+                    <input type="text" name="lastName" class="form-control" id="lastName" placeholder="" value="<#if student.lastName?has_content>${student.lastName}<#else>lastName</#if>">
                     <label for="fatherName">Отчество</label>
-                    <input type="text" class="form-control" id="fatherName" placeholder="" value="${user.patronymic}"
-                           required>
+                    <input type="text" class="form-control" id="fatherName" placeholder="" value="<#if student.patronymic?has_content>${student.patronymic}<#else>patronymic</#if>">
                 </div>
 
             </div>
@@ -119,7 +89,7 @@
 
                 </div>
                 <div class="col-9">
-                    <input type="date" class="form-control" id="birthDate" placeholder="" value="${user.birthDate}">
+                    <input type="date" class="form-control" id="birthDate" placeholder="" value="<#if student.birthDate?has_content>${student.birthDate}</#if>">
                 </div>
 
             </div>
@@ -130,7 +100,7 @@
 
                 </div>
                 <div class="col-9">
-                    <input type="text" class="form-control" id="city" placeholder="" value="${user.city}">
+                    <input type="text" class="form-control" id="city" placeholder="" value="<#if student.city?has_content>${student.city}<#else>city</#if>">
                 </div>
 
             </div>
@@ -163,7 +133,7 @@
 
                 </div>
                 <div class="col-9">
-                    <input type="url" class="form-control" id="gitUrl" placeholder="" value="${user.linkToGit}">
+                    <input type="url" class="form-control" id="gitUrl" placeholder="" value="<#if student.linkToGit?has_content>${student.libnkToGit}</#if>">
                 </div>
 
             </div>
@@ -202,7 +172,7 @@
 
                 </div>
                 <div class="col-9">
-                    <input type="text" class="form-control" id="aboutMe" placeholder="" value="${user.about}">
+                    <input type="text" class="form-control" id="aboutMe" placeholder="" value="<#if student.about?has_content>${student.about}</#if>">
                 </div>
 
             </div>
@@ -214,7 +184,7 @@
 
                 </div>
                 <div class="col-9">
-                    <input value="<#if student.educationalLevel?has_content>${student.educationalLevel}<#else>Образование</#if>">
+                    <input value="<#if student.educationalLevel?has_content>${student.educationalLevel}</#if>">
                 </div>
 
             </div>
@@ -239,25 +209,9 @@
                 </div>
             </div>
 
-            <button type="button" class="btn btn-light" type="submit">Готово</button>
+            <input type="submit" value="Save">
         </form>
     </div>
 
 </div>
-
-
-</div>
-
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"></script>
-
-</body>
-</html>
+</@c.page>

@@ -1,12 +1,10 @@
 package ru.itis.grocerystore.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import ru.itis.grocerystore.models.Company;
-import ru.itis.grocerystore.models.Student;
-import ru.itis.grocerystore.models.Teacher;
-import ru.itis.grocerystore.models.User;
+import ru.itis.grocerystore.models.*;
 import ru.itis.grocerystore.repositories.CompaniesRepository;
 import ru.itis.grocerystore.repositories.StudentsRepository;
 import ru.itis.grocerystore.repositories.TeachersRepository;
@@ -126,5 +124,12 @@ public class UsersServiceImpl implements UsersService {
             default:
                 break;
         }
+    }
+
+    @Override
+    public void changePassowrd(Authentication authentication, String password) {
+        User user = (User) authentication.getPrincipal();
+        user.setPassword(password);
+        usersRepository.update(user);
     }
 }

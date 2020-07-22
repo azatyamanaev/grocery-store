@@ -28,4 +28,9 @@ public class EventsServiceImpl implements EventsService {
     public Event getEventByName(String name) {
         return eventsRepository.findEventByName(name);
     }
+
+    @Override
+    public void createEvent(Event event) {
+        eventsRepository.save(event);
+    }
 }

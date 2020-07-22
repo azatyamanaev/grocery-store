@@ -41,7 +41,8 @@
                 <a class="nav-link " href="/events">Events</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="/users">Users</a></li>
+                <a class="nav-link" href="/signUp">Companies/Teachers</a></li>
+
         </ul>
     </div>
 </nav>

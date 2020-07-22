@@ -3,6 +3,7 @@ package ru.itis.grocerystore.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +15,7 @@ import ru.itis.grocerystore.services.SignUpService;
 import java.util.Optional;
 
 @Controller
+@PreAuthorize("permitAll()")
 public class SignUpController {
     @Autowired
     private SignUpService signUpService;
@@ -28,7 +30,7 @@ public class SignUpController {
     public String signUp(SignUpDto signUpDto, BindingResult result, Model model) {
         if(!(result.hasErrors()))
             if (signUpService.signUp(signUpDto) != null)
-                return "redirect:/signIn";
+                return "redirect:/confirmation";
         model.addAttribute("signUpDto", signUpDto);
         return "signUp";
     }

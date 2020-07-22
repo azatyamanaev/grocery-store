@@ -88,12 +88,12 @@ public class AppConfig {
     @Bean
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.gmail.com");
-        mailSender.setPort(587);
+        mailSender.setHost("smtp.yandex.ru");
+        mailSender.setPort(465);
 
 
-        mailSender.setUsername("testinfo303@gmail.com");
-        mailSender.setPassword("ruselkomp.ru");
+        mailSender.setUsername("azatyamanaev@yandex.ru");
+        mailSender.setPassword("Tuckjedtemyaux0");
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");

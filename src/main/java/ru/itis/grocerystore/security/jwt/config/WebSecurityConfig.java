@@ -38,17 +38,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                        "/updatePassword** ")
 //                .hasAuthority("CHANGE__PASSWORD__PRIVILEGE");
 //
+        http.csrf().ignoringAntMatchers("/logout");
         http.authorizeRequests().antMatchers("/").permitAll();
         http.formLogin()
                 .loginPage("/signIn")
                 .usernameParameter("login")
-                .defaultSuccessUrl("/search") //TODO: need to do exclusive page for each role
+                .defaultSuccessUrl("/profile") //TODO: need to do exclusive page for each role
                 .failureUrl("/signIn")
                 .permitAll();
 
+        http.csrf().disable();
         http.logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/signIn")
-                .deleteCookies("JSESSIONID");
+                .deleteCookies("JSESSIONID")
+                .permitAll();
     }
 }

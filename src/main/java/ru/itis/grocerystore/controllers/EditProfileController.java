@@ -1,19 +1,20 @@
 package ru.itis.grocerystore.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.itis.grocerystore.models.Company;
-import ru.itis.grocerystore.models.Role;
-import ru.itis.grocerystore.models.Student;
-import ru.itis.grocerystore.models.Teacher;
+import ru.itis.grocerystore.models.*;
 import ru.itis.grocerystore.security.jwt.details.UserDetailsImpl;
 import ru.itis.grocerystore.services.ProfileService;
 import ru.itis.grocerystore.services.UsersService;
 
 @Controller
+@PreAuthorize("isAuthenticated()")
 public class EditProfileController {
 
     @Autowired
@@ -24,34 +25,30 @@ public class EditProfileController {
     @GetMapping("/edit")
     public String getEditPage(Model model) {
         Role role;
-        UserDetailsImpl user = (UserDetailsImpl) SecurityContextHolder
+        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getPrincipal();
-        model.addAttribute("user", user);
+        User user = userDetails.getUser();
         try {
             //TODO: передать третьим параметром User и создавать view относительно того, кто запросил
-            switch (profileService.getUserById(user.getUser().getId(), model)) {
+            switch (profileService.getUserById(user.getId(), model)) {
                 case COMPANY:
+                    model.addAttribute("user", usersService.findCompany(user.getId()));
                     return ("editCompanyProfile");
                 case STUDENT:
+                    model.addAttribute("user", usersService.findStudent(user.getId()));
                     return ("editStudentProfile");
                 case TEACHER:
+                    model.addAttribute("user", usersService.findTeacher(user.getId()));
                     return ("editTeacherProfile");
                 default:
                     break;
             }
         } catch (Exception e) {
-            throw new IllegalArgumentException("Unknown role for ID: " + user.getUser().getId());
+            throw new IllegalArgumentException("Unknown role for ID: " + user.getId());
         }
         return "";
-    }
-
-
-    @GetMapping("/editStudent/{id}")
-    public String getEditStudentProfilePage(@PathVariable("id") Long id, Model model) {
-        usersService.setEditContent(model, id);
-        return "editStudentProfile";
     }
 
     @PostMapping("/editStudent")
@@ -60,44 +57,41 @@ public class EditProfileController {
         return "redirect:/profile";
     }
 
-    @GetMapping("/editCompany/{id}")
-    public String getEditCompanyProfilePage(@PathVariable("id") Long id, Model model) {
-        usersService.setEditContent(model, id);
-        return "editCompanyProfile";
-    }
-
     @PostMapping("/editCompany")
     public String editCompanyProfile(@RequestBody Company company) {
         usersService.updateCompany(company);
         return "redirect:/profile";
     }
 
-    @GetMapping("/editTeacher/{id}")
-    public String getEditTeacherProfilePage(@PathVariable("id") Long id, Model model) {
-        usersService.setEditContent(model, id);
+
+    @GetMapping("/editTeacher")
+    public String getEditTeacherPage(Authentication authentication, Model model) {
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        User user = userDetails.getUser();
+        model.addAttribute("user", user);
         return "editTeacherProfile";
     }
-
     @PostMapping("/editTeacher")
-    public String editTeacherProfile(@RequestBody Teacher teacher) {
-        usersService.updateTeacher(teacher);
+    public String editTeacherProfile(@RequestParam String name, @RequestParam String lastName, @RequestParam String patronymic,
+                                     @RequestParam String about, @RequestParam String position) {
+        usersService.updateTeacher(Teacher.builder()
+        .name(name)
+        .lastName(lastName)
+        .patronymic(patronymic)
+        .about(about)
+        .position(position)
+        .build());
         return "redirect:/profile";
     }
 
-    @PostMapping("/createNewPassword/{id}")
-    public String changePassword(@PathVariable("id") Long id, @RequestParam String password) {
-        Role role;
-        UserDetailsImpl user = (UserDetailsImpl) SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getPrincipal();
-        usersService.updateUser(user.getUser());
+    @PostMapping("/createNewPassword")
+    public String changePassword(@RequestParam String password, Authentication authentication) {
+        usersService.changePassowrd(authentication, password);
         return "redirect:/profile";
     }
 
-    @GetMapping("/changePassword/{id}")
-    public String changePassword(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("id", id);
+    @GetMapping("/createNewPassword")
+    public String changePassword() {
         return "createNewPassword";
     }
 }

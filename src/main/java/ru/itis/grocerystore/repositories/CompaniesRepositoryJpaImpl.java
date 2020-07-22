@@ -36,7 +36,7 @@ public class CompaniesRepositoryJpaImpl implements CompaniesRepository{
 
     @Override
     public void delete(Long id) {
-        entityManager.createQuery(SQL_DELETE_BY_ID).setParameter("companyId", id);
+        entityManager.createQuery(SQL_DELETE_BY_ID).setParameter("companyId", id).executeUpdate();
     }
 
     @Override

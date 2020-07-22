@@ -1,36 +1,9 @@
-<html lang="ru">
 
-<head>
-
-
-    <meta charset="utf-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-
-    <!-- Bootstrap CSS -->
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-
-
-</head>
-
-<body>
+<#import "header.ftlh" as c/>
+<@c.page title="Edit company profile">
 
 
 <div class="container-fluid">
-    <div class="header">
-
-
-        <button type="button" class="btn btn-light">Главная</button>
-        <button type="button" class="btn btn-light">Мой профиль</button>
-        <button type="button" class="btn btn-light">Найти студента</button>
-        <button type="button" class="btn btn-light">События компании</button>
-        <button type="button" class="btn btn-light">Лента событий</button>
-
-    </div>
 
     <div class="container">
         <div>
@@ -73,7 +46,6 @@
 
 
                 </div>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                 <div class="col-9">
                     <label for="companyName">Название</label>
                     <input type="text" class="form-control" id="companyName" placeholder="" value="${user.name}" required>
@@ -127,7 +99,7 @@
 
                 </div>
                 <div class="col-9">
-                    <input type="text" class="form-control" id="extraInformation" placeholder="" value="${user.additionalInformation}">
+                    <input type="a" class="form-control" id="extraInformation" placeholder="" value="${user.additionalInformation}">
                 </div>
 
             </div>
@@ -138,19 +110,4 @@
 
 </div>
 
-
-</div>
-
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"></script>
-
-</body>
-</html>
+</@c.page>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.itis.grocerystore.models.Role;
+import ru.itis.grocerystore.models.User;
 import ru.itis.grocerystore.security.jwt.details.UserDetailsImpl;
 import ru.itis.grocerystore.services.ProfileService;
 import ru.itis.grocerystore.services.UsersService;
@@ -82,30 +83,32 @@ public class AppProfileController {
         }
         return "";
     }
-    @PostMapping("/delete/{id}")
+    @GetMapping("/delete")
     @PreAuthorize("isAuthenticated()")
-    public String deleteProfile(@PathVariable("id") Long id) {
+    public String deleteProfile(Model model) {
         Role role;
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getPrincipal();
+        User user = userDetails.getUser();
         try {
             //TODO: передать третьим параметром User и создавать view относительно того, кто запросил
             switch (userDetails.getUser().getRole()) {
                 case TEACHER:
-                    usersService.deleteTeacher(id);
+                    usersService.deleteTeacher(user.getId());
                     break;
                 case STUDENT:
-                    usersService.deleteStudent(id);
+                    usersService.deleteStudent(user.getId());
                     break;
                 case COMPANY:
-                    usersService.deleteCompany(id);
+                    usersService.deleteCompany(user.getId());
                     break;
             }
         } catch (Exception e) {
-            throw new IllegalArgumentException("Unknown role for ID: " + id);
+            throw new IllegalArgumentException("Unknown role for ID: " + user.getId());
         }
+        SecurityContextHolder.getContext().setAuthentication(null);
         return "redirect:/";
     }
 }

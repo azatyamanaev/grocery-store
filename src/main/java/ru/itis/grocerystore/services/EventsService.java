@@ -8,4 +8,5 @@ public interface EventsService {
     List<Event> getAllEventsForUser(Long id);
     List<Event> getAllEvents();
     Event getEventByName(String name);
+    void createEvent(Event event);
 }

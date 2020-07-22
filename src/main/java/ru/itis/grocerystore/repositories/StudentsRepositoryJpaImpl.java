@@ -60,7 +60,7 @@ public class StudentsRepositoryJpaImpl implements StudentsRepository {
 
     @Override
     public void delete(Long id) {
-        entityManager.createQuery(SQL_DELETE_BY_ID).setParameter("studentId", id);
+        entityManager.createQuery(SQL_DELETE_BY_ID).setParameter("studentId", id).executeUpdate();
     }
 
     @Override
