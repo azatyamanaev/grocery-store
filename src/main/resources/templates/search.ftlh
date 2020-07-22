@@ -1,70 +1,78 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-        src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        crossorigin="anonymous"></script>
-<script type="application/javascript">
-    function search() {
-        var form = $("#search")[0];
-        var data = new FormData(form);
-        var url = "\"" +form.action + "\"";
-        let students = document.getElementById('students')
-        $.ajax({
-            method: "POST",
-            url: form.action,
-            data: data,
-            processData: false,
-            contentType: false,
-            complete : function(response) {
-                students.innerHTML = "";
-                for (let i = 0; i < response.responseJSON.length; i++) {
-                    students.innerHTML +="<div class=\"col-6\" style=\"text-align:left;\">\n" +
-                        response.responseJSON[i].name + response.responseJSON[i].lastName +
-                        "            <p> 2 курс\n";
-                    for(let j = 0; j < response.responseJSON[i].skills.length; j++)
-                        students.innerHTML += "<p> <button type=\"button\" class=\"btn btn-outline-dark\" style=\"margin-right:10px;\">"+ response.responseJSON[i].skills[j].skill   + "</button>\n";
-                    students.innerHTML += "</div>\n" +
-                        "              <div class=\"col-3\">\n" +
-                        "                <button type=\"button\" class=\"btn btn-outline-dark\" style=\"margin-right:10px; margin-top:50px;\">\n" +
-                        "                  <a href=" + "/profile/" + response.responseJSON[i].id + ">Profile</a>" +
-                        "                </button>\n" +
-                        "              </div>";
+<#import "header.ftlh" as c/>
+<@c.page title="Компании">
+    <link rel="stylesheet" href="/css/tag.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+    <script type="application/javascript">
+        function search() {
+            var form = $("#search")[0];
+            var data = new FormData(form);
+            var url = "\"" + form.action + "\"";
+            let students = document.getElementById('students')
+            $.ajax({
+                method: "POST",
+                url: form.action,
+                data: data,
+                processData: false,
+                contentType: false,
+                complete: function (response) {
+                    students.innerHTML = "";
+                    for (let i = 0; i < response.responseJSON.length; i++) {
+                        students.innerHTML += "<div class=\"col-6\" style=\"text-align:left;\">\n" +
+                            response.responseJSON[i].name + response.responseJSON[i].lastName +
+                            "            <p> 2 курс\n";
+                        for (let j = 0; j < response.responseJSON[i].skills.length; j++)
+                            students.innerHTML += "<p style=\"margin-right:10px;\">" + response.responseJSON[i].skills[j].skill + "</p>\n";
+                        students.innerHTML += "</div>\n" +
+                            "              <div class=\"col-3\">\n" +
+                            "                <button type=\"button\" class=\"btn btn-outline-dark\" style=\"margin-right:10px; margin-top:50px;\">\n" +
+                            "                  <a href=" + "/profile/" + response.responseJSON[i].id + ">Profile</a>" +
+                            "                </button>\n" +
+                            "              </div>";
+                    }
+                    // console.log(response);
+                    // var a = JSON.stringify(response);
+                    // $('#students').innerHtml = JSON.parse(a);
+                },
+                error: function (err) {
+                    alert(err.responseText);
                 }
-                // console.log(response);
-                // var a = JSON.stringify(response);
-                // $('#students').innerHtml = JSON.parse(a);
-            },
-            error : function(err) {
-                alert(err.responseText);
-            }
-        });
-            }
-</script>
+            });
+        }
+    </script>
+    <header class="page-header header container-fluid with-small-margin">
+        <form id="search" action="/search" method="POST">
+            <div class="row" id="tags">
 
-<form id="search" action="/search" method="POST">
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-    <table id="filters">
-        <tr id="languages">
-            <td>Languages</td>
-            <#list languages! as language>
-                <td><input type="checkbox" name="languages" id='${language!}' value='${language!}'>
-                    <label for='${language!}'>${language!}</label><br/></td>
-            </#list>
-        </tr>
-        <tr id="skills">
-            <td>Skills</td>
-            <#list skills! as skill>
-                <td><input type="checkbox" name="skills" id='${skill!}' value='${skill!}'> <label
-                            for='${skill!}'>${skill!}</label><br/></td>
-            </#list>
-        </tr>
-    </table>
-    <button type="button" name="ok" onclick="search()">Search</button>
-</form>
-<#--onclick="search()"-->
-<div id="students">
+            </div>
+            <table id="filters">
+                <tr id="languages">
+                    <td>Languages</td>
+                    <#list languages! as language>
+                        <td><input type="checkbox" name="languages" id='${language!}' value='${language!}'>
+                            <label for='${language!}'>${language!}</label><br/></td>
+                    </#list>
+                </tr>
+                <tr id="skills">
+                    <td>Skills</td>
+                    <#list skills! as skill>
+                        <td><input type="checkbox" name="skills" id='${skill!}' value='${skill!}'> <label
+                                    for='${skill!}'>${skill!}</label><br/></td>
+                    </#list>
+                </tr>
+            </table>
 
-</div>
+            <button type="button" name="ok" onclick="search()">Search</button>
+        </form>
+        <#--onclick="search()"-->
+        <div id="students">
+
+        </div>
+    </header>
+
 
 <#--<#list students! as student>-->
 <#--    <div class="row" style="background-color:#C0C0C0">-->
@@ -87,3 +95,4 @@
 <#--        </div>-->
 <#--    </div>-->
 <#--</#list>-->
+</@c.page>

@@ -1,7 +1,6 @@
 <#import "header.ftlh" as c/>
 <@c.page title="Компании">
-<div class="container emp-profile">
-    <form method="post">
+    <div class="container emp-profile">
         <div class="row">
             <div class="col-md-4">
                 <div class="profile-img">
@@ -48,11 +47,11 @@
                 </div>
             </div>
             <#if user.role == "COMPANY" || user.role == "TEACHER">
-            <div class="col-md-2">
-                <button type="button" class="profile-edit-btn" name="btnAddMore" data-toggle="modal"
-                        data-target="#myModal">Invite to work
-                </button>
-            </div>
+                <div class="col-md-2">
+                    <button type="button" class="profile-edit-btn" name="btnAddMore" data-toggle="modal"
+                            data-target="#myModal">Invite to work
+                    </button>
+                </div>
             </#if>
         </div>
         <div class="row">
@@ -190,10 +189,11 @@
                                     <ul>
                                         <#list student.workExperiences as workExperience>
                                             <li>
-                                                С ${workExperience.startDate} до ${workExperience.endDate} <br>
-                                                В компании : ${workExperience.organization} <br>
-                                                На позиции : ${workExperience.position} <br>
-                                                Обязанности : ${workExperience.duties} <br>
+                                                Start date : ${workExperience.startDate}
+                                                End date : ${workExperience.endDate} <br>
+                                                Company : ${workExperience.organization} <br>
+                                                Position : ${workExperience.position} <br>
+                                                Duties : ${workExperience.duties} <br>
                                                 <br>
                                             </li>
                                         </#list>
@@ -201,6 +201,11 @@
                                 <#else> Без опыта
                                 </#if>
                             </div>
+                        </div>
+                        <div class="col-md-5">
+                            <button type="button" class="profile-edit-btn" name="btnAddMore" data-toggle="modal"
+                                    data-target="#workModal">Add work experience
+                            </button>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="extra" role="tabpanel" aria-labelledby="extra-tab">
@@ -251,22 +256,19 @@
                             </div>
                             <div class="col-md-4">
                                 <button class="profile-edit-btn" name="changePassword"
-                                        onclick="location.href='/changePassword'">Change Password
+                                        onclick="location.href='/createNewPassword'">Change Password
                                 </button>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4">
-                                <button class="delete-profile-btn with-margin" name="deleteProfile">Delete Profile
+                                <button class="delete-profile-btn with-margin" name="deleteProfile"
+                                        onclick="location.href='/delete'">Delete Profile
                                 </button>
                             </div>
                             <div class="col-md-4">
-                                <button class="profile-edit-btn with-margin" name="logout" onclick="location.href='/logout'">Logout</button>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <button class="profile-edit-btn with-margin" name="download">Download Resume
+                                <button class="profile-edit-btn with-margin" name="logout"
+                                        onclick="location.href='/logout'">Logout
                                 </button>
                             </div>
                         </div>
@@ -274,62 +276,158 @@
                 </div>
             </div>
         </div>
-    </form>
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <p>Invite to work</p>
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-                    <!-- h4 class="modal-title">Modal Header</h4 -->
-                </div>
-                <div class="modal-body">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p>Invite to work</p>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <!-- h4 class="modal-title">Modal Header</h4 -->
+                    </div>
+                    <div class="modal-body">
 
-                    <!-- card -->
-                    <article class="card">
-                        <div class="card-body p-5">
+                        <!-- card -->
+                        <article class="card">
+                            <div class="card-body p-5">
 
-                            <div class="tab-content">
-                                <div class="tab-pane fade show active" id="nav-tab-card">
-                                    <form class="form" method="post" action="/api/inviteStudent">
-                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                                        <div class="form-group">
-                                            <label for="message">Info</label>
-                                            <textarea class="form-control" name="message" placeholder="Enter additional information about the job" required=""> </textarea>
-                                        </div> <!-- form-group.// -->
-                                        <div class="form-group">
-                                            <label for="type">Type of job</label>
-                                            <select name="type" class="form-control">
-                                                <option disabled>Выберите тип работы</option>
-                                                <option value="INTERNSHIP">Internship</option>
-                                                <option value="FULL">Full time</option>
-                                                <option value="PART">Part time</option>
-                                            </select>
-                                        </div> <!-- form-group.// -->
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="nav-tab-card">
+                                        <form class="form" method="post" action="/api/inviteStudent">
+                                            <div class="form-group">
+                                                <label for="message">Message</label>
+                                                <textarea class="form-control" name="message"
+                                                          placeholder="Enter additional information about the job"
+                                                          required=""> </textarea>
+                                            </div> <!-- form-group.// -->
+                                            <div class="form-group">
+                                                <label for="type">Type of job</label>
+                                                <select name="type" class="form-control">
+                                                    <option disabled>Выберите тип работы</option>
+                                                    <option value="INTERNSHIP">Internship</option>
+                                                    <option value="FULL">Full time</option>
+                                                    <option value="PART">Part time</option>
+                                                </select>
+                                            </div> <!-- form-group.// -->
 
-                                        <div class="form-group">
-                                            <label for="start">Start date:</label>
-                                            <input type="date"  name="start" class="form-control"
-                                                   value="2020-07-19"
-                                                   min="2020-01-19" max="2022-12-31">
-                                        </div> <!-- form-group.// -->
+                                            <div class="form-group">
+                                                <label for="start">Start date:</label>
+                                                <input type="date" name="start" class="form-control"
+                                                       value="2020-07-19"
+                                                       min="2020-01-19" max="2022-12-31">
+                                            </div> <!-- form-group.// -->
 
-                                        <button class="subscribe btn btn-primary btn-block" type="submit"> Confirm </button>
-                                    </form>
-                                </div> <!-- tab-pane.// -->
-                            </div> <!-- tab-content .// -->
+                                            <button class="subscribe btn btn-primary btn-block" type="submit"> Confirm
+                                            </button>
+                                        </form>
+                                    </div> <!-- tab-pane.// -->
+                                </div> <!-- tab-content .// -->
 
-                        </div> <!-- card-body.// -->
-                    </article> <!-- card.// -->
+                            </div> <!-- card-body.// -->
+                        </article> <!-- card.// -->
 
+
+                    </div>
 
                 </div>
 
             </div>
+        </div><!-- Modal -->
+        <div class="modal fade" id="workModal" role="dialog">
+            <div class="modal-dialog">
 
-        </div>
-    </div><!-- Modal -->
-</div>
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p>Add work experience</p>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <!-- h4 class="modal-title">Modal Header</h4 -->
+                    </div>
+                    <div class="modal-body">
+
+                        <!-- card -->
+                        <article class="card">
+                            <div class="card-body p-5">
+
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="nav-tab-card">
+                                        <form id="workExpForm" class="form" method="post" action="/addWorkExp">
+                                            <div class="form-group">
+                                                <label for="start">Start date:</label>
+                                                <input type="date" name="start" class="form-control"
+                                                       value="2017-01-19"
+                                                       min="2017-01-19" max="2019-12-05">
+                                            </div> <!-- form-group.// -->
+
+                                            <div class="form-group">
+                                                <label for="end">End date:</label>
+                                                <input type="date" name="end" class="form-control"
+                                                       value="2020-02-25"
+                                                       min="2018-01-19" max="2020-02-25">
+                                            </div> <!-- form-group.// -->
+
+                                            <div class="form-group">
+                                                <label for="company">Company</label>
+                                                <input type="text" class="form-control" name="company"
+                                                       required="">
+                                            </div> <!-- form-group.// -->
+
+                                            <div class="form-group">
+                                                <label for="position">Position</label>
+                                                <input type="text" class="form-control" name="position"
+                                                       required="">
+                                            </div> <!-- form-group.// -->
+
+                                            <div class="form-group">
+                                                <label for="duties">Duties</label>
+                                                <input type="text" class="form-control" name="duties"
+                                                       required="">
+                                            </div> <!-- form-group.// -->
+
+
+                                            <button onclick="addWorkExp()" class="subscribe btn btn-primary btn-block" type="button"> Confirm
+                                            </button>
+                                        </form>
+                                    </div> <!-- tab-pane.// -->
+                                </div> <!-- tab-content .// -->
+
+                            </div> <!-- card-body.// -->
+                        </article> <!-- card.// -->
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div><!-- Modal -->
+    </div>
+    <script>
+        $('form')
+        function addWorkExp() {
+            let form = $('#workExpForm');
+            let start = form.find("input[name=start]").val();
+            let end = form.find("input[name=end]").val();
+            let company = form.find("input[name=company]").val();
+            let position = form.find("input[name=position]").val();
+            let duties = form.find("input[name=duties]").val();
+            let workExp = {
+                "startDate": start,
+                "endDate": end,
+                "organization": company,
+                "position": position,
+                "duties": duties
+            }
+            alert(workExp.position);
+            $.ajax({
+                url: "/addWorkExp",
+                method: "POST",
+                data: JSON.stringify(workExp),
+                success: function (response) {
+                    alert(response);
+                }
+            })
+        }
+    </script>
 </@c.page>

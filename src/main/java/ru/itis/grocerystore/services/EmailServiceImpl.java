@@ -18,7 +18,7 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     private ExecutorService executorService;
 
-    @Value("email.username")
+    @Value("email.admin")
     private String userName;
 
     @Override

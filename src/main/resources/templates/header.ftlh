@@ -37,7 +37,11 @@
                     <a class="nav-link " href="/events">Events</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="/edit"></a></li>
+                    <a class="nav-link " href="/search">Students</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/employers">Companies/Teachers</a>
+                </li>
             </ul>
         </div>
     </nav>

@@ -23,7 +23,7 @@
         <!-- Login Form -->
         <form method="post" action="/signUp">
             <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-            <input type="email" id="email" name="email" class="fadeIn third" placeholder="email">
+            <input type="text" id="email" name="email" class="fadeIn third" placeholder="email">
             <select name="role">
                 <option value="STUDENT">@stud.kpfu.ru</option>
                 <option value="TEACHER">@stud.ru</option>

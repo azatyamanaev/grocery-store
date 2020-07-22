@@ -1,6 +1,7 @@
 package ru.itis.grocerystore.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +12,7 @@ import ru.itis.grocerystore.services.InviteStudentService;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
+@PreAuthorize("hasRole('COMPANY') || hasRole('TEACHER')")
 public class InviteStudentController {
     @Autowired
     private InviteStudentService inviteStudentService;

@@ -1,7 +1,6 @@
 <#import "header.ftlh" as c/>
 <@c.page title="Компании">
-<div class="container emp-profile">
-    <form method="post">
+    <div class="container emp-profile">
         <div class="row">
             <div class="col-md-4">
                 <div class="profile-img">
@@ -91,13 +90,13 @@
                             </div>
                             <div class="col-md-4">
                                 <button class="profile-edit-btn" name="changePassword"
-                                        onclick="location.href='/changePassword'">Change Password
+                                        onclick="location.href='/createNewPassword'">Change Password
                                 </button>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4">
-                                <button class="delete-profile-btn with-margin" name="deleteProfile">Delete Profile
+                                <button class="delete-profile-btn with-margin" name="deleteProfile" onclick="location.href='/delete'">Delete Profile
                                 </button>
                             </div>
                             <div class="col-md-4">
@@ -110,60 +109,63 @@
                 </div>
             </div>
         </div>
-    </form>
-</div>
-<div class="container">
+    </div>
+    <div class="container">
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <p>Create an event</p>
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-                    <!-- h4 class="modal-title">Modal Header</h4 -->
-                </div>
-                <div class="modal-body">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p>Create an event</p>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <!-- h4 class="modal-title">Modal Header</h4 -->
+                    </div>
+                    <div class="modal-body">
 
-                    <!-- card -->
-                    <article class="card">
-                        <div class="card-body p-5">
+                        <!-- card -->
+                        <article class="card">
+                            <div class="card-body p-5">
 
-                            <div class="tab-content">
-                                <div class="tab-pane fade show active" id="nav-tab-card">
-                                    <form role="form" method="post" action="/createEvent">
-                                        <div class="form-group">
-                                            <label for="name">Name</label>
-                                            <input type="text" class="form-control" name="name" placeholder="" required="">
-                                        </div> <!-- form-group.// -->
-                                        <div class="form-group">
-                                            <label for="description">Description</label>
-                                            <input type="text" class="form-control" name="description" placeholder="" required="">
-                                        </div> <!-- form-group.// -->
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="nav-tab-card">
+                                        <form role="form" method="post" action="/createEvent">
+                                            <div class="form-group">
+                                                <label for="name">Name</label>
+                                                <input type="text" class="form-control" name="name" placeholder=""
+                                                       required="">
+                                            </div> <!-- form-group.// -->
+                                            <div class="form-group">
+                                                <label for="description">Description</label>
+                                                <input type="text" class="form-control" name="description"
+                                                       placeholder="" required="">
+                                            </div> <!-- form-group.// -->
 
-                                        <div class="form-group">
-                                            <label for="link">Link</label>
-                                            <input type="text" class="form-control" name="link" placeholder="" required="">
-                                        </div> <!-- form-group.// -->
+                                            <div class="form-group">
+                                                <label for="link">Link</label>
+                                                <input type="text" class="form-control" name="link" placeholder=""
+                                                       required="">
+                                            </div> <!-- form-group.// -->
 
-                                        <button class="subscribe btn btn-primary btn-block" type="button"> Confirm </button>
-                                    </form>
-                                </div> <!-- tab-pane.// -->
-                            </div> <!-- tab-content .// -->
+                                            <button class="subscribe btn btn-primary btn-block" type="submit"> Confirm
+                                            </button>
+                                        </form>
+                                    </div> <!-- tab-pane.// -->
+                                </div> <!-- tab-content .// -->
 
-                        </div> <!-- card-body.// -->
-                    </article> <!-- card.// -->
+                            </div> <!-- card-body.// -->
+                        </article> <!-- card.// -->
 
+
+                    </div>
 
                 </div>
 
             </div>
+        </div><!-- Modal -->
 
-        </div>
-    </div><!-- Modal -->
-
-</div>
+    </div>
 </@c.page>
