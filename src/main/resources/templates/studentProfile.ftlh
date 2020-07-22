@@ -13,9 +13,9 @@
             <div class="col-md-6">
                 <div class="profile-head">
                     <h5>
-                        <#if student.lastname?has_content>${student.lastname}<#else>Last Name</#if>
+                        <#if student.lastName?has_content>${student.lastName}<#else>Last Name</#if>
                         <#if student.name?has_content>${student.name}<#else>Name</#if>
-                        <#if student.patronymic?has_content>${student.patronymic}<#else>Patronymic</#if>
+                        <#if student.patronymic?has_content>${student.patronymic}</#if>
                     </h5>
 
                     <h6>

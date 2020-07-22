@@ -15,7 +15,7 @@
                         <h5>
                             <#if teacher.lastName?has_content>${teacher.lastName}<#else>Last Name</#if>
                             <#if teacher.name?has_content>${teacher.name}<#else>Name</#if>
-                            <#if teacher.patronymic?has_content>${teacher.patronymic}<#else>Patronymic</#if>
+                            <#if teacher.patronymic?has_content>${teacher.patronymic}</#if>
                         </h5>
 
                         <ul class="nav nav-tabs" id="myTab" role="tablist">

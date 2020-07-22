@@ -21,21 +21,22 @@
                 complete: function (response) {
                     students.innerHTML = "";
                     for (let i = 0; i < response.responseJSON.length; i++) {
-                        students.innerHTML += "<div class=\"col-6\" style=\"text-align:left;\">\n" +
-                            response.responseJSON[i].name + response.responseJSON[i].lastName +
-                            "            <p> 2 курс\n";
-                        for (let j = 0; j < response.responseJSON[i].skills.length; j++)
-                            students.innerHTML += "<p style=\"margin-right:10px;\">" + response.responseJSON[i].skills[j].skill + "</p>\n";
-                        students.innerHTML += "</div>\n" +
-                            "              <div class=\"col-3\">\n" +
-                            "                <button type=\"button\" class=\"btn btn-outline-dark\" style=\"margin-right:10px; margin-top:50px;\">\n" +
-                            "                  <a href=" + "/profile/" + response.responseJSON[i].id + ">Profile</a>" +
-                            "                </button>\n" +
-                            "              </div>";
+                        var temp = "";
+                        var temp1 = "";
+                        for (let l = 0; l < response.responseJSON[i].languages.length; l++) {
+                            temp += "<li>" + response.responseJSON[i].languages[l].language + "</li>";
+                        }
+                        for (let j = 0; j < response.responseJSON[i].skills.length; j++) {
+                            temp1 += "<li>" + response.responseJSON[i].skills[j].skill + "</li>";
+                        }
+                        students.innerHTML += "<tr> " +
+                            "<td>" + response.responseJSON[i].name + " " + response.responseJSON[i].lastName + "</td>" +
+                            "<td> " +
+                            "<ol>" + temp + "</ol></td>" +
+                            "<td> <ol>" + temp1 + "</ol></td>" +
+                            "<td> <a href=" + "/profile/" + response.responseJSON[i].id + ">Profile</a>" + "</td>" +
+                            "</tr>";
                     }
-                    // console.log(response);
-                    // var a = JSON.stringify(response);
-                    // $('#students').innerHtml = JSON.parse(a);
                 },
                 error: function (err) {
                     alert(err.responseText);
@@ -44,35 +45,206 @@
         }
     </script>
     <header class="page-header header container-fluid with-small-margin">
-        <form id="search" action="/search" method="POST">
-            <div class="row" id="tags">
 
+        <form id="search" action="/search" method="POST" align="center">
+            <div class="checkselect" id="skills">
+                <#list skills! as skill>
+                     <label for='${skill!}'><input type="checkbox" name="skills" id='${skill!}' value='${skill!}'>${skill!}</label>
+                </#list>
             </div>
-            <table id="filters">
-                <tr id="languages">
-                    <td>Languages</td>
-                    <#list languages! as language>
-                        <td><input type="checkbox" name="languages" id='${language!}' value='${language!}'>
-                            <label for='${language!}'>${language!}</label><br/></td>
-                    </#list>
-                </tr>
-                <tr id="skills">
-                    <td>Skills</td>
-                    <#list skills! as skill>
-                        <td><input type="checkbox" name="skills" id='${skill!}' value='${skill!}'> <label
-                                    for='${skill!}'>${skill!}</label><br/></td>
-                    </#list>
-                </tr>
-            </table>
-
+             
+            <div class="checkselect" id="languages">
+                <#list languages! as language>
+                    <label for='${language!}'><input type="checkbox" name="languages" id='${language!}' value='${language!}'>${language!}</label>
+                </#list>
+            </div>
             <button type="button" name="ok" onclick="search()">Search</button>
+             
         </form>
+
+        <style type="text/css">
+
+            .checkselect {
+                position: relative;
+                display: inline-block;
+                min-width: 200px;
+                text-align: left;
+            }
+
+            .checkselect-control {
+                position: relative;
+                padding: 0 !important;
+            }
+
+            .checkselect-control select {
+                position: relative;
+                display: inline-block;
+                width: 100%;
+                margin: 0;
+                padding-left: 5px;
+                height: 30px;
+            }
+
+            .checkselect-over {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                cursor: pointer;
+            }
+
+            .checkselect-popup {
+                display: none;
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: auto;
+                max-height: 200px;
+                position: absolute;
+                top: 100%;
+                left: 0px;
+                border: 1px solid #dadada;
+                border-top: none;
+                background: #fff;
+                z-index: 9999;
+                overflow: auto;
+                user-select: none;
+            }
+
+            .checkselect label {
+                position: relative;
+                display: block;
+                margin: 0;
+                padding: 4px 6px 4px 25px;
+                font-weight: normal;
+                font-size: 1em;
+                line-height: 1.1;
+                cursor: pointer;
+            }
+
+            .checkselect-popup input {
+                position: absolute;
+                top: 5px;
+                left: 8px;
+                margin: 0 !important;
+                padding: 0;
+            }
+
+            .checkselect-popup label:hover {
+                background: #03a2ff;
+                color: #fff;
+            }
+
+            .checkselect-popup fieldset {
+                display: block;
+                margin: 0;
+                padding: 0;
+                border: none;
+            }
+
+            .checkselect-popup fieldset input {
+                left: 15px;
+            }
+
+            .checkselect-popup fieldset label {
+                padding-left: 32px;
+            }
+
+            .checkselect-popup legend {
+                display: block;
+                margin: 0;
+                padding: 5px 8px;
+                font-weight: 700;
+                font-size: 1em;
+                line-height: 1.1;
+            }
+        </style>
+
+        <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+            (function ($) {
+                function setChecked(target) {
+                    var checked = $(target).find("input[type='checkbox']:checked").length;
+                    if (checked) {
+                        $(target).find('select option:first').html('Выбрано: ' + checked);
+                    } else {
+                        $(target).find('select option:first').html('Выберите из списка');
+                    }
+                }
+
+                $.fn.checkselect = function () {
+                    this.wrapInner('<div class="checkselect-popup"></div>');
+                    this.prepend(
+                        '<div class="checkselect-control">' +
+                        '<select class="form-control"><option></option></select>' +
+                        '<div class="checkselect-over"></div>' +
+                        '</div>'
+                    );
+
+                    this.each(function () {
+                        setChecked(this);
+                    });
+                    this.find('input[type="checkbox"]').click(function () {
+                        setChecked($(this).parents('.checkselect'));
+                    });
+
+                    this.parent().find('.checkselect-control').on('click', function () {
+                        $popup = $(this).next();
+                        $('.checkselect-popup').not($popup).css('display', 'none');
+                        if ($popup.is(':hidden')) {
+                            $popup.css('display', 'block');
+                            $(this).find('select').focus();
+                        } else {
+                            $popup.css('display', 'none');
+                        }
+                    });
+
+                    $('html, body').on('click', function (e) {
+                        if ($(e.target).closest('.checkselect').length == 0) {
+                            $('.checkselect-popup').css('display', 'none');
+                        }
+                    });
+                };
+            })(jQuery);
+
+            $('.checkselect').checkselect();
+        </script>
+
         <#--onclick="search()"-->
-        <div id="students">
+        <#--                <div id="students">-->
 
-        </div>
+        <#--                </div>-->
+        <header class="header">
+            <div class="container events">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Full name</th>
+                        <th scope="col">Languages</th>
+                        <th scope="col">Skills</th>
+                        <th scope="col">Link to profile</th>
+                    </tr>
+                    </thead>
+                    <tbody id="students">
+
+                    </tbody>
+                </table>
+            </div>
+        </header>
     </header>
-
+<#--    students.innerHTML += "<div class=\"col-6\" style=\"text-align:left;\">\n" +-->
+<#--    response.responseJSON[i].name + response.responseJSON[i].lastName +-->
+<#--    "            <p> 2 курс\n";-->
+<#--        for (let j = 0; j < response.responseJSON[i].skills.length; j++)-->
+<#--        students.innerHTML += "<p style=\"margin-right:10px;\">" + response.responseJSON[i].skills[j].skill + "</p>\n";-->
+<#--    students.innerHTML += "</div>\n" +-->
+<#--    "              <div class=\"col-3\">\n" +-->
+<#--    "                <button type=\"button\" class=\"btn btn-outline-dark\" style=\"margin-right:10px; margin-top:50px;\">\n" +-->
+<#--    "                  <a href=" + "/profile/" + response.responseJSON[i].id + ">Profile</a>" +-->
+<#--    "                </button>\n" +-->
+<#--    "              </div>";-->
 
 <#--<#list students! as student>-->
 <#--    <div class="row" style="background-color:#C0C0C0">-->
@@ -95,4 +267,9 @@
 <#--        </div>-->
 <#--    </div>-->
 <#--</#list>-->
+
 </@c.page>
+
+
+
+

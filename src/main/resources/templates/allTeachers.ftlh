@@ -1,7 +1,7 @@
 <#import "header.ftlh" as c/>
 <@c.page title="Учителя">
 <div class="container">
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+<#--    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">-->
 
 
     <#list teachers! as teacher>

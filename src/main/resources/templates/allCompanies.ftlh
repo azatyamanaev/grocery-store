@@ -1,7 +1,7 @@
 <#import "header.ftlh" as c/>
 <@c.page title="Компании">
     <div class="container">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+<#--        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">-->
 
         <#list companies! as company>
             <div class="row" style="background-color:#C0C0C0">
