@@ -71,6 +71,7 @@ public class EditProfileController {
         model.addAttribute("user", user);
         return "editTeacherProfile";
     }
+
     @PostMapping("/editTeacher")
     public String editTeacherProfile(@RequestParam String name, @RequestParam String lastName, @RequestParam String patronymic,
                                      @RequestParam String about, @RequestParam String position) {

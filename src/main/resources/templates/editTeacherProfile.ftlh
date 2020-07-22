@@ -47,15 +47,15 @@
                 </div>
                 <div class="col-9">
                     <label for="firstName">Name</label>
-                    <input type="text" class="form-control" id="firstName" value="<#if user.name?has_content>${user.name}<#else>name</#if>" required>
+                    <input type="text" class="form-control" name="name" value="<#if user.name?has_content>${user.name}<#else>name</#if>" required>
                     <label for="lastName">Last Name</label>
-                    <input type="text" class="form-control" id="lastName" value="<#if user.lastName?has_content>${user.lastName}<#else>lastName</#if>" required>
+                    <input type="text" class="form-control" name="lastName" value="<#if user.lastName?has_content>${user.lastName}<#else>lastName</#if>" required>
                     <label for="fatherName">Patronymic</label>
-                    <input type="text" class="form-control" id="fatherName" value="<#if user.patronymic?has_content>${user.patronymic}<#else>patronymic</#if>" required>
+                    <input type="text" class="form-control" name="patronymic" value="<#if user.patronymic?has_content>${user.patronymic}<#else>patronymic</#if>" required>
                     <label for="aboutMe">About</label>
-                    <input type="text" class="form-control" id="aboutMe" value="<#if user.about?has_content>${user.about}<#else>about</#if>">
+                    <input type="text" class="form-control" name="about" value="<#if user.about?has_content>${user.about}<#else>about</#if>">
                     <label for="position">Position</label>
-                    <input type="text" class="form-control" id="position" value="<#if user.position?has_content>${user.position}</#if>">
+                    <input type="text" class="form-control" name="position" value="<#if user.position?has_content>${user.position}</#if>">
                 </div>
 
             </div>

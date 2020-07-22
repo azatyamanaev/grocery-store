@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.grocerystore.models.Event;
 import ru.itis.grocerystore.models.User;
+import ru.itis.grocerystore.security.jwt.details.UserDetailsImpl;
 import ru.itis.grocerystore.services.EventsService;
 
 @Controller
@@ -25,14 +26,14 @@ public class EventsController {
         return "events";
     }
 
-    @PreAuthorize("hasRole('COMPANY') || hasRole('TEACHER')")
+    @PreAuthorize("hasAuthority('COMPANY') || hasAuthority('TEACHER')")
     @PostMapping("/createEvent")
     public String createEvent(@RequestParam("name") String name, @RequestParam("information") String description, @RequestParam("link") String link, Authentication authentication) {
-        User user = (User) authentication.getPrincipal();
+        UserDetailsImpl user = (UserDetailsImpl) authentication.getPrincipal();
         eventsService.createEvent(Event.builder()
-                .host(user.getLogin())
+                .host(user.getUser().getLogin())
                 .name(name)
-                .user(user)
+                .user(user.getUser())
                 .information(description)
                 .link(link)
                 .build());
