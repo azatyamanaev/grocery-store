@@ -42,4 +42,6 @@ public class AddStudentAttributesController {
         model.addAttribute("student", user);
         return "profile";
     }
+
+
 }
