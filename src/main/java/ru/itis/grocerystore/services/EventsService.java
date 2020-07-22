@@ -9,4 +9,6 @@ public interface EventsService {
     List<Event> getAllEvents();
     Event getEventByName(String name);
     void createEvent(Event event);
+    void updateEvent(Event event);
+    Event getEventById(Long id);
 }

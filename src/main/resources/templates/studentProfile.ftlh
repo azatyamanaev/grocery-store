@@ -53,7 +53,55 @@
                     </button>
                 </div>
             </#if>
+            <#if user.role == "STUDENT">
+                <button type="button" class="profile-edit-btn" name="btnAddMore" data-toggle="modal"
+                        data-target="#lModal">Add language
+                </button>
+            </#if>
         </div>
+        <div class="modal fade" id="workModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p>Add Language</p>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <!-- h4 class="modal-title">Modal Header</h4 -->
+                    </div>
+                    <div class="modal-body">
+
+                        <!-- card -->
+                        <article class="card">
+                            <div class="card-body p-5">
+
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="nav-tab-card">
+                                        <form id="workExpForm" class="form" method="post" action="/addLanguage">
+
+                                            <div class="form-group">
+                                                <label for="language">Language</label>
+                                                <input type="text" class="form-control" name="language"
+                                                       required="">
+                                            </div> <!-- form-group.// -->
+
+
+                                            <button type="submit" class="subscribe btn btn-primary btn-block"> Confirm
+                                            </button>
+                                        </form>
+                                    </div> <!-- tab-pane.// -->
+                                </div> <!-- tab-content .// -->
+
+                            </div> <!-- card-body.// -->
+                        </article> <!-- card.// -->
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div><!-- Modal -->
         <div class="row">
             <div class="col-md-2">
                 <div class="profile-work">
@@ -355,7 +403,7 @@
                                         <form id="workExpForm" class="form" method="post" action="/addWorkExp">
                                             <div class="form-group">
                                                 <label for="start">Start date:</label>
-                                                <input type="date" name="start" class="form-control"
+                                                <input id="end" type="date" name="start" class="form-control"
                                                        value="2017-01-19"
                                                        min="2017-01-19" max="2019-12-05">
                                             </div> <!-- form-group.// -->
@@ -386,7 +434,7 @@
                                             </div> <!-- form-group.// -->
 
 
-                                            <button onclick="addWorkExp()" class="subscribe btn btn-primary btn-block" type="button"> Confirm
+                                            <button type="submit" onclick="d()" class="subscribe btn btn-primary btn-block"> Confirm
                                             </button>
                                         </form>
                                     </div> <!-- tab-pane.// -->
@@ -404,30 +452,8 @@
         </div><!-- Modal -->
     </div>
     <script>
-        $('form')
-        function addWorkExp() {
-            let form = $('#workExpForm');
-            let start = form.find("input[name=start]").val();
-            let end = form.find("input[name=end]").val();
-            let company = form.find("input[name=company]").val();
-            let position = form.find("input[name=position]").val();
-            let duties = form.find("input[name=duties]").val();
-            let workExp = {
-                "startDate": start,
-                "endDate": end,
-                "organization": company,
-                "position": position,
-                "duties": duties
-            }
-            alert(workExp.position);
-            $.ajax({
-                url: "/addWorkExp",
-                method: "POST",
-                data: JSON.stringify(workExp),
-                success: function (response) {
-                    alert(response);
-                }
-            })
+        function d() {
+            alert($('#end').val());
         }
     </script>
 </@c.page>

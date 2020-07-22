@@ -5,6 +5,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itis.grocerystore.dto.CompanyDto;
 import ru.itis.grocerystore.models.Company;
+import ru.itis.grocerystore.models.Role;
+import ru.itis.grocerystore.models.State;
 import ru.itis.grocerystore.repositories.CompaniesRepository;
 
 @Service
@@ -20,6 +22,8 @@ public class AdminServiceImpl implements AdminService {
         Company company = Company.builder()
                 .login(companyDto.getLogin())
                 .password(passwordEncoder.encode(companyDto.getPassword()))
+                .role(Role.COMPANY)
+                .state(State.CONFIRMED)
                 .build();
         if (!companiesRepository.findByLogin(companyDto.getLogin()).isPresent())
             companiesRepository.save(company);

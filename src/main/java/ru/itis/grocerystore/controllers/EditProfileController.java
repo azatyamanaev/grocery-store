@@ -58,35 +58,51 @@ public class EditProfileController {
     }
 
     @PostMapping("/editCompany")
-    public String editCompanyProfile(@RequestBody Company company) {
-        usersService.updateCompany(company);
+    public String editCompanyProfile(@RequestParam String login, @RequestParam String name, @RequestParam("link") String linkToSite, @RequestParam String about,
+                                     @RequestParam String email, @RequestParam String number, @RequestParam String additionalInformation, Authentication authentication) {
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        User user = userDetails.getUser();
+        usersService.updateCompany(Company.builder()
+                .id(user.getId())
+                .login(login)
+                .email(email)
+                .password(user.getPassword())
+                .name(name)
+                .role(user.getRole())
+                .state(user.getState())
+                .about(about)
+                .linkToSite(linkToSite)
+                .number(number)
+                .additionalInformation(additionalInformation)
+                .build());
         return "redirect:/profile";
     }
 
-
-    @GetMapping("/editTeacher")
-    public String getEditTeacherPage(Authentication authentication, Model model) {
+    @PostMapping("/editTeacher")
+    public String editTeacherProfile(@RequestParam String login, @RequestParam String name, @RequestParam String lastName, @RequestParam String patronymic,
+                                     @RequestParam String about, @RequestParam String position, @RequestParam String email, Authentication authentication) {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         User user = userDetails.getUser();
-        model.addAttribute("user", user);
-        return "editTeacherProfile";
-    }
-
-    @PostMapping("/editTeacher")
-    public String editTeacherProfile(@RequestParam String name, @RequestParam String lastName, @RequestParam String patronymic,
-                                     @RequestParam String about, @RequestParam String position) {
         usersService.updateTeacher(Teacher.builder()
-        .name(name)
-        .lastName(lastName)
-        .patronymic(patronymic)
-        .about(about)
-        .position(position)
-        .build());
+                .id(user.getId())
+                .login(login)
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .state(user.getState())
+                .role(user.getRole())
+                .confirmCode(user.getConfirmCode())
+                .name(name)
+                .email(email)
+                .lastName(lastName)
+                .patronymic(patronymic)
+                .about(about)
+                .position(position)
+                .build());
         return "redirect:/profile";
     }
 
     @PostMapping("/createNewPassword")
-    public String changePassword(@RequestParam String password, Authentication authentication) {
+    public String changePassword(@RequestParam("inputPassword") String password, Authentication authentication) {
         usersService.changePassowrd(authentication, password);
         return "redirect:/profile";
     }

@@ -1,7 +1,6 @@
 <#import "header.ftlh" as c/>
 <@c.page title="Компании">
 <header class="header">
-    <div class="overlay"></div>
     <div class="container events">
         <table class="table">
             <thead>

@@ -1,7 +1,6 @@
 <#import "header.ftlh" as c/>
 <@c.page title="Компании">
 <header class="header">
-    <div class="overlay"></div>
     <div class="container events">
         <table class="table">
             <tbody>
@@ -39,42 +38,30 @@
 
             <!-- Modal body -->
             <div class="modal-body seminor-login-modal-body">
-                <h5 class="modal-title text-center">CREATE AN EVENT</h5>
+                <h5 class="modal-title text-center">EDIT EVENT</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
 
 
-                <form id="eventForm" class="seminor-login-form" action="/createEvent" method="post">
+                <form id="eventForm" class="seminor-login-form" action="/editEvent" method="post">
                     <div class="form-group">
-                        <input type="text" name="name" class="form-control" required autocomplete="off">
+                        <input type="text" name="name" class="form-control" required autocomplete="off" value="${event.name}">
                         <label class="form-control-placeholder" for="name">Event name</label>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="description" class="form-control" required autocomplete="off">
-                        <label class="form-control-placeholder" for="name">Description</label>
+                        <input type="text" name="information" class="form-control" required autocomplete="off" value="${event.information}">
+                        <label class="form-control-placeholder" for="information">Description</label>
                     </div>
                     <div class="form-group">
-                        <input type="number" name="capacity" class="form-control" required autocomplete="off">
-                        <label class="form-control-placeholder" for="name">Capacity</label>
+                        <input type="text" name="link" class="form-control" required autocomplete="off" value="${event.link}">
+                        <label class="form-control-placeholder" for="link">Link to site</label>
                     </div>
-                    <div class="form-group">
-                        <input type="text" name="place" class="form-control" required autocomplete="off">
-                        <label class="form-control-placeholder" for="name">Place</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="datetime-local" name="time_start" class="form-control" required autocomplete="off">
-                        <label class="form-control-placeholder" for="name">Time Start</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="datetime-local" name="time_end" class="form-control" required autocomplete="off">
-                        <label class="form-control-placeholder" for="name">Time end</label>
-                    </div>
+                    <input hidden type="text" value="${event.id}" name="id">
                     <div class="btn-check-log">
-                        <button type="submit" class="btn-check-login">CREATE EVENT</button>
+                        <button type="submit" class="btn-check-login">CONFIRM</button>
                     </div>
                 </form>
-
 
             </div>
         </div>
