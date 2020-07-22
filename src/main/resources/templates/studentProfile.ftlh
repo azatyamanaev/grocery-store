@@ -102,9 +102,9 @@
                     <#if student.achievements?has_content>
                         <div id="achievements">
                             <#list student.achievements as achievement>
-                                <h6 id="achievement${achievement.id}">${achievement.achievement}
-                                    <button class="close" onclick="deleteAchievement(${achievement.id})">×</button>
-                                </h6> </a>
+                                <a id="achievement${achievement.id}" href="${achievement.achievement}">
+                                    ${achievement.achievement}
+                                </a><button class="close" onclick="deleteAchievement(${achievement.id})">×</button>
                             </#list>
                         </div>
                     <#else>
@@ -542,7 +542,8 @@
 
                                             <div class="form-group">
                                                 <label for="achievement">Achievement</label>
-                                                <input id="achievement" type="text" class="form-control" name="achievement"
+                                                <input id="achievement" type="text" class="form-control"
+                                                       name="achievement"
                                                        required="">
                                             </div> <!-- form-group.// -->
 
