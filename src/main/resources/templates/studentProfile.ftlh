@@ -56,56 +56,10 @@
                 </div>
             </#if>
             <#if user.role == "STUDENT">
-            <div class="col-md-2">
-                <button type="button" class="profile-edit-btn" name="btnAddMore" data-toggle="modal"
-                        data-target="#lModal">Add language
-                </button>
-                </div>
+
             </#if>
         </div>
-        <div class="modal fade" id="lModal" role="dialog">
-            <div class="modal-dialog">
 
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <p>Add Language</p>
-                        <button type="button" class="close" data-dismiss="modal">×</button>
-                        <!-- h4 class="modal-title">Modal Header</h4 -->
-                    </div>
-                    <div class="modal-body">
-
-                        <!-- card -->
-                        <article class="card">
-                            <div class="card-body p-5">
-
-                                <div class="tab-content">
-                                    <div class="tab-pane fade show active" id="nav-tab-card">
-                                        <form id="workExpForm" class="form" method="post" action="/addLanguage">
-
-                                            <div class="form-group">
-                                                <label for="language">Language</label>
-                                                <input type="text" class="form-control" name="language"
-                                                       required="">
-                                            </div> <!-- form-group.// -->
-
-
-                                            <button type="submit" class="subscribe btn btn-primary btn-block"> Confirm
-                                            </button>
-                                        </form>
-                                    </div> <!-- tab-pane.// -->
-                                </div> <!-- tab-content .// -->
-
-                            </div> <!-- card-body.// -->
-                        </article> <!-- card.// -->
-
-
-                    </div>
-
-                </div>
-
-            </div>
-        </div><!-- Modal -->
         <div class="row">
             <div class="col-md-2">
                 <div class="profile-work">
@@ -115,29 +69,49 @@
                     <a href="">Bootply Profile</a>-->
                     <p>SKILLS</p>
                     <!--<a href="">Web Designer</a><br/>-->
-
-                    <#if student.skills?has_content>
-                        <#list student.skills as skill>
-                            <h6>${skill.skill}</h6>
-                        </#list>
-                    </#if>
+                    <div id="skills">
+                        <#if student.skills?has_content>
+                            <#list student.skills as skill>
+                                <h6 id="skill${skill.id}">${skill.skill}
+                                    <button class="close" onclick="deleteSkill(${skill.id})">×</button>
+                                </h6>
+                            </#list>
+                        </#if>
+                    </div>
+                    <button data-toggle="modal"
+                            data-target="#sModal">Add
+                    </button>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="profile-work">
                     <p>LANGUAGES</p>
-                    <#if student.languages?has_content>
-                        <#list student.languages as language>
-                            <h6>${language.language}</h6>
-                        </#list>
-                    </#if>
+                    <div id="languages">
+                        <#if student.languages?has_content>
+                            <#list student.languages as language>
+                                <h6 id="language${language.id}">${language.language}
+                                    <button class="close" onclick="deleteLanguage(${language.id})">×</button>
+                                </h6>
+                            </#list>
+                        </#if>
+                    </div>
+                    <button data-toggle="modal"
+                            data-target="#lModal">Add
+                    </button>
                     <p>ACHIEVEMENTS</p>
                     <#if student.achievements?has_content>
-                        <#list student.achievements as achievement>
-                            <a href="">${achievement.filename} </a>
-                        </#list>
+                        <div id="achievements">
+                            <#list student.achievements as achievement>
+                                <h6 id="achievement${achievement.id}">${achievement.achievement}
+                                    <button class="close" onclick="deleteAchievement(${achievement.id})">×</button>
+                                </h6> </a>
+                            </#list>
+                        </div>
                     <#else>
                     </#if>
+                    <button data-toggle="modal"
+                            data-target="#aModal">Add
+                    </button>
                 </div>
             </div>
             <div class="col-md-8">
@@ -238,19 +212,19 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <#if student.workExperiences?has_content>
-                                    <ul>
+                                    <ul id="workExps">
                                         <#list student.workExperiences as workExperience>
-                                            <li>
+                                            <li id="work${workExperience.id}">
                                                 Start date : ${workExperience.startDate}
                                                 End date : ${workExperience.endDate} <br>
                                                 Company : ${workExperience.organization} <br>
                                                 Position : ${workExperience.position} <br>
                                                 Duties : ${workExperience.duties} <br>
+                                                <button onclick="deleteWorkExp(${workExperience.id})">Delete</button>
                                                 <br>
                                             </li>
                                         </#list>
                                     </ul>
-                                <#else> Без опыта
                                 </#if>
                             </div>
                         </div>
@@ -438,7 +412,143 @@
                                             </div> <!-- form-group.// -->
 
 
-                                            <button type="submit" onclick="d()" class="subscribe btn btn-primary btn-block"> Confirm
+                                            <button onclick="addWorkExp()" class="subscribe btn btn-primary btn-block">
+                                                Confirm
+                                            </button>
+                                        </form>
+                                    </div> <!-- tab-pane.// -->
+                                </div> <!-- tab-content .// -->
+
+                            </div> <!-- card-body.// -->
+                        </article> <!-- card.// -->
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="lModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p>Add Language</p>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <!-- h4 class="modal-title">Modal Header</h4 -->
+                    </div>
+                    <div class="modal-body">
+
+                        <!-- card -->
+                        <article class="card">
+                            <div class="card-body p-5">
+
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="nav-tab-card">
+                                        <form id="lForm" class="form" method="post" action="/addLanguage">
+
+                                            <div class="form-group">
+                                                <label for="language">Language</label>
+                                                <input type="text" class="form-control" name="language"
+                                                       required="">
+                                            </div> <!-- form-group.// -->
+
+
+                                            <button type="submit" class="subscribe btn btn-primary btn-block"> Confirm
+                                            </button>
+                                        </form>
+                                    </div> <!-- tab-pane.// -->
+                                </div> <!-- tab-content .// -->
+
+                            </div> <!-- card-body.// -->
+                        </article> <!-- card.// -->
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div><!-- Modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="sModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p>Add Skill</p>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <!-- h4 class="modal-title">Modal Header</h4 -->
+                    </div>
+                    <div class="modal-body">
+
+                        <!-- card -->
+                        <article class="card">
+                            <div class="card-body p-5">
+
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="nav-tab-card">
+                                        <form id="sForm" class="form" action="/addSkill" method="post">
+
+                                            <div class="form-group">
+                                                <label for="skill">Skill</label>
+                                                <input id="skill" type="text" class="form-control" name="skill"
+                                                       required="">
+                                            </div> <!-- form-group.// -->
+
+
+                                            <button id="sButton" type="submit"
+                                                    class="subscribe btn btn-primary btn-block"> Confirm
+                                            </button>
+                                        </form>
+                                    </div> <!-- tab-pane.// -->
+                                </div> <!-- tab-content .// -->
+
+                            </div> <!-- card-body.// -->
+                        </article> <!-- card.// -->
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div><!-- Modal -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="aModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p>Add Achievement</p>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <!-- h4 class="modal-title">Modal Header</h4 -->
+                    </div>
+                    <div class="modal-body">
+
+                        <!-- card -->
+                        <article class="card">
+                            <div class="card-body p-5">
+
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="nav-tab-card">
+                                        <form id="aForm" class="form" action="/addAchievement" method="post">
+
+                                            <div class="form-group">
+                                                <label for="achievement">Achievement</label>
+                                                <input id="achievement" type="text" class="form-control" name="achievement"
+                                                       required="">
+                                            </div> <!-- form-group.// -->
+
+
+                                            <button id="sButton" type="submit"
+                                                    class="subscribe btn btn-primary btn-block"> Confirm
                                             </button>
                                         </form>
                                     </div> <!-- tab-pane.// -->
@@ -456,8 +566,55 @@
         </div><!-- Modal -->
     </div>
     <script>
-        function d() {
-            alert($('#end').val());
+        function deleteWorkExp(id, e) {
+            $.ajax({
+                method: "POST",
+                url: "/deleteWorkExp",
+                data: "id=" + id,
+                success: function () {
+                    let child = document.getElementById("work" + id);
+                    child.remove();
+                }
+            });
         }
+
+        function deleteLanguage(id) {
+            $.ajax({
+                method: "POST",
+                url: "/deleteLanguage",
+                data: "id=" + id,
+                success: function () {
+                    let child = document.getElementById("language" + id);
+                    child.remove();
+                }
+            })
+        }
+
+        function deleteAchievement(id) {
+            $.ajax({
+                method: "POST",
+                url: "/deleteAchievement",
+                data: "id=" + id,
+                success: function () {
+                    let child = document.getElementById("achievement" + id);
+                    child.remove();
+                }
+            })
+        }
+
+
+        function deleteSkill(id) {
+            $.ajax({
+                method: "POST",
+                url: "/deleteSkill",
+                data: "id=" + id,
+                success: function () {
+                    let child = document.getElementById("skill" + id);
+                    child.remove();
+                }
+            })
+        }
+
+
     </script>
 </@c.page>
