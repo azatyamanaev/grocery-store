@@ -29,10 +29,12 @@
                             <a class="nav-link" id="extra-tab" data-toggle="tab" href="#extra" role="tab"
                                aria-controls="extra" aria-selected="false">Extra</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab"
-                               aria-controls="settings" aria-selected="false">Settings</a>
-                        </li>
+                        <#if user.id == company.id>
+                            <li class="nav-item">
+                                <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab"
+                                   aria-controls="settings" aria-selected="false">Settings</a>
+                            </li>
+                        </#if>
                     </ul>
                 </div>
             </div>

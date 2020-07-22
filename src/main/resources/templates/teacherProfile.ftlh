@@ -27,10 +27,12 @@
                                 <a class="nav-link" id="about-tab" data-toggle="tab" href="#about" role="tab"
                                    aria-controls="about" aria-selected="false">About</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab"
-                                   aria-controls="settings" aria-selected="false">Settings</a>
-                            </li>
+                            <#if user.id == teacher.id>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab"
+                                       aria-controls="settings" aria-selected="false">Settings</a>
+                                </li>
+                            </#if>
                         </ul>
                     </div>
                 </div>

@@ -39,10 +39,12 @@
                             <a class="nav-link" id="extra-tab" data-toggle="tab" href="#extra" role="tab"
                                aria-controls="extra" aria-selected="false">Extra</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab"
-                               aria-controls="settings" aria-selected="false">Settings</a>
-                        </li>
+                        <#if user.id = student.id>
+                            <li class="nav-item">
+                                <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab"
+                                   aria-controls="settings" aria-selected="false">Settings</a>
+                            </li>
+                        </#if>
                     </ul>
                 </div>
             </div>
@@ -54,12 +56,14 @@
                 </div>
             </#if>
             <#if user.role == "STUDENT">
+            <div class="col-md-2">
                 <button type="button" class="profile-edit-btn" name="btnAddMore" data-toggle="modal"
                         data-target="#lModal">Add language
                 </button>
+                </div>
             </#if>
         </div>
-        <div class="modal fade" id="workModal" role="dialog">
+        <div class="modal fade" id="lModal" role="dialog">
             <div class="modal-dialog">
 
                 <!-- Modal content-->
