@@ -25,9 +25,9 @@ public class MessageConvertorServiceImpl implements MessageConvertorService {
         Map<String, String> map = new HashMap<>();
         String link = "";
         if (ftlEnum.equals(FtlEnum.CONFIRM))
-            link = "http://localhost:8080/confirm/" + confirmCode;
+            link = "http://82.146.54.49:8040/confirm/" + confirmCode;
         else if (ftlEnum.equals(FtlEnum.RESET))
-            link = "http://localhost:8080/user/changePassword?id=" + confirmCode;
+            link = "http://82.146.54.49:8040/user/changePassword?id=" + confirmCode;
         map.put("code", link);
         Template t;
         String html;
