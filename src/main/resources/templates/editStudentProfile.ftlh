@@ -6,38 +6,6 @@
 
 
     <div class="container">
-        <div>
-            <button type="button" class="btn btn-light">
-                Назад
-            </button>
-            <!--            <button type="button" class="btn btn-light">-->
-            <!--                Получать уведомления о событиях-->
-            <!--            </button>-->
-            <!--            <button type="button" class="btn btn-light">-->
-            <!--                Изменить профиль-->
-            <!--            </button>-->
-            <!--            <button type="button" class="btn btn-light">-->
-            <!--                Изменить пароль-->
-            <!--            </button>-->
-            <!--            <button type="button" class="btn btn-light">-->
-            <!--                Удалить профиль-->
-            <!--            </button>-->
-        </div>
-
-        <!-- <div class="row">
-          <div class="col-3">
-            <button type="button" class="btn btn-light">
-              Назад
-            </button>
-          </div>
-          <div class="col-9" style="background-color:#D3D3D3">
-            <p> Иван Иванов
-          </div>
-
-        </div> -->
-
-        <!--
-                <p> Иван Иванов -->
         <form action="/editStudent" method="post">
             <div class="row" style="margin-top:60px;">
                 <div class="col-3">
@@ -47,12 +15,17 @@
 
                 </div>
                 <div class="col-9">
-                    <label for="firstName">Имя</label>
-                    <input type="text" name="firstName" class="form-control" id="firstName" placeholder="" value="<#if student.name?has_content>${student.name}<#else>name</#if>" required>
-                    <label for="lastName">Фамилия</label>
-                    <input type="text" name="lastName" class="form-control" id="lastName" placeholder="" value="<#if student.lastName?has_content>${student.lastName}<#else>lastName</#if>">
-                    <label for="fatherName">Отчество</label>
-                    <input type="text" class="form-control" id="fatherName" placeholder="" value="<#if student.patronymic?has_content>${student.patronymic}<#else>patronymic</#if>">
+                    <label for="firstName">Name</label>
+                    <input type="text" name="firstName" class="form-control" id="firstName" placeholder="" value="<#if student.name?has_content>${student.name}</#if>" required>
+                    <label for="lastName">Last name</label>
+                    <input type="text" name="lastName" class="form-control" id="lastName" placeholder="" value="<#if student.lastName?has_content>${student.lastName}</#if>">
+                    <label for="fatherName">Patronymic</label>
+                    <input type="text" class="form-control" id="fatherName" placeholder="" value="<#if student.patronymic?has_content>${student.patronymic}</#if>">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" name="email" value="<#if user.email?has_content>${user.email}</#if>" required>
+                    <label for="login">Login</label>
+                    <input type="text" name="login" class="form-control" id="login"
+                           value="<#if user.login?has_content>${user.login}</#if>" required>
                 </div>
 
             </div>
@@ -60,7 +33,7 @@
 
             <div class="row">
                 <div class="col-3">
-                    <p> Пол
+                    <p> Gender
 
 
                 </div>
@@ -68,15 +41,15 @@
                 <div class="col-9">
                     <div class="custom-control custom-radio">
                         <input id="male" name="sex" type="radio" class="custom-control-input" checked required>
-                        <label class="custom-control-label" for="male">Мужчина</label>
+                        <label class="custom-control-label" for="male">Male/label>
                     </div>
                     <div class="custom-control custom-radio">
                         <input id="female" name="sex" type="radio" class="custom-control-input" required>
-                        <label class="custom-control-label" for="female">Женщина</label>
+                        <label class="custom-control-label" for="female">Female</label>
                     </div>
                     <div class="custom-control custom-radio">
                         <input id="otherSex" name="sex" type="radio" class="custom-control-input" required>
-                        <label class="custom-control-label" for="otherSex">Другой</label>
+                        <label class="custom-control-label" for="otherSex">Other</label>
                     </div>
                 </div>
 
@@ -84,7 +57,7 @@
 
             <div class="row">
                 <div class="col-3">
-                    <p> Дата рождения
+                    <p> Birthday
 
 
                 </div>
@@ -95,19 +68,19 @@
             </div>
             <div class="row">
                 <div class="col-3">
-                    <p> Город
+                    <p> City
 
 
                 </div>
                 <div class="col-9">
-                    <input type="text" class="form-control" id="city" placeholder="" value="<#if student.city?has_content>${student.city}<#else>city</#if>">
+                    <input type="text" class="form-control" id="city" placeholder="" value="<#if student.city?has_content>${student.city}</#if>">
                 </div>
 
             </div>
 
             <div class="row">
                 <div class="col-3">
-                    <p> Ключевые навыки:
+                    <p> Skills:
 
 
                 </div>
@@ -120,7 +93,6 @@
                                 </li>
                             </#list>
                         </ul>
-                    <#else> Skills
                     </#if>
                 </div>
 
@@ -128,7 +100,7 @@
 
             <div class="row">
                 <div class="col-3">
-                    <p> Ссылка на гит:
+                    <p> Link to git:
 
 
                 </div>
@@ -140,7 +112,7 @@
 
             <div class="row">
                 <div class="col-3">
-                    <p> Опыт работы:
+                    <p> Work experience:
 
 
                 </div>
@@ -152,14 +124,14 @@
                                     С <input type="date" value="${workExperience.startDate}"> до <input type="date"
                                                                                                         value="{workExperience.endDate}">$
                                     <br>
-                                    В компании : <input value="${workExperience.organization}"> <br>
-                                    На позиции : <input value="${workExperience.position}"> <br>
-                                    Обязанности : <input value="${workExperience.duties} "> <br>
+                                    Company : <input value="${workExperience.organization}"> <br>
+                                    Position : <input value="${workExperience.position}"> <br>
+                                    Duties : <input value="${workExperience.duties} "> <br>
                                     <br>
                                 </li>
                             </#list>
                         </ul>
-                    <#else> Без опыта
+                    <#else> Without experience
                     </#if>
                 </div>
 
@@ -167,19 +139,25 @@
 
             <div class="row">
                 <div class="col-3">
-                    <p> О себе:
+                    <p> About:
 
 
                 </div>
                 <div class="col-9">
-                    <input type="text" class="form-control" id="aboutMe" placeholder="" value="<#if student.about?has_content>${student.about}</#if>">
+                    <#if user.about?has_content>
+                        <textarea name="about" class="form-control">${user.about}
+                            </textarea>
+                    <#else>
+                        <textarea name="about" type="text" class="form-control" id="aboutUs">
+                            </textarea>
+                    </#if>
                 </div>
 
             </div>
 
             <div class="row">
                 <div class="col-3">
-                    <p> Образование:
+                    <p> Education:
 
 
                 </div>
@@ -191,7 +169,7 @@
 
             <div class="row">
                 <div class="col-3">
-                    <p> Владение языками
+                    <p> Languages
 
 
                 </div>
@@ -204,7 +182,6 @@
                                 </li>
                             </#list>
                         </ul>
-                    <#else> Языки
                     </#if>
                 </div>
             </div>

@@ -34,4 +34,6 @@ public interface UsersService {
     void setEditContent(Model model, Long id);
 
     void changePassowrd(Authentication authentication, String password);
+
+    User findUserByLogin(String login);
 }

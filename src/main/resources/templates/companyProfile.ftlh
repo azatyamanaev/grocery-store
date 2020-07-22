@@ -46,7 +46,7 @@
             <div class="col-md-4">
                 <div class="profile-work">
                     <p>WORK LINK</p>
-                    <a href="<#if company.linkToSite?has_content>${student.linkToSite}</#if>">Site</a><br/>
+                    <a href="<#if company.linkToSite?has_content>${company.linkToSite}</#if>">Site</a><br/>
                     <!--<a href="">Bootsnipp Profile</a><br/>
                     <a href="">Bootply Profile</a>-->
                 </div>
@@ -84,8 +84,8 @@
                     <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
                         <div class="row">
                             <div class="col-md-4">
-                                <button class="profile-edit-btn" name="editProfile" onclick="location.href='/edit'">Edit
-                                    Profile
+                                <button class="profile-edit-btn" name="editProfile" onclick="location.href='/edit'">
+                                    Edit Profile
                                 </button>
                             </div>
                             <div class="col-md-4">

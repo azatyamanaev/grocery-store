@@ -28,7 +28,7 @@ public class EventsController {
 
     @PreAuthorize("hasAuthority('COMPANY') || hasAuthority('TEACHER')")
     @PostMapping("/createEvent")
-    public String createEvent(@RequestParam("name") String name, @RequestParam("information") String description, @RequestParam("link") String link, Authentication authentication) {
+    public String createEvent(@RequestParam("name") String name, @RequestParam("description") String description, @RequestParam("link") String link, Authentication authentication) {
         UserDetailsImpl user = (UserDetailsImpl) authentication.getPrincipal();
         eventsService.createEvent(Event.builder()
                 .host(user.getUser().getLogin())

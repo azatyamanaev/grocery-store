@@ -355,7 +355,7 @@
                                         <form id="workExpForm" class="form" method="post" action="/addWorkExp">
                                             <div class="form-group">
                                                 <label for="start">Start date:</label>
-                                                <input type="date" name="start" class="form-control"
+                                                <input id="end" type="date" name="start" class="form-control"
                                                        value="2017-01-19"
                                                        min="2017-01-19" max="2019-12-05">
                                             </div> <!-- form-group.// -->
@@ -386,7 +386,7 @@
                                             </div> <!-- form-group.// -->
 
 
-                                            <button onclick="addWorkExp()" class="subscribe btn btn-primary btn-block" type="button"> Confirm
+                                            <button type="submit" onclick="d()" class="subscribe btn btn-primary btn-block"> Confirm
                                             </button>
                                         </form>
                                     </div> <!-- tab-pane.// -->
@@ -404,30 +404,8 @@
         </div><!-- Modal -->
     </div>
     <script>
-        $('form')
-        function addWorkExp() {
-            let form = $('#workExpForm');
-            let start = form.find("input[name=start]").val();
-            let end = form.find("input[name=end]").val();
-            let company = form.find("input[name=company]").val();
-            let position = form.find("input[name=position]").val();
-            let duties = form.find("input[name=duties]").val();
-            let workExp = {
-                "startDate": start,
-                "endDate": end,
-                "organization": company,
-                "position": position,
-                "duties": duties
-            }
-            alert(workExp.position);
-            $.ajax({
-                url: "/addWorkExp",
-                method: "POST",
-                data: JSON.stringify(workExp),
-                success: function (response) {
-                    alert(response);
-                }
-            })
+        function d() {
+            alert($('#end').val());
         }
     </script>
 </@c.page>

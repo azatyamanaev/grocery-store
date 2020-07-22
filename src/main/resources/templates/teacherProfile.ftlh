@@ -72,9 +72,8 @@
                         <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <button class="profile-edit-btn" name="editProfile" onclick="location.href='/editTeacher'">
-                                        Edit
-                                        Profile
+                                    <button class="profile-edit-btn" name="editProfile" onclick="location.href='/edit'">
+                                        Edit Profile
                                     </button>
                                 </div>
                                 <div class="col-md-4">
@@ -129,7 +128,7 @@
                                             </div> <!-- form-group.// -->
                                             <div class="form-group">
                                                 <label for="information">Description</label>
-                                                <input type="text" class="form-control" name="information"
+                                                <input type="text" class="form-control" name="description"
                                                        placeholder="" required="">
                                             </div> <!-- form-group.// -->
 

@@ -2,6 +2,8 @@ package ru.itis.grocerystore.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import ru.itis.grocerystore.models.*;
@@ -9,6 +11,7 @@ import ru.itis.grocerystore.repositories.CompaniesRepository;
 import ru.itis.grocerystore.repositories.StudentsRepository;
 import ru.itis.grocerystore.repositories.TeachersRepository;
 import ru.itis.grocerystore.repositories.UsersRepository;
+import ru.itis.grocerystore.security.jwt.details.UserDetailsImpl;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +27,8 @@ public class UsersServiceImpl implements UsersService {
     private TeachersRepository teachersRepository;
     @Autowired
     private UsersRepository usersRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<Student> getAllStudents() {
@@ -128,8 +133,17 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public void changePassowrd(Authentication authentication, String password) {
-        User user = (User) authentication.getPrincipal();
-        user.setPassword(password);
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        User user = userDetails.getUser();
+        user.setPassword(passwordEncoder.encode(password));
         usersRepository.update(user);
+    }
+
+    @Override
+    public User findUserByLogin(String login) {
+        Optional<User> optionalUser = usersRepository.findByLogin(login);
+        if (optionalUser.isPresent()) {
+            return optionalUser.get();
+        } else throw new UsernameNotFoundException("User is not present");
     }
 }
