@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.itis.grocerystore.dto.WorkExpDto;
+import ru.itis.grocerystore.models.Language;
 import ru.itis.grocerystore.models.Student;
 import ru.itis.grocerystore.models.User;
 import ru.itis.grocerystore.models.WorkExperience;
@@ -17,6 +18,7 @@ import ru.itis.grocerystore.security.jwt.details.UserDetailsImpl;
 import ru.itis.grocerystore.services.StudentAttributesService;
 import ru.itis.grocerystore.services.UsersService;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Controller
@@ -30,18 +32,34 @@ public class AddStudentAttributesController {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         User user = userDetails.getUser();
 
-        //WorkExperience workExperience = WorkExperience.builder()
-        //        .startDate(workExpDto.)
-        //        .endDate(end)
-        //        .organization(company)
-        //        .position(position)
-        //        .duties(duties)
-        //        .student((Student) user)
-        //        .build();
-        //service.addWorkExp(workExperience);
-        model.addAttribute("student", user);
-        return "profile";
+        WorkExperience workExperience = WorkExperience.builder()
+                .startDate(workExpDto.getStart())
+                .endDate(workExpDto.getEnd())
+                .organization(workExpDto.getCompany())
+                .position(workExpDto.getPosition())
+                .duties(workExpDto.getDuties())
+                .student((Student) user)
+                .build();
+        service.addWorkExp(workExperience);
+        model.addAttribute("user", user);
+        return "studentProfile";
     }
 
+    @PostMapping("/addLanguage")
+    public String addLanguage(@RequestParam String language, Model model, Authentication authentication) {
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        User user = userDetails.getUser();
+        model.addAttribute("user", user);
+        Language language1 = Language.builder()
+                .language(language)
+                .student((Student) user)
+                .build();
+        service.addLanguage(language1);
+        return "studentProfile";
+    }
 
+    @PostMapping("/addAchievement")
+    public String addAchievement() {
+        return "studentProfile";
+    }
 }
