@@ -56,7 +56,9 @@
                     <button type="button" class="profile-edit-btn" name="btnAddMore" data-toggle="modal"
                             data-target="#myModal">Invite to work
                     </button>
+
                 </div>
+
             </#if>
 
         </div>
@@ -280,17 +282,27 @@
                                 <#if student.recommendationLetters?has_content>
                                     <ul>
                                         <#list student.recommendationLetters as recommendationLetter>
-                                            <li>
+                                            <li id="recomLet${recommendationLetter.id}">
                                                 От: ${recommendationLetter.author} <br>
                                                 <#--                                Заменить на ссылку с письмом-->
                                                 Письмо: ${recommendationLetter.text} <br>
                                                 <br>
+                                                <#if user.role == "COMPANY" || user.role == "TEACHER" && user.login == recommendationLetter.author>
+                                                    <button onclick="deleteRecomLet(${recommendationLetter.id})">Delete</button>
+                                                </#if>
                                             </li>
                                         </#list>
                                     </ul>
                                 </#if>
                             </div>
                         </div>
+                        <#if user.role == "COMPANY" || user.role == "TEACHER">
+                        <div class="col-md-7">
+                            <button type="button" class="profile-edit-btn with-small-margin" name="btnAddMore" data-toggle="modal"
+                                    data-target="#rModal">Write recommendational letter
+                            </button>
+                        </div>
+                        </#if>
                     </div>
                     <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
                         <div class="row">
@@ -378,7 +390,9 @@
                 </div>
 
             </div>
-        </div><!-- Modal -->
+        </div>
+
+        <!-- Modal -->
         <div class="modal fade" id="workModal" role="dialog">
             <div class="modal-dialog">
 
@@ -446,7 +460,57 @@
                 </div>
 
             </div>
-        </div>
+        </div><!-- Modal -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="rModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p>Write recommendational letter</p>
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <!-- h4 class="modal-title">Modal Header</h4 -->
+                    </div>
+                    <div class="modal-body">
+
+                        <!-- card -->
+                        <article class="card">
+                            <div class="card-body p-5">
+
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="nav-tab-card">
+                                        <form id="sForm" class="form" action="/writeRecomLet" method="post">
+
+                                            <div class="form-group">
+                                                <label for="text">Text</label>
+                                                <textarea class="form-control" name="text"
+                                                placeholder="Enter text of letter"
+                                                required=""> </textarea>
+                                            </div> <!-- form-group.// -->
+
+                                            <input hidden name="studentId" value="${student.id}">
+
+                                            <button id="sButton" type="submit"
+                                                    class="subscribe btn btn-primary btn-block"> Confirm
+                                            </button>
+                                        </form>
+                                    </div> <!-- tab-pane.// -->
+                                </div> <!-- tab-content .// -->
+
+                            </div> <!-- card-body.// -->
+                        </article> <!-- card.// -->
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div><!-- Modal -->
+
+
         <!-- Modal -->
         <div class="modal fade" id="lModal" role="dialog">
             <div class="modal-dialog">
@@ -491,6 +555,9 @@
 
             </div>
         </div><!-- Modal -->
+
+
+
         <!-- Modal -->
         <div class="modal fade" id="sModal" role="dialog">
             <div class="modal-dialog">
@@ -629,6 +696,18 @@
                 data: "id=" + id,
                 success: function () {
                     let child = document.getElementById("skill" + id);
+                    child.remove();
+                }
+            });
+        }
+
+        function deleteRecomLet(id) {
+            $.ajax({
+                method: "POST",
+                url: "/deleteRecomLet",
+                data: "id=" + id,
+                success: function () {
+                    let child = document.getElementById("recomLet" + id);
                     child.remove();
                 }
             });

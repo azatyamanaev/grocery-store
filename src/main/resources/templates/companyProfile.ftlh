@@ -38,11 +38,13 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-2">
-                <button type="button" class="profile-edit-btn" name="btnAddMore" data-toggle="modal"
-                        data-target="#myModal">Create Event
-                </button>
-            </div>
+            <#if user.id = company.id>
+                <div class="col-md-2">
+                    <button type="button" class="profile-edit-btn" name="btnAddMore" data-toggle="modal"
+                            data-target="#myModal">Create Event
+                    </button>
+                </div>
+            </#if>
         </div>
         <div class="row">
             <div class="col-md-4">
@@ -98,7 +100,8 @@
                         </div>
                         <div class="row">
                             <div class="col-md-4">
-                                <button class="delete-profile-btn with-margin" name="deleteProfile" onclick="location.href='/delete'">Delete Profile
+                                <button class="delete-profile-btn with-margin" name="deleteProfile"
+                                        onclick="location.href='/delete'">Delete Profile
                                 </button>
                             </div>
                             <div class="col-md-4">

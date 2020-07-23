@@ -1,9 +1,6 @@
 package ru.itis.grocerystore.services;
 
-import ru.itis.grocerystore.models.Achievement;
-import ru.itis.grocerystore.models.Language;
-import ru.itis.grocerystore.models.Skill;
-import ru.itis.grocerystore.models.WorkExperience;
+import ru.itis.grocerystore.models.*;
 
 public interface StudentAttributesService {
     void addWorkExp(WorkExperience workExperience);
@@ -16,4 +13,6 @@ public interface StudentAttributesService {
     void deleteAchievement(Long id);
     Long findIdOfSkill(String skill, Long studentId);
     Long findIdOfLanguage(String language, Long studentId);
+    void addRecommendationLetter(RecommendationLetter recommendationLetter);
+    void deleteRecommendationLetter(Long id);
 }
