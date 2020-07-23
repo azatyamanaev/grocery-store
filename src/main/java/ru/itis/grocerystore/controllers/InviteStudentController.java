@@ -12,7 +12,7 @@ import ru.itis.grocerystore.services.InviteStudentService;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@PreAuthorize("hasRole('COMPANY') || hasRole('TEACHER')")
+@PreAuthorize("hasAuthority('COMPANY') || hasAuthority('TEACHER')")
 public class InviteStudentController {
     @Autowired
     private InviteStudentService inviteStudentService;

@@ -17,14 +17,6 @@ public class SignInController {
     @Autowired
     private AuthService authService;
 
-//    @PreAuthorize("permitAll()")
-//    @GetMapping("/signIn")
-//    public ModelAndView getSignPage() {
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.setViewName("signIn");
-//        return modelAndView;
-//    }
-
     @GetMapping("/signIn")
     public String getPage() {
         return "signIn";

@@ -36,7 +36,7 @@ public class SignUpServiceImpl implements SignUpService {
 
     @Override
     public UserDto signUp(SignUpDto form) {
-        if (usersRepository.findByEmail(form.getEmail()).isPresent())
+        if (usersRepository.findByLogin(form.getLogin()).isPresent())
             return null;
         String emailEnding;
         if (form.getRole().equals(Role.STUDENT))
