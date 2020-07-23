@@ -21,7 +21,9 @@
                     <h6 id="workSearch">
                         <#if student.workSearching == true>Looking for work<#else>Working</#if>
                     </h6>
-                    <button onclick="changeStatus()">Change status</button>
+                    <#if user.id == student.id>
+                        <button onclick="changeStatus()">Change status</button>
+                    </#if>
                     <!--<p class="proile-rating">RANKINGS : <span>8/10</span></p>-->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
@@ -56,9 +58,7 @@
                     </button>
                 </div>
             </#if>
-            <#if user.role == "STUDENT">
 
-            </#if>
         </div>
 
         <div class="row">
@@ -74,14 +74,19 @@
                         <#if student.skills?has_content>
                             <#list student.skills as skill>
                                 <h6 id="skill${skill.id}">${skill.skill}
-                                    <button class="close" onclick="deleteSkill(${skill.id})">×</button>
+                                    <#if user.id == student.id>
+                                        <button class="close" onclick="deleteSkill(${skill.id})">×</button>
+                                    </#if>
+
                                 </h6>
                             </#list>
                         </#if>
                     </div>
-                    <button data-toggle="modal"
-                            data-target="#sModal">Add
-                    </button>
+                    <#if user.id == student.id>
+                        <button data-toggle="modal"
+                                data-target="#sModal">Add
+                        </button>
+                    </#if>
                 </div>
             </div>
             <div class="col-md-2">
@@ -91,28 +96,39 @@
                         <#if student.languages?has_content>
                             <#list student.languages as language>
                                 <h6 id="language${language.id}">${language.language}
-                                    <button class="close" onclick="deleteLanguage(${language.id})">×</button>
+                                    <#if user.id == student.id>
+                                        <button class="close" onclick="deleteLanguage(${language.id})">×</button>
+                                    </#if>
+
                                 </h6>
                             </#list>
                         </#if>
                     </div>
-                    <button data-toggle="modal"
-                            data-target="#lModal">Add
-                    </button>
+                    <#if user.id == student.id>
+                        <button data-toggle="modal"
+                                data-target="#lModal">Add
+                        </button>
+                    </#if>
                     <p>ACHIEVEMENTS</p>
                     <#if student.achievements?has_content>
                         <div id="achievements">
                             <#list student.achievements as achievement>
                                 <a id="achievement${achievement.id}" href="${achievement.achievement}">
                                     ${achievement.achievement}
-                                </a><button class="close" onclick="deleteAchievement(${achievement.id})">×</button>
+                                </a>
+                                <#if user.id == student.id>
+                                    <button class="close" onclick="deleteAchievement(${achievement.id})">×</button>
+                                </#if>
                             </#list>
                         </div>
                     <#else>
                     </#if>
-                    <button data-toggle="modal"
-                            data-target="#aModal">Add
-                    </button>
+                    <#if user.id == student.id>
+                        <button data-toggle="modal"
+                                data-target="#aModal">Add
+                        </button>
+                    </#if>
+
                 </div>
             </div>
             <div class="col-md-8">
@@ -229,11 +245,13 @@
                                 </#if>
                             </div>
                         </div>
-                        <div class="col-md-5">
-                            <button type="button" class="profile-edit-btn" name="btnAddMore" data-toggle="modal"
-                                    data-target="#workModal">Add work experience
-                            </button>
-                        </div>
+                        <#if user.id == student.id>
+                            <div class="col-md-5">
+                                <button type="button" class="profile-edit-btn" name="btnAddMore" data-toggle="modal"
+                                        data-target="#workModal">Add work experience
+                                </button>
+                            </div>
+                        </#if>
                     </div>
                     <div class="tab-pane fade" id="extra" role="tabpanel" aria-labelledby="extra-tab">
                         <div class="row">
@@ -411,7 +429,6 @@
                                                 <input type="text" class="form-control" name="duties"
                                                        required="">
                                             </div> <!-- form-group.// -->
-
 
                                             <button onclick="addWorkExp()" class="subscribe btn btn-primary btn-block">
                                                 Confirm
@@ -622,7 +639,7 @@
                 method: "POST",
                 url: "/changeStatus",
                 success: function () {
-                    if ( $('#workSearch').text() == "Working") {
+                    if ($('#workSearch').text() == "Working") {
                         $('#workSearch').empty();
                         $('#workSearch').text("Looking for work");
 
