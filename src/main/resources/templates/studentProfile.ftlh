@@ -288,7 +288,13 @@
                                                 Письмо: ${recommendationLetter.text} <br>
                                                 <br>
                                                 <#if user.role == "COMPANY" || user.role == "TEACHER" && user.login == recommendationLetter.author>
-                                                    <button onclick="deleteRecomLet(${recommendationLetter.id})">Delete</button>
+                                                    <button onclick="deleteRecomLet(${recommendationLetter.id})">
+                                                        Delete
+                                                    </button>
+                                                <#elseif user.id == student.id>
+                                                    <button onclick="deleteRecomLet(${recommendationLetter.id})">
+                                                        Delete
+                                                    </button>
                                                 </#if>
                                             </li>
                                         </#list>
@@ -297,11 +303,12 @@
                             </div>
                         </div>
                         <#if user.role == "COMPANY" || user.role == "TEACHER">
-                        <div class="col-md-7">
-                            <button type="button" class="profile-edit-btn with-small-margin" name="btnAddMore" data-toggle="modal"
-                                    data-target="#rModal">Write recommendational letter
-                            </button>
-                        </div>
+                            <div class="col-md-7">
+                                <button type="button" class="profile-edit-btn with-small-margin" name="btnAddMore"
+                                        data-toggle="modal"
+                                        data-target="#rModal">Write recommendational letter
+                                </button>
+                            </div>
                         </#if>
                     </div>
                     <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
@@ -486,8 +493,8 @@
                                             <div class="form-group">
                                                 <label for="text">Text</label>
                                                 <textarea class="form-control" name="text"
-                                                placeholder="Enter text of letter"
-                                                required=""> </textarea>
+                                                          placeholder="Enter text of letter"
+                                                          required=""> </textarea>
                                             </div> <!-- form-group.// -->
 
                                             <input hidden name="studentId" value="${student.id}">
@@ -555,7 +562,6 @@
 
             </div>
         </div><!-- Modal -->
-
 
 
         <!-- Modal -->
