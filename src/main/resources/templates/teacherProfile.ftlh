@@ -5,9 +5,9 @@
             <div class="col-md-4">
                 <div class="profile-img">
                     <img src="/images/avatar_2x.png" alt=""/>
-                    <button class="file btn btn-lg btn-primary">
+                    <!--<button class="file btn btn-lg btn-primary">
                         Change Photo
-                    </button>
+                    </button>-->
                 </div>
             </div>
             <div class="col-md-6">

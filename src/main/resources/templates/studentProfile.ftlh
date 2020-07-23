@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/css/profile.css">
     <link rel="stylesheet" href="/css/modal.css">
     <script src="/js/profile.js"></script>
+    <script src="/js/upload_photo.js"></script>
 </head>
 
 <body>
@@ -49,10 +50,9 @@
     <div class="row">
         <div class="col-md-4">
             <div class="profile-img">
-                <img src="/images/avatar_2x.png" alt=""/>
-                <button class="file btn btn-lg btn-primary">
-                    Change Photo
-                </button>
+                <img id="image" src="/images/avatar_2x.png" alt=""/>
+                <!--<button class="file btn btn-lg btn-primary" data-toggle="modal" data-target="#pModal">Change Photo
+                </button>-->
             </div>
         </div>
         <div class="col-md-6">
@@ -533,7 +533,7 @@
 
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="nav-tab-card">
-                                    <form id="sForm" class="form" action="/writeRecomLet" method="post">
+                                    <form id="rForm" class="form" action="/writeRecomLet" method="post">
 
                                         <div class="form-group">
                                             <label for="text">Text</label>
@@ -701,9 +701,53 @@
 
         </div>
     </div><!-- Modal -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="pModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p>Change Photo</p>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <!-- h4 class="modal-title">Modal Header</h4 -->
+                </div>
+                <div class="modal-body">
+
+                    <!-- card -->
+                    <article class="card">
+                        <div class="card-body p-5">
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="nav-tab-card">
+
+                                    <div class="form-group">
+                                        <input type="file" class="form-control" name="file" id="file" required="">
+                                        <input type="hidden" id="file_hidden">
+                                    </div> <!-- form-group.// -->
+
+
+                                    <button type="submit" onclick="sendFile()"
+                                            class="subscribe btn btn-primary btn-block"> Confirm
+                                    </button>
+                                </div> <!-- tab-pane.// -->
+                            </div> <!-- tab-content .// -->
+
+                        </div> <!-- card-body.// -->
+                    </article> <!-- card.// -->
+
+
+                </div>
+
+            </div>
+
+        </div>
+    </div><!-- Modal -->
+
+
 </div>
 <script src="/js/profile.js">
 </script>
-
 </body>
 </html>
