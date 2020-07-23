@@ -18,7 +18,9 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class StudentDto {
+    private String login;
     private String name;
+    private String email;
     private String lastName;
     private String patronymic;
     private String birthDate;
@@ -36,6 +38,6 @@ public class StudentDto {
     private List<WorkExperience> workExperiences;
     private List<Achievement> achievements;
     private String linkToGit;
-    private String workSchedule = "гибкий";
-    private String move = "нет";
+    private String workSchedule = "flexible";
+    private String move = "no";
 }

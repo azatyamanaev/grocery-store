@@ -15,14 +15,14 @@
 
                     </div>
                     <div class="col-9">
-                        <label for="firstName">Name</label>
-                        <input type="text" name="firstName" class="form-control" id="firstName" placeholder=""
+                        <label for="name">Name</label>
+                        <input type="text" name="name" class="form-control" id="name" placeholder=""
                                value="<#if student.name?has_content>${student.name}</#if>" required>
                         <label for="lastName">Last name</label>
                         <input type="text" name="lastName" class="form-control" id="lastName" placeholder=""
                                value="<#if student.lastName?has_content>${student.lastName}</#if>">
-                        <label for="fatherName">Patronymic</label>
-                        <input type="text" class="form-control" id="fatherName" placeholder=""
+                        <label for="patronymic">Patronymic</label>
+                        <input type="text" class="form-control" id="patronymic" placeholder=""
                                value="<#if student.patronymic?has_content>${student.patronymic}</#if>">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" name="email"
@@ -54,6 +54,15 @@
                         <label for="move">Move</label>
                         <input type="text" name="move" class="form-control" id="move"
                                value="<#if user.move?has_content>${user.move}</#if>">
+                        <label for="linkToGit">Link to git</label>
+                        <input name="linkToGit" type="url" class="form-control" id="gitUrl" placeholder=""
+                               value="<#if student.linkToGit?has_content>${student.linkToGit}</#if>">
+                        <label for="city">City</label>
+                        <input name="city" type="text" class="form-control" id="city" placeholder=""
+                               value="<#if student.city?has_content>${student.city}</#if>">
+                        <label for="birthDate">Birthday</label>
+                        <input name="birthDate" type="date" class="form-control" id="birthDate" placeholder=""
+                               value="<#if student.birthDate?has_content>${student.birthDate}</#if>">
                     </div>
 
                 </div>
@@ -85,91 +94,6 @@
 
                 <div class="row">
                     <div class="col-3">
-                        <p> Birthday
-
-
-                    </div>
-                    <div class="col-9">
-                        <input type="date" class="form-control" id="birthDate" placeholder=""
-                               value="<#if student.birthDate?has_content>${student.birthDate}</#if>">
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-3">
-                        <p> City
-
-
-                    </div>
-                    <div class="col-9">
-                        <input type="text" class="form-control" id="city" placeholder=""
-                               value="<#if student.city?has_content>${student.city}</#if>">
-                    </div>
-
-                </div>
-
-                <div class="row">
-                    <div class="col-3">
-                        <p> Skills:
-
-
-                    </div>
-                    <div class="col-9">
-                        <#if student.skills?has_content>
-                            <ul>
-                                <#list student.skills as skill>
-                                    <li>
-                                        <input value="${skill.skill}">
-                                    </li>
-                                </#list>
-                            </ul>
-                        </#if>
-                    </div>
-
-                </div>
-
-                <div class="row">
-                    <div class="col-3">
-                        <p> Link to git:
-
-
-                    </div>
-                    <div class="col-9">
-                        <input name="linkToGit" type="url" class="form-control" id="gitUrl" placeholder=""
-                               value="<#if student.linkToGit?has_content>${student.libnkToGit}</#if>">
-                    </div>
-
-                </div>
-
-                <div class="row">
-                    <div class="col-3">
-                        <p> Work experience:
-
-
-                    </div>
-                    <div class="col-9">
-                        <#if student.workExperiences?has_content>
-                            <ul>
-                                <#list student.workExperiences as workExperience>
-                                    <li>
-                                        С <input type="date" value="${workExperience.startDate}"> до <input type="date"
-                                                                                                            value="{workExperience.endDate}">$
-                                        <br>
-                                        Company : <input value="${workExperience.organization}"> <br>
-                                        Position : <input value="${workExperience.position}"> <br>
-                                        Duties : <input value="${workExperience.duties} "> <br>
-                                        <br>
-                                    </li>
-                                </#list>
-                            </ul>
-                        <#else> Without experience
-                        </#if>
-                    </div>
-
-                </div>
-
-                <div class="row">
-                    <div class="col-3">
                         <p> About:
 
 
@@ -184,26 +108,6 @@
                         </#if>
                     </div>
 
-                </div>
-
-
-                <div class="row">
-                    <div class="col-3">
-                        <p> Languages
-
-
-                    </div>
-                    <div class="col-9">
-                        <#if student.languages?has_content>
-                            <ul>
-                                <#list student.languages as language>
-                                    <li>
-                                        <input value="${language.language}">
-                                    </li>
-                                </#list>
-                            </ul>
-                        </#if>
-                    </div>
                 </div>
 
                 <input type="submit" value="Save">

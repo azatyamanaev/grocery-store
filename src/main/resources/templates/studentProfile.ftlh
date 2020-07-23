@@ -13,14 +13,15 @@
             <div class="col-md-6">
                 <div class="profile-head">
                     <h5>
-                        <#if student.lastname?has_content>${student.lastname}<#else>Last Name</#if>
+                        <#if student.lastName?has_content>${student.lastName}<#else>Last Name</#if>
                         <#if student.name?has_content>${student.name}<#else>Name</#if>
                         <#if student.patronymic?has_content>${student.patronymic}<#else>Patronymic</#if>
                     </h5>
 
-                    <h6>
+                    <h6 id="workSearch">
                         <#if student.workSearching == true>Looking for work<#else>Working</#if>
                     </h6>
+                    <button onclick="changeStatus()">Change status</button>
                     <!--<p class="proile-rating">RANKINGS : <span>8/10</span></p>-->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
@@ -600,7 +601,7 @@
                     let child = document.getElementById("achievement" + id);
                     child.remove();
                 }
-            })
+            });
         }
 
 
@@ -613,7 +614,24 @@
                     let child = document.getElementById("skill" + id);
                     child.remove();
                 }
-            })
+            });
+        }
+
+        function changeStatus() {
+            $.ajax({
+                method: "POST",
+                url: "/changeStatus",
+                success: function () {
+                    if ( $('#workSearch').text() == "Working") {
+                        $('#workSearch').empty();
+                        $('#workSearch').text("Looking for work");
+
+                    } else {
+                        $('#workSearch').empty();
+                        $('#workSearch').text("Working");
+                    }
+                }
+            });
         }
 
 

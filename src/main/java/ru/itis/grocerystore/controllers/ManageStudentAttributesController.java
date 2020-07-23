@@ -26,7 +26,7 @@ public class ManageStudentAttributesController {
     @Autowired
     private StudentAttributesService service;
     @Autowired
-    private ProfileService profileService;
+    private UsersService usersService;
 
     @PostMapping("/addWorkExp")
     public String addWorkExp(WorkExpDto workExpDto, Authentication authentication) {
@@ -107,5 +107,16 @@ public class ManageStudentAttributesController {
     public ResponseEntity<Object> deleteWorkExp(@RequestParam("id") Long id) {
         service.deleteWorkExp(id);
         return ResponseEntity.ok("success");
+    }
+
+    @PostMapping("/changeStatus")
+    @ResponseBody
+    public ResponseEntity<Object> chnageStatus(Authentication authentication) {
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        User user = userDetails.getUser();
+        Student student = usersService.findStudent(user.getId());
+        student.setWorkSearching(!student.getWorkSearching());
+        usersService.updateStudent(student);
+        return ResponseEntity.ok("ok");
     }
 }

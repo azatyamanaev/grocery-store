@@ -16,7 +16,7 @@ import java.util.List;
 public class Student extends User {
     private String lastName;
     private String patronymic;
-    private Date birthDate;
+    private String birthDate;
     private String educationalLevel;
     private String university;
     private String faculty;
@@ -84,7 +84,7 @@ public class Student extends User {
         private State state;
         private String lastName;
         private String patronymic;
-        private Date birthDate;
+        private String birthDate;
         private String educationalLevel;
         private String university;
         private String faculty;
@@ -151,7 +151,7 @@ public class Student extends User {
             return this;
         }
 
-        public Builder birthDate(Date birthDate) {
+        public Builder birthDate(String birthDate) {
             this.birthDate = birthDate;
             return this;
         }

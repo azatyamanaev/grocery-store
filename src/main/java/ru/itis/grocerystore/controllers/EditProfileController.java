@@ -8,10 +8,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.itis.grocerystore.dto.StudentDto;
 import ru.itis.grocerystore.models.*;
 import ru.itis.grocerystore.security.jwt.details.UserDetailsImpl;
 import ru.itis.grocerystore.services.ProfileService;
 import ru.itis.grocerystore.services.UsersService;
+import java.util.List;
 
 @Controller
 @PreAuthorize("isAuthenticated()")
@@ -52,8 +54,40 @@ public class EditProfileController {
     }
 
     @PostMapping("/editStudent")
-    public String editStudentProfile(@RequestBody Student student) {
-        usersService.updateStudent(student);
+    public String editStudentProfile(StudentDto studentDto, Authentication authentication) {
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        User user = userDetails.getUser();
+        List<RecommendationLetter> recommendationLetterList = usersService.findStudent(user.getId()).getRecommendationLetters();
+        usersService.updateStudent(Student.builder()
+                .id(user.getId())
+                .login(studentDto.getLogin())
+                .name(studentDto.getName())
+                .email(studentDto.getEmail())
+                .state(user.getState())
+                .role(user.getRole())
+                .lastName(studentDto.getLastName())
+                .patronymic(studentDto.getPatronymic())
+                .city(studentDto.getCity())
+                .citizenship(studentDto.getCitizenship())
+                .university(studentDto.getUniversity())
+                .faculty(studentDto.getFaculty())
+                .specialization(studentDto.getSpecialization())
+                .skills(studentDto.getSkills())
+                .languages(studentDto.getLanguages())
+                .workExperiences(studentDto.getWorkExperiences())
+                .gender(studentDto.getGender())
+                .about(studentDto.getAbout())
+                .linkToGit(studentDto.getLinkToGit())
+                .confirmCode(user.getConfirmCode())
+                .password(user.getPassword())
+                .achievements(studentDto.getAchievements())
+                .recommendationLetters(recommendationLetterList)
+                .move(studentDto.getMove())
+                .workSchedule(studentDto.getWorkSchedule())
+                .birthDate(studentDto.getBirthDate())
+                .educationalLevel(studentDto.getEducationalLevel())
+                .educationEndYear(studentDto.getEducationEndYear())
+                .build());
         return "redirect:/profile";
     }
 
