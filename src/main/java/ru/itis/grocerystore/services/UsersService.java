@@ -7,7 +7,6 @@ import ru.itis.grocerystore.models.*;
 import java.util.List;
 
 public interface UsersService {
-    List<Student> getAllStudents();
 
     void updateStudent(Student student);
 
@@ -34,6 +33,4 @@ public interface UsersService {
     void setEditContent(Model model, Long id);
 
     void changePassowrd(Authentication authentication, String password);
-
-    User findUserByLogin(String login);
 }

@@ -31,11 +31,6 @@ public class UsersServiceImpl implements UsersService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public List<Student> getAllStudents() {
-        return studentsRepository.findAll();
-    }
-
-    @Override
     public void updateStudent(Student student) {
         studentsRepository.update(student);
     }
@@ -137,13 +132,5 @@ public class UsersServiceImpl implements UsersService {
         User user = userDetails.getUser();
         user.setPassword(passwordEncoder.encode(password));
         usersRepository.update(user);
-    }
-
-    @Override
-    public User findUserByLogin(String login) {
-        Optional<User> optionalUser = usersRepository.findByLogin(login);
-        if (optionalUser.isPresent()) {
-            return optionalUser.get();
-        } else throw new UsernameNotFoundException("User is not present");
     }
 }

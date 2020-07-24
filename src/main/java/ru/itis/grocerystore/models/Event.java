@@ -23,4 +23,9 @@ public class Event {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public Event(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

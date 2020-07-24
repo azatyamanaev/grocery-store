@@ -20,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -109,6 +110,11 @@ public class AppConfig {
     @Bean
     public ExecutorService executorService() {
         return Executors.newFixedThreadPool(20);
+    }
+
+    @Bean
+    public CommonsMultipartResolver multipartResolver() {
+        return new CommonsMultipartResolver();
     }
 
 }

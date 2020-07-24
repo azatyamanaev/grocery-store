@@ -32,6 +32,12 @@ public class Teacher extends User {
         this.confirmCode = builder.confirmCode;
     }
 
+    public Teacher(Long id, String login, String password) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+    }
+
     public static class Builder extends UserBuilder{
         private Long id;
         private String login;

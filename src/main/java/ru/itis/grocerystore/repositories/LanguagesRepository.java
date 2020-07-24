@@ -8,5 +8,5 @@ import java.util.List;
 public interface LanguagesRepository extends CrudRepository<Language, Long> {
 
     List<Language> findDistinctByLanguageIn(List<String> language);
-
+    Long findIdOfLanguage(String language, Long studentId);
 }

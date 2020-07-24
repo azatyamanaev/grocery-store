@@ -40,8 +40,9 @@
                     <a class="nav-link " href="/search">Students</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="/employers">Companies/Teachers</a>
-                </li>
+                    <a class="nav-link" href="/companies">Companies</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/teachers">Teachers</a></li>
             </ul>
         </div>
     </nav>

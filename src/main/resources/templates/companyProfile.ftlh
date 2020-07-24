@@ -5,9 +5,9 @@
             <div class="col-md-4">
                 <div class="profile-img">
                     <img src="/images/avatar_2x.png" alt=""/>
-                    <button class="file btn btn-lg btn-primary">
+                    <!--<button class="file btn btn-lg btn-primary">
                         Change Photo
-                    </button>
+                    </button-->
                 </div>
             </div>
             <div class="col-md-6">
@@ -29,18 +29,22 @@
                             <a class="nav-link" id="extra-tab" data-toggle="tab" href="#extra" role="tab"
                                aria-controls="extra" aria-selected="false">Extra</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab"
-                               aria-controls="settings" aria-selected="false">Settings</a>
-                        </li>
+                        <#if user.id == company.id>
+                            <li class="nav-item">
+                                <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab"
+                                   aria-controls="settings" aria-selected="false">Settings</a>
+                            </li>
+                        </#if>
                     </ul>
                 </div>
             </div>
-            <div class="col-md-2">
-                <button type="button" class="profile-edit-btn" name="btnAddMore" data-toggle="modal"
-                        data-target="#myModal">Create Event
-                </button>
-            </div>
+            <#if user.id = company.id>
+                <div class="col-md-2">
+                    <button type="button" class="profile-edit-btn" name="btnAddMore" data-toggle="modal"
+                            data-target="#myModal">Create Event
+                    </button>
+                </div>
+            </#if>
         </div>
         <div class="row">
             <div class="col-md-4">
@@ -96,7 +100,8 @@
                         </div>
                         <div class="row">
                             <div class="col-md-4">
-                                <button class="delete-profile-btn with-margin" name="deleteProfile" onclick="location.href='/delete'">Delete Profile
+                                <button class="delete-profile-btn with-margin" name="deleteProfile"
+                                        onclick="location.href='/delete'">Delete Profile
                                 </button>
                             </div>
                             <div class="col-md-4">

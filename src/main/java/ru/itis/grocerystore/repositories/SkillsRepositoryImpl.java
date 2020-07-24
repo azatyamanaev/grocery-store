@@ -5,15 +5,19 @@ import ru.itis.grocerystore.models.Skill;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
+@Transactional
 public class SkillsRepositoryImpl implements SkillsRepository {
     //language=HQL
     private final String SQL_DELETE_BY_ID = "delete from Skill where id = :skillId";
     //language=HQL
     private final String HQL_SELECT_ALL = "select distinct t.skill from Skill t";
+    //language=HQL
+    private final String HQL_SELECT_ID = "select distinct t.id from Skill t where t.skill = ?1 and t.student.id = ?2";
     @PersistenceContext
     private EntityManager entityManager;
     @Override
@@ -29,6 +33,11 @@ public class SkillsRepositoryImpl implements SkillsRepository {
     }
 
     @Override
+    public Long findIdOfSkill(String skill, Long studentId) {
+        return (Long) entityManager.createQuery(HQL_SELECT_ID).setParameter(1, skill).setParameter(2, studentId).getSingleResult();
+    }
+
+    @Override
     public void save(Skill model) {
         entityManager.persist(model);
     }
@@ -40,7 +49,7 @@ public class SkillsRepositoryImpl implements SkillsRepository {
 
     @Override
     public void delete(Long id) {
-        entityManager.createQuery(SQL_DELETE_BY_ID).setParameter("skillId", id);
+        entityManager.createQuery(SQL_DELETE_BY_ID).setParameter("skillId", id).executeUpdate();
     }
 
     @Override

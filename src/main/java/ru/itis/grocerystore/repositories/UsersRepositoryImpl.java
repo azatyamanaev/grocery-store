@@ -40,7 +40,7 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     @Override
     public void delete(Long id) {
-        entityManager.createQuery(SQL_DELETE_BY_ID).setParameter("userId", id);
+        entityManager.createQuery(SQL_DELETE_BY_ID).setParameter("userId", id).executeUpdate();
     }
 
     @Override

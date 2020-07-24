@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Data
@@ -17,8 +19,8 @@ public class WorkExperience {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
     private String organization;
     private String position;
     private String duties;
