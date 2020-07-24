@@ -17,19 +17,19 @@ public class SignUpServiceTest {
     @MockBean
     private UsersRepository usersRepository;
 
-    @Test
-    void signUp_test() {
-        SignUpDto signUpDto = SignUpDto.builder()
-                .email("email")
-                .password("password")
-                .login("login")
-                .role(Role.STUDENT).build();
-        UserDto userDto = signUpService.signUp(signUpDto);
-        Assert.assertEquals(UserDto.builder()
-                .email("email@stud.kpfu.ru")
-                .login("login")
-                .role(Role.STUDENT)
-                .build(), userDto);
-    }
+//    @Test
+//    void signUp_test() {
+//        SignUpDto signUpDto = SignUpDto.builder()
+//                .email("email")
+//                .password("password")
+//                .login("login")
+//                .role(Role.STUDENT).build();
+//        UserDto userDto = signUpService.signUp(signUpDto);
+//        Assert.assertEquals(UserDto.builder()
+//                .email("email@stud.kpfu.ru")
+//                .login("login")
+//                .role(Role.STUDENT)
+//                .build(), userDto);
+//    }
 
 }
