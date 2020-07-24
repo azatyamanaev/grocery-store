@@ -11,8 +11,6 @@ public interface StudentAttributesService {
     void deleteLanguage(Long id);
     void deleteSkill(Long id);
     void deleteAchievement(Long id);
-    Long findIdOfSkill(String skill, Long studentId);
-    Long findIdOfLanguage(String language, Long studentId);
     void addRecommendationLetter(RecommendationLetter recommendationLetter);
     void deleteRecommendationLetter(Long id);
 }

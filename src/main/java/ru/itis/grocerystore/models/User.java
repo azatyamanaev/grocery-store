@@ -30,6 +30,12 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Event> eventList;
 
+    public User(Long id, String login, String password) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+    }
+
     private User(UserBuilder builder) {
         this.id = builder.id;
         this.login = builder.login;

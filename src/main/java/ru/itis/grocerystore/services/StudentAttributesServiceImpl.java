@@ -60,16 +60,6 @@ public class StudentAttributesServiceImpl implements StudentAttributesService{
     }
 
     @Override
-    public Long findIdOfSkill(String skill, Long studentId) {
-        return skillsRepository.findIdOfSkill(skill, studentId);
-    }
-
-    @Override
-    public Long findIdOfLanguage(String language, Long studentId) {
-        return languagesRepository.findIdOfLanguage(language, studentId);
-    }
-
-    @Override
     public void addRecommendationLetter(RecommendationLetter recommendationLetter) {
         letterRepository.save(recommendationLetter);
     }
